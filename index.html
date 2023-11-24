@@ -8,7 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css">
-	<link rel="stylesheet" href="./screenStyle.css">
+	<link rel="stylesheet" href="./public/css/screenStyle.css">
 	<link rel="stylesheet" href="./public/css/printStyle.css" media="print">
 	<link rel="icon" href="./fig/img/pizza-slice.svg">
 	<title>Food Blog</title>
@@ -449,7 +449,7 @@
 		<!-- Reviews cards -->
 		<div class="cart_of_reviews_all" id="form-data">
 			{{#formDataArray}}
-			<div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-name="{{name}}">
+			<div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-name="{{id}}">
 				<p class="name">{{name}}</p>
 				<img class="person_img" src="{{url}}" alt="Person">
 				<div class="final_review">{{message}}</div>
@@ -457,8 +457,8 @@
 				<hr>
 				<p class="name">Posted: {{created}}</p>
 				<div class="card_buttons">
-					<button class="view_details" data-opinion-id="{{name}}">Details</button>
-					<button class="delete_button" onclick="deleteOpinion('{{name}}')">Delete</button>
+					<button class="view_details" data-opinion-id="{{id}}">Details</button>
+					<button class="delete_button" onclick="deleteOpinion('{{id}}')">Delete</button>
 				</div>
 			</div>
 			{{/formDataArray}}
@@ -500,7 +500,7 @@
 		<main class="about_our_goods">
 			<div class="col">
 				<!-- Displayed image and username -->
-				<img src="{{url}}" alt="pleasure_image" class="food_pleasure_details">
+				<img src="{{url}}" alt="pleasure_image" class="food_pleasure">
 				<b>Photo by {{name}}</b>
 			</div>
 			<div class="col">
@@ -517,7 +517,7 @@
 					<br>
 					<p>Rating: <b>{{foodRatingValue}}</b></p>
 					<a href="mailto:{{email}}">{{email}}></a>
-					<button class="view_details" data-edit-id="{{name}}" onclick="editButtonClick('{{name}}')">Edit</button>
+					<button class="view_details" data-edit-id="{{id}}" onclick="editButtonClick('{{id}}')">Edit</button>
 					<button class="view_details" onclick="window.location.href = `#opinions/1/1`">Back</button>
 				</div>
 			</div>
@@ -665,7 +665,6 @@
 		<link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
 	</script>
 	
-
 	<script src="https://accounts.google.com/gsi/client" async defer></script>
 	<script type="module" src="js/index.js"></script>
 	<script src="js/script.js"></script>

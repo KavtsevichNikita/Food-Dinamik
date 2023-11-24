@@ -39,14 +39,12 @@ export default [
   {
     hash: "opinion",
     target: "router-view",
-    // getTemplate: opinionDetails,
     getTemplate: (targetElm, opinionId) => {
       opinionDetails(targetElm, opinionId);
       document.getElementById("comment-name").value = localStorage.getItem("userName");
       document.getElementById("comment_form").onsubmit = function(event) {
         event.preventDefault()
         addComment(opinionId)
-        window.location.hash = `#opinion/${opinionId}`;
       }
     },
   },
@@ -56,6 +54,8 @@ export default [
     getTemplate: editOpinion,
   },
 ];
+
+
 
 // Functions
 
@@ -167,7 +167,7 @@ function editOpinion(targetElm, opinionId) {
   }
 
   const opinion = opinions.find(
-    (op) => decodeURIComponent(op.name) === decodeURIComponent(opinionId)
+    (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
   );
 
   if (opinion) {
@@ -207,6 +207,7 @@ function editOpinion(targetElm, opinionId) {
       }
 
       const editedOpinion = {
+        id: opinion.id,
         name: editForm.querySelector('[name="edit-name"]').value,
         email: editForm.querySelector('[name="edit-email"]').value,
         url: editForm.querySelector('[name="edit-url"]').value,
@@ -218,14 +219,14 @@ function editOpinion(targetElm, opinionId) {
         comments: opinion.comments
       };
       const index = opinions.findIndex(
-        (op) => decodeURIComponent(op.name) === decodeURIComponent(opinionId)
+        (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
       );
 
       opinions[index] = editedOpinion;
 
       localStorage.myTreesComments = JSON.stringify(opinions);
 
-      window.location.href = `#opinion/${editedOpinion.name}`;
+      window.location.href = `#opinion/${editedOpinion.id}`;
     });
   } else {
     document.getElementById(targetElm).innerHTML = "Opinion not found.";
@@ -241,7 +242,7 @@ function opinionDetails(targetElm, opinionId) {
   }
 
   const opinion = opinions.find(
-    (op) => decodeURIComponent(op.name) === decodeURIComponent(opinionId)
+    (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
   );
 
   if (opinion) {
@@ -258,14 +259,14 @@ function opinionDetails(targetElm, opinionId) {
 }
 
 function addComment(opinionId) {
-  const formDataArray = localStorage.myTreesComments || '[]'; // Provide a default value in case localStorage is empty
+  const formDataArray = localStorage.myTreesComments || '[]';
   let opinions = JSON.parse(formDataArray);
 
   const nameInput = document.getElementById("comment-name");
   const messageInput = document.getElementById("comment-message");
 
   const opinionIndex = opinions.findIndex(
-    (op) => decodeURIComponent(op.name) === decodeURIComponent(opinionId)
+    (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
   );
 
   const newComment = {
@@ -282,14 +283,13 @@ function addComment(opinionId) {
     opinions.push({ name: opinionId, comments: [newComment] });
   }
 
-  // Update the DOM with the new comment or opinion
   const commentWrapper = document.querySelector(".all_comments_wrapper");
 
   const commentTemplate = `
     <div class="comment">
       <div class="comment_user">
         <p>User - ${newComment.name}</p>
-        <p readonly>${newComment.message}</p>
+        <textarea readonly>${newComment.message}</textarea>
       </div>
     </div>
   `;
@@ -297,79 +297,10 @@ function addComment(opinionId) {
   commentWrapper.insertAdjacentHTML("beforeend", commentTemplate);
 
   localStorage.myTreesComments = JSON.stringify(opinions);
+  
+  if (!localStorage.getItem("userName")) {
+    nameInput.value = "";
+  }
 
-  nameInput.value = "";
   messageInput.value = "";
 }
-
-
-// function addComment(opinionId) {
-//   const formDataArray = localStorage.myTreesComments || [];
-//   let opinions = JSON.parse(formDataArray);
-
-//   const nameInput = document.getElementById("comment-name");
-//   const messageInput = document.getElementById("comment-message");
-
-//   const opinionIndex = opinions.findIndex(
-//     (op) => decodeURIComponent(op.name) === decodeURIComponent(opinionId)
-//   );
-
-//   const newComment = {
-//     name: nameInput.value,
-//     message: messageInput.value,
-//     created: new Date().toLocaleDateString(),
-//   };
-
-//   // Add the new comment to the opinion's comments array
-//   opinions[opinionIndex].comments.push(newComment);
-
-//   // Update the DOM with the new comment
-//   const commentWrapper = document.querySelector(".all_comments_wrapper");
-
-//   const commentTemplate = `
-//     <div class="comment">
-//       <div class="comment_user">
-//         <p>User - ${newComment.name}</p>
-//         <textarea>${newComment.message}</textarea>
-//       </div>
-//     </div>
-//   `;
-
-//   commentWrapper.insertAdjacentHTML("beforeend", commentTemplate);
-
-//   // Update the local storage with the modified opinions array
-//   localStorage.myTreesComments = JSON.stringify(opinions);
-
-//   // Clear the input fields
-//   nameInput.value = "";
-//   messageInput.value = "";
-// }
-
-
-
-// function addComment(opinionId) {
-//   const formDataArray = localStorage.myTreesComments || [];
-//   let opinions = JSON.parse(formDataArray);
-
-//   const nameInput = document.getElementById("comment-name");
-//   const messageInput = document.getElementById("comment-message");
-
-//   const opinion = opinions.findIndex(
-//     (op) => decodeURIComponent(op.name) === decodeURIComponent(opinionId)
-//   );
-
-//   const newComment = {
-//     name: nameInput.value,
-//     message: messageInput.value,
-//     created: new Date().toLocaleDateString(),
-//   };
-
-//   console.log(opinions[opinion].comments)
-//   opinions[opinion].comments.push(newComment)
-//   console.log(opinions[opinion].comments)
-
-//   localStorage.myTreesComments = JSON.stringify(opinions);
-
-//   nameInput.value = ""
-//   messageInput.value = ""
-// }

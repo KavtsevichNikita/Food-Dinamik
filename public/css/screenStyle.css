@@ -31,7 +31,7 @@ a:hover {
 
 header {
   background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-    url("./fig/img/main_page/main_picture.png") center center/cover no-repeat;
+    url("../../fig/img/main_page/main_picture.png") center center/cover no-repeat;
   height: 100vh;
   width: auto;
   background-attachment: fixed;
@@ -221,7 +221,7 @@ button {
 .about_us {
   /* margin-bottom: 20px; */
   padding: 20px;
-  background: url("./fig/img/main_page/Mask_Group.png") center center/cover
+  background: url("../../fig/img/main_page/Mask_Group.png") center center/cover
     no-repeat;
 }
 .about_us_topic {
@@ -418,7 +418,7 @@ th {
 /* For your pleasure page CSS */
 .pleasure_header {
   position: relative;
-  background: url("./fig/img/for_your_pleasure/for_your_pleasure_main.png")
+  background: url("../../fig/img/for_your_pleasure/for_your_pleasure_main.png")
     center center/cover no-repeat;
   height: 300px;
 }
@@ -608,7 +608,7 @@ th {
 .our_goods_section {
   position: relative;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./fig/img/main_page/Mask_Group.png") center center/cover no-repeat;
+    url("../../fig/img/main_page/Mask_Group.png") center center/cover no-repeat;
   background-attachment: fixed;
   margin: 20px;
   padding: 20px;
@@ -695,7 +695,7 @@ th {
 .our_reviews {
   position: relative;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("./fig/img/reviews_page/main_picture.jpg") center center/cover no-repeat;
+    url("../../fig/img/reviews_page/main_picture.jpg") center center/cover no-repeat;
   background-attachment: fixed;
   height: 400px;
 }
@@ -808,7 +808,7 @@ h1 {
 /* Contact US page CSS */
 .contact_us {
   position: relative;
-  background: url("./fig/img/contact_us/contact_us.png") center center/cover
+  background: url("../../fig/img/contact_us/contact_us.png") center center/cover
     no-repeat;
   height: 300px;
 }

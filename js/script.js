@@ -109,7 +109,7 @@ function deleteOpinion(uniqueId) {
       JSON.parse(localStorage.getItem("myTreesComments")) || [];
 
     var opinionIndex = formDataArray.findIndex(function (opinion) {
-      return opinion.name.toString() === uniqueId.toString();
+      return opinion.id.toString() === uniqueId.toString();
     });
 
     if (opinionIndex !== -1) {
