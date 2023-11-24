@@ -1,0 +1,22 @@
+
+body {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.header, .hamburger-menu, .menu, footer, .menu_footer {
+    display: none !important;
+}
+
+h1, h2, h3, h4, h5, p, a, span, div,tr,th, td {
+    color: black !important;
+    font-family: "Times New Roman", serif !important;
+}
+
+.pleasure_header, .our_reviews, .contact_us {
+    height: 10px !important;
+}
+
+section {
+    page-break-before: always !important;
+}

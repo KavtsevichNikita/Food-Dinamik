@@ -1,0 +1,1486 @@
+/* All BASIC CSS PROPS */
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Merienda", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+html body {
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  background-color:whitesmoke;
+  width: 100%;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  content: ".";
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+a:hover {
+    text-decoration: none;
+    list-style: none;
+}
+
+
+header {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url("./fig/img/main_page/main_picture.png") center center/cover no-repeat;
+  height: 100vh;
+  width: auto;
+  background-attachment: fixed;
+}
+button {
+  display: block;
+  width: 120px;
+  height: 30px;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin: 0 auto;
+  margin-top: 27px;
+}
+.hamburger-menu {
+  display: none;
+}
+
+.none {
+  display: none;
+}
+.menu {
+  display: flex;
+  justify-content: center;
+  padding: 13px 70px;
+  list-style-type: none;
+  margin-left: 20px;
+}
+.menu .menu_link {
+  color: #ffff;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.menu .menu_item {
+  padding-right: 28px;
+  margin-top: 40px;
+}
+.menu .menu_item:last-child {
+  margin-left: 150px;
+  /* margin-top: 35px; */
+}
+.menu_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 50px;
+  list-style-type: none;
+}
+.menu_footer .menu_link {
+  color: #000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+  padding-right: 28px;
+}
+.menu_footer .menu_item {
+  margin-top: 40px;
+}
+.beans_light {
+  position: absolute;
+  margin-top: 40px;
+  padding-left: 35px;
+}
+/* Css for devider with image */
+.beans {
+  display: block;
+  overflow: hidden;
+  margin: 21px auto;
+}
+.block {
+  overflow: hidden;
+  text-align: center;
+  font-size: 5px;
+}
+.block span {
+  display: inline-block;
+  vertical-align: middle;
+}
+.block:before,
+.block:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+}
+.block:before {
+  margin-left: -100%;
+  left: -14px;
+}
+.block:after {
+  margin-right: -100%;
+  right: -14px;
+}
+.block_dark {
+  overflow: hidden;
+  text-align: center;
+  font-size: 5px;
+}
+.block_dark span {
+  display: inline-block;
+  vertical-align: middle;
+}
+.block_dark:before,
+.block_dark::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height: 2px;
+  background-color: black;
+  position: relative;
+}
+.block_dark:before {
+  margin-left: -100%;
+  left: -14px;
+}
+.block_dark::after {
+  margin-right: -100%;
+  right: -14px;
+}
+.footer_beans {
+  overflow: hidden;
+  text-align: center;
+  font-size: 5px;
+}
+.footer_beans span {
+  display: inline-block;
+  vertical-align: middle;
+}
+.footer_beans:before,
+.footer_beans::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height: 2px;
+  background-color: black;
+  position: relative;
+}
+.footer_beans:before {
+  margin-left: -100%;
+  left: -14px;
+}
+.footer_beans::after {
+  margin-right: -100%;
+  right: -14px;
+}
+/* Main page CSS */
+.about_food {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 58px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 111px;
+}
+.subheader_text {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 35.27px;
+}
+.subheader_question {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  margin-top: 20px;
+}
+.about_us {
+  /* margin-bottom: 20px; */
+  padding: 20px;
+  background: url("./fig/img/main_page/Mask_Group.png") center center/cover
+    no-repeat;
+}
+.about_us_topic {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  text-align: center;
+  color: #000000;
+  margin-top: 80px;
+}
+.contacts_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+}
+.loginButtonBurger {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.loginButton {
+/* background-color: red; */
+margin-left: 50px;
+}
+
+.fieldset {
+
+  margin-right: 50px;
+}
+.logoutButtonBurger {
+  text-align: center;
+}
+
+.my_contacts_footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.main_text_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+}
+.more {
+  text-decoration: none;
+  width: 120px;
+  height: 30px;
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  overflow: hidden;
+  color: white;
+  border: 1px solid #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  background: none;
+  border-radius: 1000px;
+  box-shadow: 12px 12px 24px rgba(136, 136, 136, 0.64);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  position: relative;
+  margin-top: 20px;
+  text-align: center;
+  padding: 0px;
+}
+.more:focus {
+  outline: none;
+  text-decoration: none;
+}
+.btn_wrap {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.more::before {
+  content: "";
+  border-radius: 1000px;
+  min-width: calc(300px + 12px);
+  min-height: calc(60px + 12px);
+  border: 6px solid #ffffff;
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.64);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out 0s;
+}
+.more:hover,
+.more:focus {
+  color: white;
+  transform: translateY(-6px);
+  outline: none;
+  text-decoration: none;
+}
+.more:hover::before,
+.more:focus::before {
+  opacity: 1;
+  outline: none;
+  text-decoration: none;
+}
+.more::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 6px solid #ffffff;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ring 1.5s infinite;
+  text-decoration: none;
+}
+.more:hover::after,
+.more:focus::after {
+  animation: none;
+  display: none;
+  text-decoration: none;
+}
+@keyframes ring {
+  0% {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+.footer_contacts {
+  mix-blend-mode: multiply;
+  width: 150px;
+}
+.about_us_text {
+  width: 589px;
+  height: 223px;
+  font-family: Merienda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  margin: 40.7px auto;
+  text-align: center;
+}
+.all_rights_text {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 5px;
+}
+.svg_icon {
+  position: absolute;
+  margin-top: 40px;
+  padding-left: 35px;
+  cursor: pointer;
+}
+
+/* Table */
+table {
+  width: 70%;
+  border-collapse: collapse;
+  display: flexbox;
+  margin: 0 auto;
+}
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border: 2px solid #ddd;
+}
+th {
+  background-color: #000000;
+  color: white;
+  text-align: center;
+}
+/* For your pleasure page CSS */
+.pleasure_header {
+  position: relative;
+  background: url("./fig/img/for_your_pleasure/for_your_pleasure_main.png")
+    center center/cover no-repeat;
+  height: 300px;
+}
+.pleasure_topic {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 58px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 60px;
+}
+.food_pleasure {
+  width: 272px;
+  height: 355px;
+  display: block;
+  margin: 70px auto;
+}
+
+.food_pleasure_details {
+  width: 350px;
+  height: 200px;
+  display: block;
+  margin: 90px auto;
+}
+
+.pleasure_text {
+  display: block;
+  width: 346px;
+  height: 232px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+  margin: 0 auto;
+}
+.about_goods {
+  width: 589px;
+  font-family: Merienda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: white;
+  margin: 20px auto;
+  text-align: center;
+}
+.about_our_goods {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  margin-top: 55px;
+}
+
+.comment_name {
+  display: block;
+  margin: 0 auto;
+  width: 50px;
+}
+.col {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.about_goods_topic {
+  text-align: center;
+  font-size: 20px;
+}
+.about_goods_decr {
+  max-width: 400px;
+  text-align: center;
+}
+
+.vertical_hr {
+  height: 100vh;
+  width: 2px;
+  background-color: #ccc; 
+  margin: 0 15px; 
+}
+
+.comments_wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-top: 50px;
+}
+
+.comment_form{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.all_comments_wrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.comment_user {
+  text-align: center;
+  margin-top: 20px;
+  color: black;
+  font-weight: bold;
+}
+
+.comment_input {
+  max-width: 350px;
+}
+
+.comment_textarea {
+  max-width: 350px;
+}
+
+.goods_store {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 30px;
+}
+.food_item {
+  text-align: center;
+  margin: 10px;
+  max-width: 300px;
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 9px;
+}
+.food_item_name {
+  color: white;
+  margin-top: 10px;
+}
+.food_item_text {
+  margin: 10px;
+  color: white;
+}
+.heading {
+  font-size: 15px;
+  margin-right: 20px;
+  color: white;
+}
+.fa {
+  font-size: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.fa:hover {
+  color: orange;
+  font-size: 25px;
+}
+.checked {
+  color: orange;
+}
+.food_item_img {
+  width: 100%;
+  height: 200px;
+}
+.our_goods_section {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./fig/img/main_page/Mask_Group.png") center center/cover no-repeat;
+  background-attachment: fixed;
+  margin: 20px;
+  padding: 20px;
+}
+.our_goods_topic {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  padding-top: 40px;
+}
+.beans_dark {
+  display: block;
+  width: 29.3px;
+  height: 29.3px;
+  margin: 20px auto;
+}
+.cart_of_reviews_all {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  max-width: 850px;
+  margin-bottom: 50px;
+}
+
+.mnHide {
+  display: none;
+}
+
+.mnShow {
+  display: block;
+}
+
+.no_opinions {
+  text-align: center;
+  margin-top: 30px;
+  /* margin-bottom: 50px; */
+}
+/* Reviews page CSS */
+.Searching {
+  margin-top: 65px;
+  min-height: 100px;
+}
+
+.pagesNavigation {
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.pagesNavigationButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageNavButton {
+  width: 80px;
+  height: 30px;
+  color: black;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.menu_link_nav {
+  text-decoration: none;
+  color: black;
+}
+.search_content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  flex-wrap: wrap;
+}
+.filter_content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.our_reviews {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("./fig/img/reviews_page/main_picture.jpg") center center/cover no-repeat;
+  background-attachment: fixed;
+  height: 400px;
+}
+.seaching {
+  height: 300px;
+}
+.search_form {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+.filter_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#searchBar {
+  width: 100%;
+  margin-left: 15px;
+  height: 32px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+#searchWrapper {
+  position: relative;
+}
+#searchWrapper::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 15px;
+}
+.button_filter_reviews {
+  width: 75px;
+  height: 30px;
+  margin: 10px;
+  margin-top: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 17px;
+  color: #000000;
+  background: rgb(255, 255, 255);
+  cursor: pointer;
+  display: block;
+  border-radius: 20%;
+  border-color: black;
+  box-shadow: 1px 0px 36px 0px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+.button_filter_reviews:hover {
+  color: white;
+  background-color: black;
+  width: 85px;
+  height: 35px;
+  border-radius: 20%;
+}
+[type="search"] {
+  outline-offset: -2px;
+  text-align: center;
+}
+.text {
+  /* margin-left: 150px; */
+  margin-top: 3px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+}
+.cart_of_review {
+  width: 270px;
+  height: 390px;
+  box-shadow: 30px 5px 15px #ead0af;
+  border-radius: 8px;
+  color: #faebd7;
+  margin-top: 60px;
+  cursor: pointer;
+}
+.person_img {
+  max-width: 220px;
+  max-height: 120px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+.looking_for {
+  text-align: center;
+}
+h1 {
+  color: #eee;
+  margin-bottom: 30px;
+}
+.customer_reviews_topic {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 58px;
+  color: #ffffff;
+  margin-top: 60px;
+  text-align: center;
+}
+/* Contact US page CSS */
+.contact_us {
+  position: relative;
+  background: url("./fig/img/contact_us/contact_us.png") center center/cover
+    no-repeat;
+  height: 300px;
+}
+.tell_section {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 35px;
+  color: #000000;
+  text-align: center;
+  margin-top: 60px;
+}
+.contact-form {
+  width: 40%;
+  margin: 0 auto;
+}
+input[type="text"],
+input[type="url"],
+input[type="email"],
+select {
+  width: 70%;
+  padding: 7px;
+  border-radius: 3px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  margin-top: 27px;
+}
+input:invalid,
+textarea:invalid {
+  border-color: red;
+}
+input:valid, 
+textarea:valid {
+  border: none;
+  color: green;
+}
+
+input[type="radio"] {
+  padding: 7px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  margin: 15px;
+}
+
+.required {
+  color:darkred;
+}
+
+textarea {
+  width: 350px;
+  height: 120px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  display: block;
+  margin: 30px auto;
+}
+*:focus {
+  outline: none;
+}
+label {
+  margin-top: 30px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 26px;
+  color: #000000;
+}
+.message {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.card_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+}
+
+.send_us {
+  display: block;
+  width: 120px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+}
+.send_us:hover {
+  background: #000;
+  color: whitesmoke;
+  transition: all 0.75s ease 0s;
+}
+
+.view_details {
+    /* display: block; */
+    width: 80px;
+    height: 30px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.49);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+}
+
+.view_details:hover {
+    background: #000;
+    color: whitesmoke;
+    transition: all 0.75s ease 0s;
+}
+
+.delete_button {
+    /* display: block; */
+    width: 80px;
+    height: 30px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.49);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+}
+
+.edit_opinion_container {
+    margin-bottom: 50px;
+}
+
+.delete_button:hover {
+    background: rgb(255, 55, 55);
+    color: whitesmoke;
+    transition: all 0.75s ease 0s;
+}
+
+.name {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+  margin-top: 14px;
+}
+
+.details_button {
+  display: block;
+  width: 120px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+}
+.country {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  margin-top: 14px;
+  margin-right: 25px;
+  text-align: end;
+}
+.final_review {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000000;
+  margin-top: 18px;
+  text-align: center;
+  max-height: 30px;
+  max-width: 210px;
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+hr {
+  width: 50%;
+  display: block;
+  margin: 10px auto;
+}
+
+.form_actions {
+  display: block;
+}
+
+/* Media /////////// */
+
+@media only screen and (max-width: 1082px) {
+  input[type="text"],
+  input[type="url"],
+  input[type="email"],
+  select {
+    width: 200px;
+    padding: 7px;
+    border-radius: 3px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.49);
+    box-shadow: 4px 4px 20px rgb(0 0 0 / 25%);
+    margin-top: 27px;
+  }
+
+  .menu .menu_item {
+    /* background-color: blue; */
+    font-size: 0.5rem;
+  }
+
+}
+
+@media only screen and (max-width: 991px) {
+  .search_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  p {
+    text-align: center;
+  }
+  [type="search"] {
+    outline-offset: -5px;
+    text-align: center;
+  }
+  #searchBar {
+    width: 300px;
+    margin-top: 35px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  .text {
+    margin-top: 50px;
+  }
+  .button_filter_reviews {
+    width: 75px;
+    height: 30px;
+    margin-top: 35px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+    /* Menu Burger */
+
+    #menu__toggle {
+      opacity: 0;
+    }
+    .menu__btn {
+      display: flex;
+      align-items: center;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .menu__btn > span,
+    .menu__btn > span::before,
+    .menu__btn > span::after {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: white;
+    }
+    .menu__btn > span::before {
+      content: "";
+      top: -8px;
+    }
+    .menu__btn > span::after {
+      content: "";
+      top: 8px;
+    }
+    .menu__box {
+      display: block;
+      position: fixed;
+      visibility: hidden;
+      top: 0;
+      left: -100%;
+      width: 184px;
+      height: 100%;
+      margin: 0;
+      padding: 80px 0;
+      list-style: none;
+      text-align: center;
+      box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
+      background-color: #2f4f4f;
+      z-index: 2;
+    }
+    .menu__item {
+      display: block;
+      padding: 12px 24px;
+      color: rgb(255, 255, 255);
+      font-family: "Roboto", sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .menu__item:hover {
+      background-color: #cfd8dc;
+    }
+    #menu__toggle:checked ~ .menu__btn > span {
+      transform: rotate(45deg);
+    }
+    #menu__toggle:checked ~ .menu__btn > span::before {
+      top: 0;
+      transform: rotate(0);
+    }
+    #menu__toggle:checked ~ .menu__btn > span::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+    #menu__toggle:checked ~ .menu__box {
+      visibility: visible;
+      left: 0;
+    }
+    .header_menu {
+      display: none;
+    }
+    .hamburger-menu {
+      display: block;
+    }
+    a .hamburger-menu {
+      color: white;
+      text-decoration: none;
+      background-color: transparent;
+      margin-top: 50px;
+    }
+    .menu__box .menu_item {
+      margin-top: 20px;
+    }
+    .menu_link:focus {
+      outline: none;
+    }
+    .menu_link {
+      text-decoration: none;
+      color: whitesmoke;
+    }
+}
+
+@media only screen and (max-width: 918px) {
+  input[type="text"],
+  input[type="url"],
+  input[type="email"],
+  select {
+    width: 190px;
+  }
+
+  fieldset {
+    text-align: center;
+  }
+
+  .checkboxCol {
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 884px) {
+  input[type="text"],
+  input[type="url"],
+  input[type="email"],
+  select {
+    width: 200px;
+    display: block;
+    margin: 10px auto;
+  }
+  label {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
+    color: #000000;
+  }
+  .about_goods {
+    width: 400px;
+    font-family: Merienda;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: white;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .header_burger {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .about_us_text {
+    width: 500px;
+  }
+  .subheader_text {
+    font-size: 21px;
+  }
+  .subheader_question {
+    font-size: 21px;
+  }
+
+  textarea {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .menu .menu_link {
+    color: #ffff;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 20px;
+    text-decoration: none;
+  }
+  .menu_footer .menu_link {
+    color: #000;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    padding-right: 21px;
+  }
+  .about_coffee {
+    font-size: 24px;
+  }
+  .menu_footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 40px;
+    list-style-type: none;
+  }
+  .beans_light_footer {
+    position: absolute;
+    margin-left: -210px;
+    margin-top: 20px;
+  }
+  .about_our_beans {
+    height: 900px;
+  }
+  .person {
+    display: block;
+    margin: 30px auto;
+  }
+  .our_beans {
+    margin-top: 30px;
+  }
+  .about_our_pleasure {
+    height: 900px;
+  }
+  .about_it_footer .footer_menu {
+    display: none;
+  }
+}
+@media screen and (max-width: 721px) {
+  input[type="text"],
+  input[type="url"],
+  input[type="email"],
+  select {
+    width: 200px;
+    display: block;
+    /* margin-right: 20px; */
+    margin: 10px 25px;
+  }
+  label {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
+    color: #000000;
+  }
+
+  .rating {
+    width: 250px;
+  }
+
+  .about_goods_topic {
+    margin-top: 50px;
+  }
+}
+@media screen and (max-width: 630px) {
+  .about_us_text {
+    width: 400px;
+  }
+  .about_us {
+    height: auto;
+  }
+
+  .about_goods {
+    width: 350px;
+    font-family: Merienda;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: white;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .feedback_message {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 27px;
+    line-height: 52px;
+    text-align: center;
+    color: #000000;
+    margin-top: 128px;
+  }
+}
+@media screen and (max-width: 539px) {
+  .menu_footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 35px;
+    list-style-type: none;
+  }
+}
+
+@media screen and (max-width: 534px) {
+  .menu_footer {
+    display: none;
+  }
+
+
+}
+
+@media screen and (max-width: 515px) {
+  .subheader_text {
+    font-size: 18px;
+  }
+  .subheader_question {
+    font-size: 18px;
+  }
+  .contact-form {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .about_goods {
+    width: 300px;
+    font-family: Merienda;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: white;
+    margin: 20px auto;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 420px) {
+  .subheader_text {
+    font-size: 15px;
+  }
+  .subheader_question {
+    font-size: 15px;
+  }
+  .about_us_text {
+    width: 300px;
+    font-size: small;
+    font-weight: 500;
+    margin: 10px auto;
+  }
+  .about_food {
+    font-size: 35px;
+  }
+
+  textarea {
+    width: 100%;
+  }
+  .about_goods {
+    display: none;
+  }
+}
+@media screen and (max-width: 370px) {
+  .subheader_text {
+    font-size: 14px;
+  }
+  
+  .subheader_question {
+    font-size: 14px;
+  }
+  #searchBar {
+    width: 250px;
+    margin-top: 35px;
+  }
+  .feedback_message {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 52px;
+    text-align: center;
+    color: #000000;
+    margin-top: 128px;
+  }
+
+  .about_goods {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .about_us_text {
+    /* width: 280px; */
+    font-size: 11px;
+    font-weight: 200;
+    text-align: center;
+    margin: auto;
+    width: unset;
+  }
+  .about_food {
+    font-size: 35px;
+  }
+  .subheader_text {
+    font-size: 18px;
+  }
+}
+
+/* #dialog-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+} */
+
+#dialog-box {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+#dialog-buttons {
+    margin-top: 20px;
+}
