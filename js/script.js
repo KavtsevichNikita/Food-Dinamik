@@ -93,6 +93,8 @@ function welcomePage() {
   window.location.hash = `#welcome`;
 }
 
+// Pleasure page
+
 function pleasurePage() {
   window.location.hash = "#pleasure";
 }
