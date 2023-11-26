@@ -1,672 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css">
-	<link rel="stylesheet" href="./public/css/screenStyle.css">
-	<link rel="stylesheet" href="./public/css/printStyle.css" media="print">
-	<link rel="icon" href="./fig/img/pizza-slice.svg">
-	<title>Food Blog</title>
+   <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css">
+   <link rel="stylesheet" href="./public/css/screenStyle.css">
+   <link rel="stylesheet" href="./public/css/printStyle.css" media="print">
+   <link rel="icon" href="./fig/img/pizza-slice.svg">
+   <title>Food Blog</title>
 </head>
 <body>
-	<!-- Header -->
-	<header>
-		<div>
-			<div class="header_menu">
-				<svg class="svg_icon" width="100" height="50">
-					<circle cx="25" cy="25" r="22" fill="black"></circle>
-					<image onclick="welcomePage()" xlink:href="./fig/img/pizza-slice.svg" x="11" y="11" width="30" height="30"></image>
-				</svg>
-				<ul class="menu">
-					<li class="menu_item">
-						<a href="#welcome" class="menu_link">Food Blog</a>
-					</li>
-					<li class="menu_item">
-						<a href="#pleasure" class="menu_link">For your pleasure</a>
-					</li>
-					<li class="menu_item">
-						<a href="#opinions/1/1" class="menu_link">Reviews</a>
-					</li>
-					<li class="menu_item">
-						<a href="#addOpinion" class="menu_link">Contact us</a>
-					</li>
-					<li class="menu_item">
-						<div class="loginButton" id="loginButton">
-							<div id="g_id_onload"
-								data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
-								data-login_uri="http://localhost:5500/#addOpinion" 
-								data-callback="handleCredentialResponse"
-								data-auto_prompt="false">
-							</div>
-							<div class="g_id_signin" 
-								data-locale="en" 
-								data-type="standard" 
-								data-size="large"
-								data-theme="filled_black"
-								data-text="sign_in_with" 
-								data-shape="circle"
-								data-onsuccess="handleCredentialResponse"
-								>
-							</div>
-						</div>
-						<div style="display: flex">
-							<span id="usernameDisplay" style="color: white; margin-right: 20px"></span>
-							<a id="logoutButton" onclick="signOut()" href="#" style="margin-left: 50px" class="menu_link">Log Out</a>
-						</div>
-					</li>
-				</ul>
-			</div>
+   <!-- Header -->
+   <header>
+      <div>
+         <div class="header_menu">
+            <svg class="svg_icon" width="100" height="50">
+               <circle cx="25" cy="25" r="22" fill="black"></circle>
+               <image onclick="welcomePage()" xlink:href="./fig/img/pizza-slice.svg" x="11" y="11" width="30" height="30"/>
+            </svg>
+            <ul class="menu">
+               <li class="menu_item">
+                  <a href="#welcome" class="menu_link">Food Blog</a>
+               </li>
+               <li class="menu_item">
+                  <a href="#pleasure" class="menu_link">For your pleasure</a>
+               </li>
+               <li class="menu_item">
+                  <a href="#opinions/1/1" class="menu_link">Reviews</a>
+               </li>
+               <li class="menu_item">
+                  <a href="#addOpinion" class="menu_link">Contact us</a>
+               </li>
+               <li class="menu_item">
+                  <div class="loginButton" id="loginButton">
+                     <div id="g_id_onload"
+                        data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
+                        data-login_uri="http://localhost:5500/#addOpinion" data-callback="handleCredentialResponse"
+                        data-auto_prompt="false"></div>
+                     <div class="g_id_signin" data-locale="en" data-type="standard" data-size="large"
+                        data-theme="filled_black" data-text="sign_in_with" data-shape="circle"
+                        data-onsuccess="handleCredentialResponse"></div>
+                  </div>
+                  <div style="display: flex">
+                     <span id="usernameDisplay" style="color: white; margin-right: 20px"></span>
+                     <a id="logoutButton" onclick="signOut()" href="#" style="margin-left: 50px" class="menu_link">LogOut</a>
+                  </div>
+               </li>
+            </ul>
+         </div>
+         <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox">
+            <label class="menu__btn" for="menu__toggle">
+               <span></span>
+            </label>
+            <ol class="menu__box">
+               <li class="menu_item">
+                  <a href="#welcome" onclick="closeMenu()" class="menu_link">Food Blog</a>
+               </li>
+               <li class="menu_item">
+                  <a href="#pleasure" onclick="closeMenu()" class="menu_link">For your pleasure</a>
+               </li>
+               <li class="menu_item">
+                  <a href="#opinions/1/1" onclick="closeMenu()" class="menu_link">Reviews</a>
+               </li>
+               <li class="menu_item">
+                  <a href="#addOpinion" onclick="closeMenu()" class="menu_link">Contact us</a>
+               </li>
+               <li class="menu_item">
+                  <div class="loginButtonBurger" id="loginButton1" onclick="closeMenu()">
+                     <div id="g_id_onload1"
+                        data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
+                        data-login_uri="http://localhost:5500/#addOpinion" data-callback="handleCredentialResponse"
+                     >
+                     </div>
+                     <div class="g_id_signin sign_icon" data-locale="en" data-type="icon" data-size="large"
+                        data-text="sign_in_with" data-shape="circle" data-onsuccess="handleCredentialResponse"></div>
+                  </div>
+                  <div id="logoutButtonBurger" class="logoutButtonBurger" onclick="closeMenu()">
+                     <a onclick="signOut()" href="#" class="menu_link">Log Out</a>
+                  </div>
+               </li>
+            </ol>
+         </div>
+      </div>
+      <div class="main_text_wrapper">
+         <h1 class="about_food">Everything You Love About Food</h1>
+         <div class="block">
+            <span>
+               <img class="beans" src="./fig/img/main_page/beans_light.png" alt="beans">
+            </span>
+         </div>
+         <h3 class="subheader_text">
+            We makes every day full of energy and taste
+         </h3>
+         <h4 class="subheader_question">Want to try our food?</h4>
+         <div class="btn_wrap">
+            <button class="more" onclick="pleasurePage()">More</button>
+         </div>
+      </div>
+   </header>
 
-			<div class="hamburger-menu">
-				<input id="menu__toggle" type="checkbox">
-				<label class="menu__btn" for="menu__toggle">
-					<span></span>
-				</label>
-				<ol class="menu__box">
-					<li class="menu_item">
-						<a href="#welcome" onclick="closeMenu()" class="menu_link">Food Blog</a>
-					</li>
-					<li class="menu_item">
-						<a href="#pleasure" onclick="closeMenu()" class="menu_link">For your pleasure</a>
-					</li>
-					<li class="menu_item">
-						<a href="#opinions/1/1" onclick="closeMenu()" class="menu_link">Reviews</a>
-					</li>
-					<li class="menu_item">
-						<a href="#addOpinion" onclick="closeMenu()" class="menu_link">Contact us</a>
-					</li>
-					<li class="menu_item">
-						<div class="loginButtonBurger none" id="loginButton" onclick="closeMenu()">
-							<div id="g_id_onload"
-								data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
-								data-login_uri="http://localhost:5500/#addOpinion" 
-								data-callback="handleCredentialResponse"
-								>
-							</div>
-							<div class="g_id_signin sign_icon" 
-								data-locale="en" 
-								data-type="icon" 
-								data-size="large"
-								data-text="sign_in_with" 
-								data-shape="circle"
-								data-onsuccess="handleCredentialResponse"
-								>
-							</div>
-						</div>
-						<div id="logoutButtonBurger" class="logoutButtonBurger" onclick="closeMenu()">
-							<a onclick="signOut()" href="#" class="menu_link">Log Out</a>
-						</div>
-					</li>
-				</ol>
-			</div>
-		</div>
-		<div class="main_text_wrapper">
-			<h1 class="about_food">Everything You Love About Food</h1>
-			<div class="block">
-				<span>
-					<img class="beans" src="./fig/img/main_page/beans_light.png" alt="beans">
-				</span>
-			</div>
-			<h3 class="subheader_text">
-				We makes every day full of energy and taste
-			</h3>
-			<h4 class="subheader_question">Want to try our food?</h4>
-			<div class="btn_wrap">
-				<a href="#pleasure">
-					<button class="more">More</button>
-				</a>
-			</div>
-		</div>
-	</header>
+   <!-- Routes displaying -->
+   <main id="router-view"></main>
 
-	<main id="router-view">
-	</main>
+   <!-- Welcome page -->
+   <script id="template-welcome" type="text/template">
+      <div class="about_us">
+      	<div class="container">
+      		<div class="about_us_topic">About Us</div>
+      		<div class="block_dark">
+      				<span><img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark"></span>
+      		</div>
+      		<!-- About this blog -->
+      		<p class="about_us_text">
+      			Welcome to my food blog! Here, you'll find reviews from real people, top dishes from around the world, restaurant ratings, and much more. Let's uncover the culinary secrets and dive into the exciting world of gastronomy together.<br>
+      			<br>
+      			Explore a world of flavors and culinary delights on my food blog. Discover mouthwatering reviews, rankings of dishes from every corner of the globe, and the best dining spots. Join me in unraveling the mysteries of the culinary universe and embark on a delicious journey like no other!
+      		</p>
+      	</div>
+      	<!-- Footer -->
+      	<footer style="margin-top: 70px;">
+      		<div class="container">
+      			<div class="my_contacts_footer">
+      				<a target="_blank" href="https://www.linkedin.com/in/nikitakavtsevich/">
+      					<img src="./fig/img/for_your_pleasure/linkedIn.jfif" class="footer_contacts" alt="linkedIn">
+      				</a>
+      			</div>
+      			<div class="contacts_info">
+      				<span class="all_rights_text">
+      					<a href="mailto:mikita.kautsevich@student.tuke.sk">Mikita Kautsevich</a>
+                  </span>
+      				<span class="all_rights_text"> ⓒ All rights reserved 2023</span>
+      			</div>
+      		</div>
+      	</footer>
+      </div>
+   </script>
 
-	<!-- Welcome page -->
-	<script id="template-welcome" type="text/template">
-		<div class="about_us">
-			<div class="container">
-				<div class="about_us_topic">About Us</div>
-				<div class="block_dark">
-						<span><img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark"></span>
-				</div>
-				<!-- About this blog -->
-				<p class="about_us_text">
-					Welcome to my food blog! Here, you'll find reviews from real people, top dishes from around the world, restaurant ratings, and much more. Let's uncover the culinary secrets and dive into the exciting world of gastronomy together.<br>
-					<br>
-					Explore a world of flavors and culinary delights on my food blog. Discover mouthwatering reviews, rankings of dishes from every corner of the globe, and the best dining spots. Join me in unraveling the mysteries of the culinary universe and embark on a delicious journey like no other!
-				</p>
-			</div>
-			<!-- Footer -->
-			<footer style="margin-top: 70px;">
-				<div class="container">
-					<div class="my_contacts_footer">
-						<a target="_blank" href="https://www.linkedin.com/in/nikitakavtsevich/">
-							<img src="./fig/img/for_your_pleasure/linkedIn.jfif" class="footer_contacts" alt="linkedIn">
-						</a>
-					</div>
-					<div class="contacts_info">
-						<span class="all_rights_text">
-							<a href="mailto:mikita.kautsevich@student.tuke.sk">Mikita Kautsevich</a>
-						</span>
-						<span class="all_rights_text"> ⓒ All rights reserved 2023</span>
-					</div>
-				</div>
-			</footer>
-		</div>
-	</script>
+   <!-- Pleasure Template -->
+   <script id="template-pleasure" type="text/template">
+          <div>
+      <form id="unsplash-form">
+      	<label for="queryInput">Enter your query:</label>
+      	<input type="text" id="queryInput" placeholder="e.g., food">
+      	<button>Fetch Image</button>
+      </form>
 
-	<!-- Pleasure Template -->
-	<script id="template-pleasure" type="text/template">
-		<div>
-			<div class="container">
-				<div class="about_our_goods">
-					<!-- Unsplash image with text and username who posted -->
-					<div class="col">
-						{{#urls}}
-						<picture>
-							<!-- <source media="(max-width: 1200px)" srcset="./fig/img/for_your_pleasure/coffee.jpg"> -->
-							<source srcset="{{full}}">
-							<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="food_pleasure">
-						</picture>
-						{{/urls}}
-						{{#alt_description}}
-							<p>{{alt_description}}</p>
-						{{/alt_description}}
-					</div>
-					<div class="col">
-						<div class="about_goods_topic">About our goods</div>
-						<div class="footer_beans">
-							<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-						</div>
-						<p class="about_goods_decr">
-							Welcome to the Food Exploration Hub!<br>
-							<br>
-							Our page is a gastronomic paradise where you can delve into the diverse world of cuisine.
-							Here, we curate a delectable collection of culinary experiences, from the latest food trends to timeless classics.
-						</p>
-						<br>
-						{{#user}}
-						<p class="about_goods_decr">
-							Photo by - <b>{{name}}</b>
-						</p>
-						{{/user}}
-					</div>
-				</div>
-				<aside class="our_goods_section">
-					<div class="container">
-						<div class="our_goods_topic">Goods Rating</div>
-						<div class="block">
-							<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
-						</div>
-						<p class="about_goods">
-							Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
-							Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
-						</p>
-					</div>
-					<div class="goods_store">
-						<!-- Rating cards like top 3-->
-						<div class="food_item">
-							<img class="food_item_img" src="./fig/img/for_your_pleasure/razen.jfif" alt="">
-							<h3 class="food_item_name">Rezen'</h3>
-							<p class="food_item_text">Good food in Slovakia</p>
-							<div class="rating">
-								<span class="heading">User Rating</span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-							</div>
-						</div>
-						<div class="food_item">
-							<img class="food_item_img" src="./fig/img/for_your_pleasure/pasta.jfif" alt="">
-							<h3 class="food_item_name">Pasta</h3>
-							<p class="food_item_text">Good food in Italy</p>
-							<div class="rating">
-								<span class="heading">User Rating</span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-						</div>
-						<div class="food_item">
-							<img class="food_item_img" src="./fig/img/for_your_pleasure/sushi.jfif" alt="">
-							<h3 class="food_item_name">Sushi</h3>
-							<p class="food_item_text">Good food in Japan</p>
-							<div class="rating">
-								<span class="heading">User Rating</span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-						</div>
-					</div>
-				</aside>
-				<section>
-					<h2 class="about_us_topic">Our best</h2>
-					<div class="block_dark">
-						<span>
-							<img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark">
-						</span>
-					</div>
-					<!-- Table -->
-					<table>
-						<thead>
-							<tr>
-								<th>Food</th>
-								<th>Type</th>
-								<th>Place</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td rowspan="2">Pizza</td>
-								<td>Italy</td>
-								<td>Rome Pizza</td>
-							</tr>
-							<tr>
-								<td>Spain</td>
-								<td>Madrid Pizza</td>
-							</tr>
-							<tr>
-								<td colspan="2">Sushi</td>
-								<td>Sushi House</td>
-							</tr>
-							<tr>
-								<td>Burger</td>
-								<td>America</td>
-								<td>Good Burger</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td style="text-align: center;" colspan="3">Full count: 3</td>
-							</tr>
-						</tfoot>
-					</table>	
-				</section>
-			</div>
-		</div>
-		<!-- Footer -->
-		<footer class="container">
-			<ol class="menu_footer">
-				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-				<li class="menu_item"><a href="#opinions/1/" class="menu_link">Reviews</a></li>
-				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-			</ol>
-			<div class="footer_beans">
-				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-			</div>
-		</footer>
-	</script>
 
-	<!-- Add Opinion -->
-	<script id="template-addOpinion" type="text/template">
-		<div class="section-form">
-			<div class="your_taste">
-				<div>
-					<p class="tell_section">Tell us about your tastes</p>
-					<div id="content"></div>
-					<div class="footer_beans">
-						<span>
-							<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
-						</span>
-					</div>
-				</div>
-			</div>
-			<div>
-				<!-- Contact form -->
-				<form method="post" action="#" class="contact-form" id="contact-form">
-					<div class="row">
-						<div class="col span-1-of-3">
-							<label class="required" for="name">Name *</label>
-						</div>
-						<div class="col span-1-of-3">
-							<!-- Input for name -->
-							<input type="text" name="name" id="name" placeholder="Your name" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col span-1-of-3">
-							<label class="required" for="email">Email *</label>
-						</div>
-						<div class="col span-1-of-3">
-							<!-- Input for email -->
-							<input type="email" name="email" id="email" placeholder="Your email" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col span-1-of-3">
-							 <label class="required" for="url">Image *</label>
-						</div>
-						<div class="col span-1-of-3">
-							<!-- Input for image url -->
-							<input type="url" name="url" id="url" placeholder="Your image source" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col span-1-of-3">
-							<label for="keywords">Keywords</label>
-						</div>
-						<div class="col span-2-of-3">
-							<!-- List of keywords -->
-							<datalist id="keyword-list">
-								<option value="Food">
-								<option value="Slovakian Food">
-								<option value="China Food">
-								<option value="Exotic Food">
-								<option value="Paradise of food">
-							</datalist>
-							<!-- Keywords input -->
-							<input list="keyword-list" type="text" name="keywords" id="keywords" placeholder="Enter keywords">
-						</div>
-					</div>
-					<div class="row">
-						<div class="col span-1-of-3">
-							 <p class="message required">Rate this food! *</p>
-							<fieldset>
-								<!-- Radio Buttons -->
-								<input type="radio" name="foodRating" id="thebest" value="The best">
-								<label for="thebest">The Best</label>
+          <div id="imageContainer"></div>
+          	<div class="container">
+          		<div class="about_our_goods">
+          			<!-- Unsplash image with text and username who posted -->
+          			<div class="col">
+          				{{#urls}}
+          				<picture>
+          					<!-- <source media="(max-width: 1200px)" srcset="./fig/img/for_your_pleasure/coffee.jpg"> -->
+          					<source srcset="{{full}}">
+          					<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="food_pleasure">
+          				</picture>
+          				{{/urls}}
+          				{{#alt_description}}
+          					<p>{{alt_description}}</p>
+          				{{/alt_description}}
+          			</div>
+          			<div class="col">
+          				<div class="about_goods_topic">About our goods</div>
+          				<div class="footer_beans">
+          					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+          				</div>
+          				<p class="about_goods_decr">
+          					Welcome to the Food Exploration Hub!<br>
+          					<br>
+          					Our page is a gastronomic paradise where you can delve into the diverse world of cuisine.
+          					Here, we curate a delectable collection of culinary experiences, from the latest food trends to timeless classics.
+          				</p>
+          				<br>
+          				{{#user}}
+          				<p class="about_goods_decr">
+          					Photo by - <b>{{name}}</b>
+          				</p>
+          				{{/user}}
 
-								<input type="radio" name="foodRating" id="good" value="Good">
-								<label for="good">Good</label>
+          				{{#links}}
+          				<p class="about_goods_decr">
+          					<b><a target="_blank" href="{{html}}">More info</a></b>
+          				</p>
+          				{{/links}}
+          			</div>
+          		</div>
+          		<aside class="our_goods_section">
+          			<div class="container">
+          				<div class="our_goods_topic">Goods Rating</div>
+          				<div class="block">
+          					<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
+          				</div>
+          				<p class="about_goods">
+          					Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
+          					Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
+          				</p>
+          			</div>
+          			<div class="goods_store">
+          				<!-- Rating cards like top 3-->
+          				<div class="food_item">
+          					<img class="food_item_img" src="./fig/img/for_your_pleasure/razen.jfif" alt="">
+          					<h3 class="food_item_name">Rezen'</h3>
+          					<p class="food_item_text">Good food in Slovakia</p>
+          					<div class="rating">
+          						<span class="heading">User Rating</span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          					</div>
+          				</div>
+          				<div class="food_item">
+          					<img class="food_item_img" src="./fig/img/for_your_pleasure/pasta.jfif" alt="">
+          					<h3 class="food_item_name">Pasta</h3>
+          					<p class="food_item_text">Good food in Italy</p>
+          					<div class="rating">
+          						<span class="heading">User Rating</span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star"></span>
+          						<span class="fa fa-star"></span>
+          					</div>
+          				</div>
+          				<div class="food_item">
+          					<img class="food_item_img" src="./fig/img/for_your_pleasure/sushi.jfif" alt="">
+          					<h3 class="food_item_name">Sushi</h3>
+          					<p class="food_item_text">Good food in Japan</p>
+          					<div class="rating">
+          						<span class="heading">User Rating</span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star checked"></span>
+          						<span class="fa fa-star"></span>
+          						<span class="fa fa-star"></span>
+          						<span class="fa fa-star"></span>
+          					</div>
+          				</div>
+          			</div>
+          		</aside>
+          		<section>
+          			<h2 class="about_us_topic">Our best</h2>
+          			<div class="block_dark">
+          				<span>
+          					<img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark">
+          				</span>
+          			</div>
+          			<!-- Table -->
+          			<table>
+          				<thead>
+          					<tr>
+          						<th>Food</th>
+          						<th>Type</th>
+          						<th>Place</th>
+          					</tr>
+          				</thead>
+          				<tbody>
+          					<tr>
+          						<td rowspan="2">Pizza</td>
+          						<td>Italy</td>
+          						<td>Rome Pizza</td>
+          					</tr>
+          					<tr>
+          						<td>Spain</td>
+          						<td>Madrid Pizza</td>
+          					</tr>
+          					<tr>
+          						<td colspan="2">Sushi</td>
+          						<td>Sushi House</td>
+          					</tr>
+          					<tr>
+          						<td>Burger</td>
+          						<td>America</td>
+          						<td>Good Burger</td>
+          					</tr>
+          				</tbody>
+          				<tfoot>
+          					<tr>
+          						<td style="text-align: center;" colspan="3">Full count: 3</td>
+          					</tr>
+          				</tfoot>
+          			</table>
+          		</section>
+          	</div>
+          </div>
+          <!-- Footer -->
+          <footer class="container">
+          	<ol class="menu_footer">
+          		<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+          		<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+          		<li class="menu_item"><a href="#opinions/1/" class="menu_link">Reviews</a></li>
+          		<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+          	</ol>
+          	<div class="footer_beans">
+          		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+          	</div>
+          </footer>
+   </script>
 
-								<input type="radio" name="foodRating" id="medium" value="Medium">
-								<label for="medium">Medium</label>
+   <!-- Add Opinion -->
+   <script id="template-addOpinion" type="text/template">
+      <div class="section-form">
+      	<div class="your_taste">
+      		<div>
+      			<p class="tell_section">Tell us about your tastes</p>
+      			<div id="content"></div>
+      			<div class="footer_beans">
+      				<span>
+      					<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
+      				</span>
+      			</div>
+      		</div>
+      	</div>
+      	<div>
+      		<!-- Contact form -->
+      		<form method="post" action="#" class="contact-form" id="contact-form">
+      			<div class="row">
+      				<div class="col span-1-of-3">
+      					<label class="required" for="name">Name *</label>
+      				</div>
+      				<div class="col span-1-of-3">
+      					<!-- Input for name -->
+      					<input type="text" name="name" id="name" placeholder="Your name" required>
+      				</div>
+      			</div>
+      			<div class="row">
+      				<div class="col span-1-of-3">
+      					<label class="required" for="email">Email *</label>
+      				</div>
+      				<div class="col span-1-of-3">
+      					<!-- Input for email -->
+      					<input type="email" name="email" id="email" placeholder="Your email" required>
+      				</div>
+      			</div>
+      			<div class="row">
+      				<div class="col span-1-of-3">
+      					 <label class="required" for="url">Image *</label>
+      				</div>
+      				<div class="col span-1-of-3">
+      					<!-- Input for image url -->
+      					<input type="url" name="url" id="url" placeholder="Your image source" required>
+      				</div>
+      			</div>
+      			<div class="row">
+      				<div class="col span-1-of-3">
+      					<label for="keywords">Keywords</label>
+      				</div>
+      				<div class="col span-2-of-3">
+      					<!-- List of keywords -->
+      					<datalist id="keyword-list">
+      						<option value="Food">
+      						<option value="Slovakian Food">
+      						<option value="China Food">
+      						<option value="Exotic Food">
+      						<option value="Paradise of food">
+      					</datalist>
+      					<!-- Keywords input -->
+      					<input list="keyword-list" type="text" name="keywords" id="keywords" placeholder="Enter keywords">
+      				</div>
+      			</div>
+      			<div class="row">
+      				<div class="col span-1-of-3">
+      					 <p class="message required">Rate this food! *</p>
+      					<fieldset>
+      						<!-- Radio Buttons -->
+      						<input type="radio" name="foodRating" id="thebest" value="The best">
+      						<label for="thebest">The Best</label>
 
-								<input type="radio" name="foodRating" id="bad" value="Bad">
-								<label for="bad">Bad</label>
-							</fieldset>
-						</div>
-					</div>
-					<p class="message">Recommend this product?</p>
-					<div class="col">
-						<div class="checkboxCol">
-							<!-- Checkbox -->
-							<input type="checkbox" name="pastries" id="pastries-checkbox">
-							<label for="pastries-checkbox">Yes</label>
-						</div>
-					</div>
-					<p class="message required">Your message*</p>
-					<!-- Message using textarea -->
-					<textarea name="message" placeholder="Tell us" required></textarea>
-					<div class="form_actions">
-						<!-- Send button (type submit) and Reset button (type reset) -->
-							<button class="send_us" type="submit" id="send">Send us</button>
-							<button class="send_us" type="reset" id="reset">Reset</button>
-					</div>
-				</form>
-			</div>
-			<!-- Footer -->
-			<footer >
-				<ol class="menu_footer">
-					<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-					<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-					<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-					<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-				</ol>
-				<div class="footer_beans">
-					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-				</div>
-			</footer>
-		</div>
-		<link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-	</script>
+      						<input type="radio" name="foodRating" id="good" value="Good">
+      						<label for="good">Good</label>
 
-	<!-- Opinions Template -->
-	<script id="template-opinions" type="text/template">
-		<!-- Search and filter area -->
-		<div class="Searching">
-			<div class="container">
-				<div class="search_content">
-					<p class="looking_for">Looking for</p>
-					<div id="searchWrapper">
-						<p class="search_form"><input type="search" name="q" placeholder="start typing here..." oninput="searchOpinions()" id="searchBar"></p>
-					</div>
-					<div class="text">Filter</div>
-					<div class="filter_buttons">
-						<button class="button_filter_reviews" onclick="filterOpinions('All')">All</button>
-						<button class="button_filter_reviews" onclick="filterOpinions('The best')">The best</button>
-						<button class="button_filter_reviews" onclick="filterOpinions('Good')">Good</button>
-						<button class="button_filter_reviews" onclick="filterOpinions('Medium')">Medium</button>
-						<button class="button_filter_reviews" onclick="filterOpinions('Bad')">Bad</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Reviews cards -->
-		<div class="cart_of_reviews_all" id="form-data">
-			{{#formDataArray}}
-			<div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-name="{{id}}">
-				<p class="name">{{name}}</p>
-				<img class="person_img" src="{{url}}" alt="Person">
-				<div class="final_review">{{message}}</div>
-				<p class="name">{{foodRatingValue}}</p>
-				<hr>
-				<p class="name">Posted: {{created}}</p>
-				<div class="card_buttons">
-					<button class="view_details" data-opinion-id="{{id}}">Details</button>
-					<button class="delete_button" onclick="deleteOpinion('{{id}}')">Delete</button>
-				</div>
-			</div>
-			{{/formDataArray}}
-			{{^formDataArray}}
-			<div class="no_opinions">
-				<!-- If no reviews no, display this message  -->
-				Sorry, no opinions found.<br> 
-				You can be the first!<br>
-				<a href="#addOpinion">Tell us about your tastes</a>
-			</div>
-			{{/formDataArray}}
-		</div>
-		<nav class="pagesNavigation">
-			<span>Page {{currPage}} of {{pageCount}}</span>
-			<div class="pagesNavigationButtons">
-				{{#prevPage}}
-				<button class="pageNavButton"><a class="menu_link_nav" href="#opinions/{{prevPage}}/{{pageCount}}">Previous</a></button>
-				{{/prevPage}}
-				{{#nextPage}}
-				<button class="pageNavButton"><a class="menu_link_nav" href="#opinions/{{nextPage}}/{{pageCount}}">Next</a></button>
-				{{/nextPage}}
-			</div>
-		</nav>
-		<footer class="container">
-			<ol class="menu_footer">
-				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-				<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-			</ol>
-			<div class="footer_beans">
-				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-			</div>
-		</footer>
-	</script>
+      						<input type="radio" name="foodRating" id="medium" value="Medium">
+      						<label for="medium">Medium</label>
 
-	<!-- Opinion Details -->
-	<script id="template-opinion" type="text/template">
-		<main class="about_our_goods">
-			<div class="col">
-				<!-- Displayed image and username -->
-				<img src="{{url}}" alt="pleasure_image" class="food_pleasure">
-				<b>Photo by {{name}}</b>
-			</div>
-			<div class="col">
-				<div class="about_goods_topic">About this food</div>
-				<div class="footer_beans">
-					<span> 
-						<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
-					</span>
-				</div>
-				<div class="about_goods_decr">
-					<br>
-					<!-- Message, email and rating of this user -->
-					<p style="border: 1px;">{{message}}</p>
-					<br>
-					<p>Rating: <b>{{foodRatingValue}}</b></p>
-					<a href="mailto:{{email}}">{{email}}></a>
-					<button class="view_details" data-edit-id="{{id}}" onclick="editButtonClick('{{id}}')">Edit</button>
-					<button class="view_details" onclick="window.location.href = `#opinions/1/1`">Back</button>
-				</div>
-			</div>
-		</main>
-		<hr style="margin-top: 10px; margin-bottom: 20px;">
-		<div class="col">
-			<!-- Another user activities -->
-			<div class="about_goods_topic">Users actions!</div>
-			<div class="footer_beans">
-				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-			</div>
-			<div class="comments_wrapper">
-				<form id="comment_form" class="comment_form">
-					<div class="about_goods_topic">Add your comment!</div>
-					<input type="text" name="name" id="comment-name" class="comment_input" placeholder="Your name" required>
-					<textarea name="message" id="comment-message" class="comment_textarea" placeholder="Your comment" required></textarea>
-					<button class="send_us" type="submit" class="add-comment">Add Comment</button>
-				</form>
-				<!-- <div class="vertical_hr"></div> -->
-				<div class="all_comments_wrapper">
-					<div class="about_goods_topic">Comments!</div>
-					<!-- Comment template -->
-					{{#comments}}
-					<div id="comment" class="comment">
-						<div class="comment_user">
-							<p>User - {{name}}</p>
-							<textarea readonly>{{message}}</textarea>
-						</div>
-					</div>
-					{{/comments}}
-				</div>
-			</div>
-			<footer class="container">
-				<ol class="menu_footer">
-					<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-					<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-					<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-					<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-				</ol>
-				<div class="footer_beans">
-					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-				</div>
-			</footer>
-		</div>
-	</script>
+      						<input type="radio" name="foodRating" id="bad" value="Bad">
+      						<label for="bad">Bad</label>
+      					</fieldset>
+      				</div>
+      			</div>
+      			<p class="message">Recommend this product?</p>
+      			<div class="col">
+      				<div class="checkboxCol">
+      					<!-- Checkbox -->
+      					<input type="checkbox" name="pastries" id="pastries-checkbox">
+      					<label for="pastries-checkbox">Yes</label>
+      				</div>
+      			</div>
+      			<p class="message required">Your message*</p>
+      			<!-- Message using textarea -->
+      			<textarea name="message" placeholder="Tell us" required></textarea>
+      			<div class="form_actions">
+      				<!-- Send button (type submit) and Reset button (type reset) -->
+      					<button class="send_us" type="submit" id="send">Send us</button>
+      					<button class="send_us" type="reset" id="reset">Reset</button>
+      			</div>
+      		</form>
+      	</div>
+      	<!-- Footer -->
+      	<footer >
+      		<ol class="menu_footer">
+      			<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+      			<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+      			<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
+      			<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+      		</ol>
+      		<div class="footer_beans">
+      			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      		</div>
+      	</footer>
+      </div>
+      <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
+   </script>
 
-	<!-- Edit Opinion -->
-	<script id="template-editOpinion" type="text/template">
-		<div class="your_taste">
-			<div class="container">
-				<p class="tell_section">Edit opinion</p>
-				<div id="content"></div>
-				<div class="footer_beans">
-					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-				</div>
-			</div>
-		</div>
-		<div class="edit_opinion_container">
-			<form method="post" action="#" class="contact-form" id="edit-form">
-				<div class="row">
-					<div class="col span-1-of-3">
-						<label for="name">Name *</label>
-					</div>
-					<div class="col span-1-of-3">
-						<input type="text" name="edit-name" id="edit-name" value="{{name}}" placeholder="Your name" required>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						<label for="email">Email *</label>
-					</div>
-					<div class="col span-1-of-3">
-						<input type="email" name="edit-email" id="edit-email" value="{{email}}" placeholder="Your email" required>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						  <label for="url">Image *</label>
-					</div>
-					<div class="col span-1-of-3">
-						<input type="url" name="edit-url" id="edit-url" value="{{url}}" placeholder="Your image source" required>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						<label for="keywords">Keywords</label>
-					</div>
-					<div class="col span-2-of-3">
-						<datalist id="keyword-list">
-							<option value="Food">
-							<option value="Slovakian Food">
-							<option value="China Food">
-							<option value="Exotic Food">
-							<option value="Paradise of food">
-						</datalist>
-						<input list="keyword-list" value="{{keywords}}" type="text" name="edit-keywords" id="edit-keywords" placeholder="Enter keywords">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						<p class="message">Rate this food!</p>
-						<fieldset>
-							<input type="radio" name="edit-foodRating" id="thebest" value="The best">
-							<label for="thebest">The Best</label>
+   <!-- Opinions Template -->
+   <script id="template-opinions" type="text/template">
+      <!-- Search and filter area -->
+   <div class="Searching">
+      <div class="container">
+         <div class="search_content">
+            <p class="looking_for">Looking for</p>
+            <div id="searchWrapper">
+               <p class="search_form"><input type="search" name="q" placeholder="start typing here..."
+                     oninput="searchOpinions()" id="searchBar"></p>
+            </div>
+            <div class="text">Filter</div>
+            <div class="filter_buttons">
+               <button class="button_filter_reviews" onclick="filterOpinions('All')">All</button>
+               <button class="button_filter_reviews" onclick="filterOpinions('The best')">The best</button>
+               <button class="button_filter_reviews" onclick="filterOpinions('Good')">Good</button>
+               <button class="button_filter_reviews" onclick="filterOpinions('Medium')">Medium</button>
+               <button class="button_filter_reviews" onclick="filterOpinions('Bad')">Bad</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Reviews cards -->
+   <div class="cart_of_reviews_all" id="form-data">
+      {{#formDataArray}}
+      <div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-name="{{id}}">
+         <p class="name">{{name}}</p>
+         <img class="person_img" src="{{url}}" alt="Person">
+         <div class="final_review">{{message}}</div>
+         <p class="name">{{foodRatingValue}}</p>
+         <hr>
+         <p class="name">Posted: {{created}}</p>
+         <div class="card_buttons">
+            <button class="view_details" data-opinion-id="{{id}}">Details</button>
+            <button class="delete_button" onclick="deleteOpinion('{{id}}')">Delete</button>
+         </div>
+      </div>
+      {{/formDataArray}}
+      {{^formDataArray}}
+      <div class="no_opinions">
+         <!-- If no reviews no, display this message  -->
+         Sorry, no opinions found.<br>
+         You can be the first!<br>
+         <a href="#addOpinion">Tell us about your tastes</a>
+      </div>
+      {{/formDataArray}}
+   </div>
+   <nav class="pagesNavigation">
+      <span>Page {{currPage}} of {{pageCount}}</span>
+      <div class="pagesNavigationButtons">
+         {{#prevPage}}
+         <button class="pageNavButton"><a class="menu_link_nav"
+               href="#opinions/{{prevPage}}/{{pageCount}}">Previous</a></button>
+         {{/prevPage}}
+         {{#nextPage}}
+         <button class="pageNavButton"><a class="menu_link_nav"
+               href="#opinions/{{nextPage}}/{{pageCount}}">Next</a></button>
+         {{/nextPage}}
+      </div>
+   </nav>
+   <footer class="container">
+      <ol class="menu_footer">
+         <li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+         <li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+         <li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
+         <li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+      </ol>
+      <div class="footer_beans">
+         <span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      </div>
+   </footer>
+   </script>
 
-							<input type="radio" name="edit-foodRating" id="good" value="Good">
-							<label for="good">Good</label>
+   <!-- Opinion Details -->
+   <script id="template-opinion" type="text/template">
+          <main class="about_our_goods">
+          	<div class="col">
+          		<!-- Displayed image and username -->
+          		<img src="{{url}}" alt="pleasure_image" class="food_pleasure">
+          		<b>Photo by {{name}}</b>
+          	</div>
+          	<div class="col">
+          		<div class="about_goods_topic">About this food</div>
+          		<div class="footer_beans">
+          			<span>
+          				<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
+          			</span>
+          		</div>
+          		<div class="about_goods_decr">
+          			<br>
+          			<!-- Message, email and rating of this user -->
+          			<p style="border: 1px;">{{message}}</p>
+          			<br>
+          			<p>Rating: <b>{{foodRatingValue}}</b></p>
+          			<a href="mailto:{{email}}">{{email}}</a>
+          			<button class="view_details" data-edit-id="{{id}}" onclick="editButtonClick('{{id}}')">Edit</button>
+          			<button class="view_details" onclick="window.location.href = `#opinions/1/1`">Back</button>
+          		</div>
+          	</div>
+          </main>
+          <hr style="margin-top: 10px; margin-bottom: 20px;">
+          <div class="col">
+          	<!-- Another user activities -->
+          	<div class="about_goods_topic">Users actions!</div>
+          	<div class="footer_beans">
+          		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+          	</div>
+          	<div class="comments_wrapper">
+          		<form id="comment_form" class="comment_form">
+          			<div class="about_goods_topic">Add your comment!</div>
+          			<input type="text" name="name" id="comment-name" class="comment_input" placeholder="Your name" required>
+          			<textarea name="message" id="comment-message" class="comment_textarea" placeholder="Your comment" required></textarea>
+          			<button class="send_us" type="submit" class="add-comment">Add Comment</button>
+          		</form>
+      	<div class="all_comments_wrapper">
+      		<div class="comments_topic">Comments!</div>
+      		{{#comments}}
+      		<div id="comment" class="comment">
+      			<div class="comment_user">
+      				<p>User - {{name}}</p>
+      				<textarea readonly>{{message}}</textarea>
+      			</div>
+      		</div>
+      		{{/comments}}
+      	</div>
 
-							<input type="radio" name="edit-foodRating" id="medium" value="Medium">
-							<label for="medium">Medium</label>
+      </div>
+        	</div>
+        	<footer class="container">
+          		<ol class="menu_footer">
+          			<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+          			<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+          			<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
+          			<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+          		</ol>
+          		<div class="footer_beans">
+          			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+          		</div>
+          	</footer>
+          </div>
+   </script>
 
-							<input type="radio" name="edit-foodRating" id="bad" value="Bad">
-							<label for="bad">Bad</label>
-						</fieldset>
-					</div>
-				</div>
+   <!-- Edit Opinion -->
+   <script id="template-editOpinion" type="text/template">
+      <div class="your_taste">
+      	<div class="container">
+      		<p class="tell_section">Edit opinion</p>
+      		<div id="content"></div>
+      		<div class="footer_beans">
+      			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      		</div>
+      	</div>
+      </div>
+      <div class="edit_opinion_container">
+      	<form method="post" action="#" class="contact-form" id="edit-form">
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<label for="name">Name *</label>
+      			</div>
+      			<div class="col span-1-of-3">
+      				<input type="text" name="edit-name" id="edit-name" value="{{name}}" placeholder="Your name" required>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<label for="email">Email *</label>
+      			</div>
+      			<div class="col span-1-of-3">
+      				<input type="email" name="edit-email" id="edit-email" value="{{email}}" placeholder="Your email" required>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				  <label for="url">Image *</label>
+      			</div>
+      			<div class="col span-1-of-3">
+      				<input type="url" name="edit-url" id="edit-url" value="{{url}}" placeholder="Your image source" required>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<label for="keywords">Keywords</label>
+      			</div>
+      			<div class="col span-2-of-3">
+      				<datalist id="keyword-list">
+      					<option value="Food">
+      					<option value="Slovakian Food">
+      					<option value="China Food">
+      					<option value="Exotic Food">
+      					<option value="Paradise of food">
+      				</datalist>
+      				<input list="keyword-list" value="{{keywords}}" type="text" name="edit-keywords" id="edit-keywords" placeholder="Enter keywords">
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<p class="message">Rate this food!</p>
+      				<fieldset>
+      					<input type="radio" name="edit-foodRating" id="thebest" value="The best">
+      					<label for="thebest">The Best</label>
 
-				<p class="message">Recommend this product?</p>
-				<div class="col">
-					<div class="span-1-of-3">
-						<input type="checkbox" checked={{pastries}} name="edit-pastries" id="pastries-checkbox">
-						<label for="pastries-checkbox">Yes</label>
-					</div>
-				</div>
-				<!-- Message -->
-				<p class="message">Your message *</p>
-				<textarea name="edit-message" placeholder="Tell us" required>{{message}}</textarea>
-				<div class="form_actions">
-					<button class="send_us" type="submit">Save Changes</button>
-					<button class="view_details" type="reset" onclick="backButtonClick()">Back</button>
-				</div>
-			</form>
-		</div>
-		<footer class="container">
-			<ol class="menu_footer">
-				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-				<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-			</ol>
-			<div class="footer_beans">
-				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-			</div>
-		</footer>
-		<link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-	</script>
-	
-	<script src="https://accounts.google.com/gsi/client" async defer></script>
-	<script type="module" src="js/index.js"></script>
-	<script src="js/script.js"></script>
+      					<input type="radio" name="edit-foodRating" id="good" value="Good">
+      					<label for="good">Good</label>
+
+      					<input type="radio" name="edit-foodRating" id="medium" value="Medium">
+      					<label for="medium">Medium</label>
+
+      					<input type="radio" name="edit-foodRating" id="bad" value="Bad">
+      					<label for="bad">Bad</label>
+      				</fieldset>
+      			</div>
+      		</div>
+
+      		<p class="message">Recommend this product?</p>
+      		<div class="col">
+      			<div class="span-1-of-3">
+      				<input type="checkbox" checked={{pastries}} name="edit-pastries" id="pastries-checkbox">
+      				<label for="pastries-checkbox">Yes</label>
+      			</div>
+      		</div>
+      		<!-- Message -->
+      		<p class="message">Your message *</p>
+      		<textarea name="edit-message" placeholder="Tell us" required>{{message}}</textarea>
+      		<div class="form_actions">
+      			<button class="send_us" type="submit">Save Changes</button>
+      			<button class="view_details" type="reset" onclick="backButtonClick()">Back</button>
+      		</div>
+      	</form>
+      </div>
+      <footer class="container">
+      	<ol class="menu_footer">
+      		<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+      		<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+      		<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
+      		<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+      	</ol>
+      	<div class="footer_beans">
+      		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      	</div>
+      </footer>
+      <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
+   </script>
+
+   <script src="https://accounts.google.com/gsi/client" async defer></script>
+   <script type="module" src="js/index.js"></script>
+   <script src="js/script.js"></script>
 </body>
 </html>

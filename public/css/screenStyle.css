@@ -12,9 +12,9 @@ html body {
   background-color:whitesmoke;
   width: 100%;
 }
-.clearfix {
+/* .clearfix {
   zoom: 1;
-}
+} */
 .clearfix:after {
   content: ".";
   clear: both;
@@ -401,7 +401,6 @@ margin-left: 50px;
 table {
   width: 70%;
   border-collapse: collapse;
-  display: flexbox;
   margin: 0 auto;
 }
 th,
@@ -513,9 +512,15 @@ th {
   display: flex;
   flex-wrap: wrap;
   justify-content:center;
-  align-items: flex-start;
-  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
   margin-top: 50px;
+}
+
+.comments_topic {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 20px;
 }
 
 .comment_form{

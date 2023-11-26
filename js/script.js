@@ -93,6 +93,10 @@ function welcomePage() {
   window.location.hash = `#welcome`;
 }
 
+function pleasurePage() {
+  window.location.hash = "#pleasure";
+}
+
 // Delete function
 
 function deleteOpinion(uniqueId) {
