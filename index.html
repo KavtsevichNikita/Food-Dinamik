@@ -1,114 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css">
-   <link rel="stylesheet" href="./public/css/screenStyle.css">
-   <link rel="stylesheet" href="./public/css/printStyle.css" media="print">
-   <link rel="icon" href="./fig/img/pizza-slice.svg">
-   <title>Food Blog</title>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="./public/css/screenStyle.css">
+	<link rel="stylesheet" href="./public/css/printStyle.css" media="print">
+	<link rel="icon" href="./fig/img/pizza-slice.svg">
+	<title>Food Blog</title>
 </head>
 <body>
-   <!-- Header -->
-   <header>
-      <div>
-         <div class="header_menu">
-            <svg class="svg_icon" width="100" height="50">
-               <circle cx="25" cy="25" r="22" fill="black"></circle>
-               <image onclick="welcomePage()" xlink:href="./fig/img/pizza-slice.svg" x="11" y="11" width="30" height="30"/>
-            </svg>
-            <ul class="menu">
-               <li class="menu_item">
-                  <a href="#welcome" class="menu_link">Food Blog</a>
-               </li>
-               <li class="menu_item">
-                  <a href="#pleasure" class="menu_link">For your pleasure</a>
-               </li>
-               <li class="menu_item">
-                  <a href="#opinions/1/1" class="menu_link">Reviews</a>
-               </li>
-               <li class="menu_item">
-                  <a href="#addOpinion" class="menu_link">Contact us</a>
-               </li>
-               <li class="menu_item">
-                  <div class="loginButton" id="loginButton">
-                     <div id="g_id_onload"
-                        data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
-                        data-login_uri="http://localhost:5500/#addOpinion" data-callback="handleCredentialResponse"
-                        data-auto_prompt="false"></div>
-                     <div class="g_id_signin" data-locale="en" data-type="standard" data-size="large"
-                        data-theme="filled_black" data-text="sign_in_with" data-shape="circle"
-                        data-onsuccess="handleCredentialResponse"></div>
-                  </div>
-                  <div style="display: flex">
-                     <span id="usernameDisplay" style="color: white; margin-right: 20px"></span>
-                     <a id="logoutButton" onclick="signOut()" href="#" style="margin-left: 50px" class="menu_link">LogOut</a>
-                  </div>
-               </li>
-            </ul>
-         </div>
-         <div class="hamburger-menu">
-            <input id="menu__toggle" type="checkbox">
-            <label class="menu__btn" for="menu__toggle">
-               <span></span>
-            </label>
-            <ol class="menu__box">
-               <li class="menu_item">
-                  <a href="#welcome" onclick="closeMenu()" class="menu_link">Food Blog</a>
-               </li>
-               <li class="menu_item">
-                  <a href="#pleasure" onclick="closeMenu()" class="menu_link">For your pleasure</a>
-               </li>
-               <li class="menu_item">
-                  <a href="#opinions/1/1" onclick="closeMenu()" class="menu_link">Reviews</a>
-               </li>
-               <li class="menu_item">
-                  <a href="#addOpinion" onclick="closeMenu()" class="menu_link">Contact us</a>
-               </li>
-               <li class="menu_item">
-                  <div class="loginButtonBurger" id="loginButton1" onclick="closeMenu()">
-                     <div id="g_id_onload1"
-                        data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
-                        data-login_uri="http://localhost:5500/#addOpinion" data-callback="handleCredentialResponse"
-                     >
-                     </div>
-                     <div class="g_id_signin sign_icon" data-locale="en" data-type="icon" data-size="large"
-                        data-text="sign_in_with" data-shape="circle" data-onsuccess="handleCredentialResponse"></div>
-                  </div>
-                  <div id="logoutButtonBurger" class="logoutButtonBurger" onclick="closeMenu()">
-                     <a onclick="signOut()" href="#" class="menu_link">Log Out</a>
-                  </div>
-               </li>
-            </ol>
-         </div>
-      </div>
-      <div class="main_text_wrapper">
-         <h1 class="about_food">Everything You Love About Food</h1>
-         <div class="block">
-            <span>
-               <img class="beans" src="./fig/img/main_page/beans_light.png" alt="beans">
-            </span>
-         </div>
-         <h3 class="subheader_text">
-            We makes every day full of energy and taste
-         </h3>
-         <h4 class="subheader_question">Want to try our food?</h4>
-         <div class="btn_wrap">
-            <button class="more" onclick="pleasurePage()">More</button>
-         </div>
-      </div>
-   </header>
+	<!-- Header -->
+	<header>
+		<div>
+			<div class="header_menu">
+				<svg class="svg_icon" width="100" height="50">
+					<circle cx="25" cy="25" r="22" fill="black"></circle>
+					<image onclick="welcomePage()" xlink:href="./fig/img/pizza-slice.svg" x="11" y="11" width="30"
+						height="30" />
+				</svg>
+				<ul class="menu">
+					<li class="menu_item">
+						<a href="#welcome" class="menu_link">Food Blog</a>
+					</li>
+					<li class="menu_item">
+						<a href="#pleasure" class="menu_link">Pleasure generator</a>
+					</li>
+					<li class="menu_item">
+						<a href="#opinions/1/1" class="menu_link">Reviews</a>
+					</li>
+					<li class="menu_item">
+						<a href="#articles" class="menu_link">Recipes</a>
+					</li>
+					<li class="menu_item">
+						<a href="#addOpinion" class="menu_link">Contact us</a>
+					</li>
+					<li class="menu_item">
+						<div class="loginButton" id="loginButton">
+							<div id="g_id_onload"
+								data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
+								data-login_uri="http://localhost:5500/#addOpinion"
+								data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
+							<div class="g_id_signin" data-locale="en" data-type="standard" data-size="large"
+								data-theme="filled_black" data-text="sign_in_with" data-shape="circle"
+								data-onsuccess="handleCredentialResponse"></div>
+						</div>
+						<div style="display: flex">
+							<h4 id="usernameDisplay" style="color: white; margin-right: 20px">Name</h4>
+							<a id="logoutButton" onclick="signOut()" href="#" style="margin-left: 50px"
+								class="menu_link">Log Out</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="hamburger-menu">
+				<input id="menu__toggle" type="checkbox">
+				<label class="menu__btn" for="menu__toggle">
+					<span></span>
+				</label>
+				<ol class="menu__box">
+					<li class="menu_item">
+						<a href="#welcome" onclick="closeMenu()" class="menu_link">Food Blog</a>
+					</li>
+					<li class="menu_item">
+						<a href="#pleasure" onclick="closeMenu()" class="menu_link">Pleasure generator</a>
+					</li>
+					<li class="menu_item">
+						<a href="#opinions/1/1" onclick="closeMenu()" class="menu_link">Reviews</a>
+					</li>
+					<li class="menu_item">
+						<a href="#articles" onclick="closeMenu()" class="menu_link">Recipes</a>
+					</li>
+					<li class="menu_item">
+						<a href="#addOpinion" onclick="closeMenu()" class="menu_link">Contact us</a>
+					</li>
+					<li class="menu_item">
+						<div class="loginButtonBurger" id="loginButton1" onclick="closeMenu()">
+							<div id="g_id_onload1"
+								data-client_id="93995621412-ui2g8dbjid30bicir67v6qkqugf9n4i0.apps.googleusercontent.com"
+								data-login_uri="http://localhost:5500/#addOpinion"
+								data-callback="handleCredentialResponse">
+							</div>
+							<div class="g_id_signin sign_icon" data-locale="en" data-type="icon" data-size="large"
+								data-text="sign_in_with" data-shape="circle" data-onsuccess="handleCredentialResponse">
+							</div>
+						</div>
+						<div id="logoutButtonBurger" class="logoutButtonBurger" onclick="closeMenu()">
+							<a onclick="signOut()" href="#" class="menu_link">Log Out</a>
+						</div>
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div class="main_text_wrapper">
+			<h1 class="about_food">Everything You Love About Food</h1>
+			<div class="block">
+				<span>
+					<img class="beans" src="./fig/img/main_page/beans_light.png" alt="beans">
+				</span>
+			</div>
+			<h3 class="subheader_text">
+				We makes every day full of energy and taste
+			</h3>
+			<h4 class="subheader_question">Want to try our food?</h4>
+			<div class="btn_wrap">
+				<button class="more" onclick="pleasurePage()">More</button>
+			</div>
+		</div>
+	</header>
 
-   <!-- Routes displaying -->
-   <main id="router-view"></main>
+	<!-- Routes displaying -->
+	<main id="router-view"></main>
 
-   <!-- Welcome page -->
-   <script id="template-welcome" type="text/template">
+	<!-- Welcome page -->
+	<script id="template-welcome" type="text/template">
       <div class="about_us">
       	<div class="container">
       		<div class="about_us_topic">About Us</div>
@@ -139,19 +149,10 @@
       		</div>
       	</footer>
       </div>
-   </script>
+	</script>
 
-   <!-- Pleasure Template -->
-   <script id="template-pleasure" type="text/template">
-          <div>
-      <form id="unsplash-form">
-      	<label for="queryInput">Enter your query:</label>
-      	<input type="text" id="queryInput" placeholder="e.g., food">
-      	<button>Fetch Image</button>
-      </form>
-
-
-          <div id="imageContainer"></div>
+	<!-- Pleasure Template -->
+	<script id="template-pleasure" type="text/template">
           	<div class="container">
           		<div class="about_our_goods">
           			<!-- Unsplash image with text and username who posted -->
@@ -303,10 +304,10 @@
           		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
           	</div>
           </footer>
-   </script>
+	</script>
 
-   <!-- Add Opinion -->
-   <script id="template-addOpinion" type="text/template">
+	<!-- Add Opinion -->
+	<script id="template-addOpinion" type="text/template">
       <div class="section-form">
       	<div class="your_taste">
       		<div>
@@ -417,83 +418,83 @@
       	</footer>
       </div>
       <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-   </script>
+	</script>
 
-   <!-- Opinions Template -->
-   <script id="template-opinions" type="text/template">
-      <!-- Search and filter area -->
-   <div class="Searching">
-      <div class="container">
-         <div class="search_content">
-            <p class="looking_for">Looking for</p>
-            <div id="searchWrapper">
-               <p class="search_form"><input type="search" name="q" placeholder="start typing here..."
-                     oninput="searchOpinions()" id="searchBar"></p>
-            </div>
-            <div class="text">Filter</div>
-            <div class="filter_buttons">
-               <button class="button_filter_reviews" onclick="filterOpinions('All')">All</button>
-               <button class="button_filter_reviews" onclick="filterOpinions('The best')">The best</button>
-               <button class="button_filter_reviews" onclick="filterOpinions('Good')">Good</button>
-               <button class="button_filter_reviews" onclick="filterOpinions('Medium')">Medium</button>
-               <button class="button_filter_reviews" onclick="filterOpinions('Bad')">Bad</button>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- Reviews cards -->
-   <div class="cart_of_reviews_all" id="form-data">
-      {{#formDataArray}}
-      <div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-name="{{id}}">
-         <p class="name">{{name}}</p>
-         <img class="person_img" src="{{url}}" alt="Person">
-         <div class="final_review">{{message}}</div>
-         <p class="name">{{foodRatingValue}}</p>
-         <hr>
-         <p class="name">Posted: {{created}}</p>
-         <div class="card_buttons">
-            <button class="view_details" data-opinion-id="{{id}}">Details</button>
-            <button class="delete_button" onclick="deleteOpinion('{{id}}')">Delete</button>
-         </div>
-      </div>
-      {{/formDataArray}}
-      {{^formDataArray}}
-      <div class="no_opinions">
-         <!-- If no reviews no, display this message  -->
-         Sorry, no opinions found.<br>
-         You can be the first!<br>
-         <a href="#addOpinion">Tell us about your tastes</a>
-      </div>
-      {{/formDataArray}}
-   </div>
-   <nav class="pagesNavigation">
-      <span>Page {{currPage}} of {{pageCount}}</span>
-      <div class="pagesNavigationButtons">
-         {{#prevPage}}
-         <button class="pageNavButton"><a class="menu_link_nav"
-               href="#opinions/{{prevPage}}/{{pageCount}}">Previous</a></button>
-         {{/prevPage}}
-         {{#nextPage}}
-         <button class="pageNavButton"><a class="menu_link_nav"
-               href="#opinions/{{nextPage}}/{{pageCount}}">Next</a></button>
-         {{/nextPage}}
-      </div>
-   </nav>
-   <footer class="container">
-      <ol class="menu_footer">
-         <li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-         <li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-         <li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-         <li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-      </ol>
-      <div class="footer_beans">
-         <span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-      </div>
-   </footer>
-   </script>
+	<!-- Opinions Template -->
+	<script id="template-opinions" type="text/template">
+    <!-- Search and filter area -->
+	<div class="Searching">
+		<div class="container">
+			<div class="search_content">
+				<p class="looking_for">Looking for</p>
+				<div id="searchWrapper">
+					<p class="search_form"><input type="search" name="q" placeholder="start typing here..."
+							oninput="searchOpinions()" id="searchBar"></p>
+				</div>
+				<div class="text">Filter</div>
+				<div class="filter_buttons">
+					<button class="button_filter_reviews" onclick="filterOpinions('All')">All</button>
+					<button class="button_filter_reviews" onclick="filterOpinions('The best')">The best</button>
+					<button class="button_filter_reviews" onclick="filterOpinions('Good')">Good</button>
+					<button class="button_filter_reviews" onclick="filterOpinions('Medium')">Medium</button>
+					<button class="button_filter_reviews" onclick="filterOpinions('Bad')">Bad</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Reviews cards -->
+	<div class="cart_of_reviews_all" id="form-data">
+		{{#formDataArray}}
+		<div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-search="{{name}}" data-name="{{id}}">
+			<p class="name">{{name}}</p>
+			<img class="person_img" src="{{url}}" alt="Person">
+			<div class="final_review">{{message}}</div>
+			<p class="name">{{foodRatingValue}}</p>
+			<hr>
+			<p class="name">Posted: {{created}}</p>
+			<div class="card_buttons">
+				<button class="view_details" data-opinion-id="{{id}}">Details</button>
+				<button class="delete_button" onclick="deleteOpinion('{{id}}')">Delete</button>
+			</div>
+		</div>
+		{{/formDataArray}}
+		{{^formDataArray}}
+		<div class="no_opinions">
+			<!-- If no reviews no, display this message  -->
+			Sorry, no opinions found.<br>
+			You can be the first!<br>
+			<a href="#addOpinion">Tell us about your tastes</a>
+		</div>
+		{{/formDataArray}}
+	</div>
+	<nav class="pagesNavigation">
+		<span>Page {{currPage}} of {{pageCount}}</span>
+		<div class="pagesNavigationButtons">
+			{{#prevPage}}
+			<button class="pageNavButton"><a class="menu_link_nav"
+					href="#opinions/{{prevPage}}/{{pageCount}}">Previous</a></button>
+			{{/prevPage}}
+			{{#nextPage}}
+			<button class="pageNavButton"><a class="menu_link_nav"
+					href="#opinions/{{nextPage}}/{{pageCount}}">Next</a></button>
+			{{/nextPage}}
+		</div>
+	</nav>
+	<footer class="container">
+		<ol class="menu_footer">
+			<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+			<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+			<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
+			<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+		</ol>
+		<div class="footer_beans">
+			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+		</div>
+	</footer>
+	</script>
 
-   <!-- Opinion Details -->
-   <script id="template-opinion" type="text/template">
+	<!-- Opinion Details -->
+	<script id="template-opinion" type="text/template">
           <main class="about_our_goods">
           	<div class="col">
           		<!-- Displayed image and username -->
@@ -559,10 +560,10 @@
           		</div>
           	</footer>
           </div>
-   </script>
+	</script>
 
-   <!-- Edit Opinion -->
-   <script id="template-editOpinion" type="text/template">
+	<!-- Edit Opinion -->
+	<script id="template-editOpinion" type="text/template">
       <div class="your_taste">
       	<div class="container">
       		<p class="tell_section">Edit opinion</p>
@@ -576,7 +577,7 @@
       	<form method="post" action="#" class="contact-form" id="edit-form">
       		<div class="row">
       			<div class="col span-1-of-3">
-      				<label for="name">Name *</label>
+      				<label class="required" for="name">Name *</label>
       			</div>
       			<div class="col span-1-of-3">
       				<input type="text" name="edit-name" id="edit-name" value="{{name}}" placeholder="Your name" required>
@@ -584,7 +585,7 @@
       		</div>
       		<div class="row">
       			<div class="col span-1-of-3">
-      				<label for="email">Email *</label>
+      				<label class="required" for="email">Email *</label>
       			</div>
       			<div class="col span-1-of-3">
       				<input type="email" name="edit-email" id="edit-email" value="{{email}}" placeholder="Your email" required>
@@ -592,7 +593,7 @@
       		</div>
       		<div class="row">
       			<div class="col span-1-of-3">
-      				  <label for="url">Image *</label>
+      				  <label class="required" for="url">Image *</label>
       			</div>
       			<div class="col span-1-of-3">
       				<input type="url" name="edit-url" id="edit-url" value="{{url}}" placeholder="Your image source" required>
@@ -615,7 +616,7 @@
       		</div>
       		<div class="row">
       			<div class="col span-1-of-3">
-      				<p class="message">Rate this food!</p>
+      				<p class="message required">Rate this food!</p>
       				<fieldset>
       					<input type="radio" name="edit-foodRating" id="thebest" value="The best">
       					<label for="thebest">The Best</label>
@@ -626,7 +627,7 @@
       					<input type="radio" name="edit-foodRating" id="medium" value="Medium">
       					<label for="medium">Medium</label>
 
-      					<input type="radio" name="edit-foodRating" id="bad" value="Bad">
+      					<input class="required" type="radio" name="edit-foodRating" id="bad" value="Bad">
       					<label for="bad">Bad</label>
       				</fieldset>
       			</div>
@@ -640,7 +641,7 @@
       			</div>
       		</div>
       		<!-- Message -->
-      		<p class="message">Your message *</p>
+      		<p class="message required">Your message *</p>
       		<textarea name="edit-message" placeholder="Tell us" required>{{message}}</textarea>
       		<div class="form_actions">
       			<button class="send_us" type="submit">Save Changes</button>
@@ -660,10 +661,267 @@
       	</div>
       </footer>
       <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-   </script>
+	</script>
 
-   <script src="https://accounts.google.com/gsi/client" async defer></script>
-   <script type="module" src="js/index.js"></script>
-   <script src="js/script.js"></script>
+
+	<!-- Articles as Recipes -->
+
+	<script id="template-articles" type="text/template">
+		<aside class="our_goods_section">
+			<div class="container">
+				<div class="our_goods_topic">Our best Recipes</div>
+				<div class="block">
+					<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
+				</div>
+				<p class="about_goods">
+					Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
+					Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
+				</p>
+			</div>
+			<div class="goods_store">
+				<!-- Rating cards like top 3-->
+				{{#articles}}
+				<div class="food_item_article">
+					<img class="food_item_img" src="{{imageLink}}">
+					<h3 class="food_item_name"><a class="menu_link_recepties" href="{{detailLink}}">{{title}}</a></h3>
+					<p class="food_item_text">recipe by <b>{{author}}</b></p>
+					<div class="rating">
+						<span class="heading">User Rating</span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+					</div>
+				</div>
+				{{/articles}}
+			</div>
+		</aside>
+	</script>
+
+	<script id="template-articles-error" type="text/template">
+
+    <article>
+        <h2>Article(s) acquisition failed</h2>
+        <p>
+            {{errMessage}}
+        </p>
+    </article>
+
+	</script>
+
+	<script id="template-article" type="text/template">
+		<div class="container">
+			<div class="about_our_goods">
+					{{#imageLink}}
+					<picture>
+						<source srcset="{{imageLink}}">
+						<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="recipe_img">
+					</picture>
+					{{/imageLink}}
+				<div class="col">
+					<div class="about_goods_topic">Recipe Info</div>
+					<div class="footer_beans">
+						<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+					</div>
+					<p class="about_goods_decr">
+						Welcome to the Recipe Exploration Hub!<br>
+						<br>
+						{{content}}
+					</p>
+					<br>
+					<p class="about_goods_decr">
+						Photo by - <b>{{author}}</b>
+					</p>
+					<button onclick="window.location.hash = '{{editLink}}' " class="view_details">Edit</button>
+					<button onclick="window.location.hash = '{{backLink}}' " class="view_details">Back</button>
+					<button onclick="window.location.hash = '{{deleteLink}}' " class="view_details">Delete</button>
+				</div>
+			</div>
+		</div>
+		<!-- Footer -->
+		<footer class="container">
+			<ol class="menu_footer">
+				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+				<li class="menu_item"><a href="#opinions/1/" class="menu_link">Reviews</a></li>
+				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+				<li class="menu_item"><a href="#articles" class="menu_link">Recipes</a></li>
+			</ol>
+			<div class="footer_beans">
+				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+			</div>
+		</footer>
+	</script>
+
+	<script id="template-article-form" type="text/template">
+		<div class="your_taste">
+			<div class="container">
+				<p class="tell_section">Recipe Edit</p>
+				<div class="footer_beans">
+					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+				</div>
+			</div>
+		</div>
+		<div class="edit_opinion_container">
+			<form method="post" action="#" class="contact-form" id="articleForm">
+				<div class="row">
+					<div class="col span-1-of-3">
+						<label class="required" for="author">Name *</label>
+					</div>
+					<div class="col span-1-of-3">
+						<input type="text" name="author" id="author" value="{{author}}" placeholder="Your name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col span-1-of-3">
+						<label class="required" for="title">Title *</label>
+					</div>
+					<div class="col span-1-of-3">
+						<input type="text" name="title" id="title" value="{{title}}" placeholder="Your email" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col span-1-of-3">
+						  <label class="required" for="imageLink">Image *</label>
+					</div>
+					<div class="col span-1-of-3">
+						<input  type="url" name="imageLink" id="imageLink" value="{{imageLink}}" placeholder="Your image source" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col span-1-of-3">
+						<label for="tags">Keywords</label>
+					</div>
+					<div class="col span-2-of-3">
+						<datalist id="keyword-list">
+							<option value="Food">
+							<option value="Slovakian Food">
+							<option value="China Food">
+							<option value="Exotic Food">
+							<option value="Paradise of food">
+						</datalist>
+						<input list="keyword-list" type="text" name="tags" id="tags" value="{{tags}}" placeholder="Enter keywords">
+					</div>
+				</div>
+				<!-- Message -->
+				<p class="message required">Your message *</p>
+				<textarea name="content" id="content" placeholder="Tell us" required>{{content}}</textarea>
+				<div class="form_actions">
+					<button class="view_details" type="submit">Save</button>
+					<button class="view_details" type="reset" onclick="backButtonClick()">Back</button>
+				</div>
+				<button class="none" id="btShowFileUpload">
+					Upload image
+				</button>
+				<fieldset class="none" id="fsetFileUpload">
+					<legend>Image Upload</legend>
+					<input type="file" id="flElm" name="file" accept="image/jpeg, image/png"/>
+					<br />
+					<button type="button" id="btFileUpload">
+						Send image to server </button>
+					<button type="button" id="btCancelFileUpload">
+						Cancel uploading </button>
+				</fieldset>
+				<br>
+			</form>
+		</div>
+		<footer class="container">
+			<ol class="menu_footer">
+				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
+				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
+				<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
+				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
+			</ol>
+			<div class="footer_beans">
+				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+			</div>
+		</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <article>
+        <h2>{{formTitle}}</h2> <br><br>
+
+        <form id="articleForm">
+            <label for="author">Author:</label>
+            <input type="text" name="author" id="author" value="{{author}}" size="50" 
+                   title="Article author, max. length 100 characters." 
+                   maxlength="100" placeholder="e.g. Ján Trieska" />
+            <br>
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" value="{{title}}" size="50"  
+                   maxlength="100" pattern="\S[\S\s]*" placeholder="e.g. My story." required 
+                   title="Article title, mandatory item, max. length: 100 characters. 
+The first character must not be a space."  />
+            <br>
+            <label for="imageLink">Image (url):</label>
+            <input type="url" name="imageLink" id="imageLink" value="{{imageLink}}" size="50" 
+                   title="Image URL, max. length 100 characters." maxlength="100"/>
+            <br>
+            <label></label>
+            <button type="button" id="btShowFileUpload">
+                Upload image
+            </button>
+
+            <fieldset class="added hiddenElm" id="fsetFileUpload">
+                <legend>Image Upload</legend>
+                <input type="file" id="flElm" name="file" accept="image/jpeg, image/png"/>
+                <br />
+                <button type="button" id="btFileUpload">
+                    Send image to server </button>
+                <button type="button" id="btCancelFileUpload">
+                    Cancel uploading </button>
+            </fieldset>
+
+
+            <br>
+            <label for="content">Article content:</label>
+            <textarea
+                    name="content" id="content" spellcheck="true" lang="sk"
+                    cols="50" rows="20" required
+                    title="Article content, mandatory item, can be plain text or in HTML.">
+              {{content}}
+            </textarea>
+            <br>
+            <label for="tags">Keywords:</label>
+            <input  type="text" name="tags" id="tags" value="{{tags}}" size="50"
+                    title="Keyword list, comma separated." placeholder="e.g. village, drama" />
+            <br> <br>
+            <button type="reset"> Reset Form </button>
+            <button type="submit"> {{submitBtTitle}} </button>
+
+        </form>
+    </article>
+
+    <footer>
+        <a href="{{backLink}}" class="linkAsButton"><< Back</a>
+        <a href="#menuTitle" class="linkAsButton">Up to the menu</a>
+    </footer> -->
+	<link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
+	</script>
+
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script type="module" src="js/index.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>

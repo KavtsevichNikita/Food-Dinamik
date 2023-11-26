@@ -168,7 +168,7 @@ function searchOpinions() {
   var opinions = document.querySelectorAll(".cart_of_review");
 
   opinions.forEach(function (opinion) {
-    var opinionName = opinion.getAttribute("data-name").toLowerCase();
+    var opinionName = opinion.getAttribute("data-search").toLowerCase();
 
     if (opinionName.includes(searchInput)) {
       opinion.style.display = "block";

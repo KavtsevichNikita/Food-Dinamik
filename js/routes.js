@@ -1,10 +1,14 @@
 import Mustache from "./mustache.js";
 import addOpinion from "./addOpinion.js";
-// import articleFormsHandler from "./articleFormsHandler.js";
+import articleFormsHandler from "./articleFormsHandler.js";
 
 const apiKey = "1JU1eeLRTR-iImZCjotYD4d9C72tDXrdCquPNP51uZw";
-const query = "food";
-const urlBase = `https://api.unsplash.com/photos/random?query=${query}&client_id=${apiKey}`;
+const query = "Food";
+// blog, event 
+const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${query}&client_id=${apiKey}`;
+const urlBase = "https://wt.kpi.fei.tuke.sk/api"
+const articlesPerPage = 20; 
+
 
 export default [
   {
@@ -52,9 +56,23 @@ export default [
     hash: "editOpinion",
     target: "router-view",
     getTemplate: editOpinion,
-  },
+  },  
+  {
+    hash:"article",
+    target:"router-view",
+    getTemplate: fetchAndDisplayArticleDetail
+  },   
+  {
+    hash:"articles",
+    target:"router-view",
+    getTemplate: fetchAndDisplayArticles
+},
+{
+  hash:"artEdit",
+  target:"router-view",
+  getTemplate: editArticle
+} 
 ];
-
 
 
 // Functions
@@ -154,7 +172,7 @@ function fetchAndDisplayUnsplashImages(targetElm) {
     }
   };
 
-  xml.open("GET", urlBase, true);
+  xml.open("GET", unsplash_urlBase, true);
   xml.send();
 }
 
@@ -304,3 +322,122 @@ function addComment(opinionId) {
 
   messageInput.value = "";
 }
+
+function fetchAndDisplayArticles(targetElm, offsetFromHash, totalCountFromHash){
+
+  const offset=Number(offsetFromHash);
+  const totalCount=Number(totalCountFromHash);
+
+  let urlQuery = "";
+
+  if (offset && totalCount){
+      // urlQuery=`?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
+      urlQuery=`?offset=${offset}&max=${articlesPerPage}`;
+  }else{
+      // urlQuery=`?max=${articlesPerPage}&tag=${query}`;
+      urlQuery=`?max=${articlesPerPage}`;
+  }
+
+  const url = `${urlBase}/article${urlQuery}`;
+
+  function reqListener () {
+      // stiahnuty text
+      console.log(this.responseText)
+      if (this.status == 200) {
+          const responseJSON = JSON.parse(this.responseText)
+          addArtDetailLink2ResponseJson(responseJSON);
+          document.getElementById(targetElm).innerHTML =
+              Mustache.render(
+                  document.getElementById("template-articles").innerHTML,
+                  responseJSON
+              );
+
+      } else {
+          const errMsgObj = {errMessage:this.responseText};
+          document.getElementById(targetElm).innerHTML =
+              Mustache.render(
+                  document.getElementById("template-articles-error").innerHTML,
+                  errMsgObj
+              );
+      }
+      
+  }
+
+  console.log(url)
+  var ajax = new XMLHttpRequest(); 
+  ajax.addEventListener("load", reqListener); 
+  ajax.open("GET", url, true); 
+  ajax.send();
+}      
+
+function fetchAndDisplayArticleDetail(targetElm,artIdFromHash,offsetFromHash,totalCountFromHash) {
+  fetchAndProcessArticle(...arguments,false);
+}                   
+
+function fetchAndProcessArticle(targetElm,artIdFromHash,offsetFromHash,totalCountFromHash,forEdit){
+  const url = `${urlBase}/article/${artIdFromHash}`;
+
+  function reqListener () {
+      // stiahnuty text
+      console.log(this.responseText)
+      if (this.status == 200) {
+          const responseJSON = JSON.parse(this.responseText)
+          if(forEdit){
+            responseJSON.formTitle="Article Edit";
+            responseJSON.submitBtTitle="Save article";
+            responseJSON.backLink=`#article/${artIdFromHash}/${offsetFromHash}/${totalCountFromHash}`;
+        
+            document.getElementById(targetElm).innerHTML =
+                Mustache.render(
+                    document.getElementById("template-article-form").innerHTML,
+                    responseJSON
+                );
+            if(!window.artFrmHandler){
+                window.artFrmHandler= new articleFormsHandler("https://wt.kpi.fei.tuke.sk/api");
+            }
+            window.artFrmHandler.assignFormAndArticle("articleForm","hiddenElm",artIdFromHash,offsetFromHash,totalCountFromHash);
+        }else{    
+              responseJSON.backLink=`#articles/${offsetFromHash}/${totalCountFromHash}`;
+              responseJSON.editLink=
+                `#artEdit/${responseJSON.id}/${offsetFromHash}/${totalCountFromHash}`;
+              responseJSON.deleteLink=
+                `#artDelete/${responseJSON.id}/${offsetFromHash}/${totalCountFromHash}`;
+
+              document.getElementById(targetElm).innerHTML =
+                  Mustache.render(
+                      document.getElementById("template-article").innerHTML,
+                      responseJSON
+                  );
+          }
+      } else {
+          const errMsgObj = {errMessage:this.responseText};
+          document.getElementById(targetElm).innerHTML =
+              Mustache.render(
+                  document.getElementById("template-articles-error").innerHTML,
+                  errMsgObj
+              );
+      }
+      
+  }
+
+  console.log(url)
+  var ajax = new XMLHttpRequest(); 
+  ajax.addEventListener("load", reqListener); 
+  ajax.open("GET", url, true); 
+  ajax.send();
+} 
+
+function editArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash) {
+  fetchAndProcessArticle(...arguments,true);
+}   
+
+function addArtDetailLink2ResponseJson(responseJSON){
+  responseJSON.articles = responseJSON.articles.map(
+    article =>(
+      {
+        ...article,
+        detailLink:`#article/${article.id}/${responseJSON.meta.offset}/${responseJSON.meta.totalCount}`
+      }
+    )
+  );
+}                                      
