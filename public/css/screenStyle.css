@@ -9,7 +9,7 @@
 html body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  background-color:whitesmoke;
+  background-color: rgb(236, 236, 236);
   width: 100%;
 }
 /* .clearfix {
@@ -67,6 +67,8 @@ button {
   list-style-type: none;
   margin-left: 20px;
 }
+
+
 .menu .menu_link {
   color: #ffff;
   font-style: normal;
@@ -74,6 +76,25 @@ button {
   font-size: 14px;
   line-height: 20px;
   text-decoration: none;
+  transition: color 0.3s ease, font-size 0.8s ease;
+}
+
+.menu_link_burger {
+  color: #ffff;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: color 0.3s ease, font-size 0.8s ease;
+}
+
+.menu_link:hover,
+.menu_link.active,
+.active_burger {
+  color: purple;
+  font-weight: bold;
+  font-size: 18px; 
 }
 
 .menu .menu_item {
@@ -83,7 +104,6 @@ button {
 
 .menu .menu_item:last-child {
   margin-left: 150px;
-  /* margin-top: 35px; */
 }
 .menu_footer {
   display: flex;
@@ -405,6 +425,12 @@ margin-left: 50px;
   margin-top: 40px;
   padding-left: 35px;
   cursor: pointer;
+  transition: transform 0.7s ease; /* Добавляем анимацию к свойству transform */
+}
+
+.svg_icon:hover {
+  transform: scale(1.7) rotate(40deg);
+
 }
 
 /* Table */
@@ -443,6 +469,14 @@ th {
 .food_pleasure {
   width: 272px;
   height: 355px;
+  display: block;
+  margin: 70px auto;
+}
+
+.food_opinion {
+  max-width: 572px;
+  min-width: 400px;
+  max-height: 355px;
   display: block;
   margin: 70px auto;
 }
@@ -587,8 +621,8 @@ th {
 }
 
 .recipe_img {
-  width: 100%;
-  height: 200px;
+  width: 500px;
+  height: 400px;
   margin: 70px auto;
 }
 
@@ -601,6 +635,30 @@ th {
   border-radius: 9px;
   cursor: pointer;
 }
+
+
+.food_item_article {
+  position: relative;
+  transition: transform 0.6s ease-in-out, filter 0.6s ease-in-out, box-shadow 0.6s ease-in-out, font-size 0.6s ease-in-out, transform 0.6s ease-in-out;
+  filter: brightness(0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 300px;
+  text-align: center;
+  margin: 10px;
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.food_item_article:hover {
+  
+  transform: translate3d(0, -5px, 0) rotate(-5deg);
+  filter: brightness(1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-size: 1.1em;
+}
+
 .food_item_name {
   color: white;
   margin-top: 10px;
@@ -625,6 +683,7 @@ th {
   margin-right: -15px;
   margin-left: -15px;
 }
+
 .fa:hover {
   color: orange;
   font-size: 25px;
@@ -701,17 +760,32 @@ th {
   justify-content: center;
 }
 
-.pageNavButton {
+/* .pageNavButton {
   width: 80px;
   height: 30px;
   color: black;
   border: 1px solid black;
   border-radius: 10px;
   background-color: #fff;
+} */
+
+.pageNavButton {
+  padding: 10px 15px;
+  background-color: #4CAF50; /* Зеленый цвет кнопки */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 .menu_link_nav {
   text-decoration: none;
-  color: black;
+  color: white;
+}
+.menu_link_nav:hover {
+  color: white;
+  text-decoration: none;
 }
 .search_content {
   display: flex;
@@ -807,7 +881,7 @@ th {
 .cart_of_review {
   width: 270px;
   height: 390px;
-  box-shadow: 30px 5px 15px #ead0af;
+  box-shadow: 22px 5px 15px #ead0af;
   border-radius: 8px;
   color: #faebd7;
   margin-top: 60px;
@@ -982,7 +1056,7 @@ label {
 }
 
 .delete_button:hover {
-    background: rgb(255, 55, 55);
+    background: darkred;
     color: whitesmoke;
     transition: all 0.75s ease 0s;
 }
@@ -1149,14 +1223,20 @@ hr {
       visibility: hidden;
       top: 0;
       left: -100%;
-      width: 184px;
+      width: 80%;
       height: 100%;
       margin: 0;
       padding: 80px 0;
       list-style: none;
       text-align: center;
       box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
-      background-color: #2f4f4f;
+      background-color: black;
+      border-right: 3px solid purple;
+      border-top: 3px solid wheat;
+      border-bottom: 3px solid wheat;
+      border-top-right-radius: 170px;
+      border-bottom-right-radius: 70px;
+      transition: 0.7s;
       z-index: 2;
     }
     .menu__item {
@@ -1515,3 +1595,125 @@ hr {
 #dialog-buttons {
     margin-top: 20px;
 }
+
+
+
+/* / */
+
+.button_send {
+  --c:  darkred;
+
+  width: 250px;
+  height: 40px;
+  border-radius: 20px;
+  
+  box-shadow: 0 0 0 .1em inset var(--c); 
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: 
+    var(--_g) calc(var(--_p,0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p,0%)) 0%,
+    var(--_g) calc(var(--_p,0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p,0%)) 100%;
+  background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+  outline-offset: .1em;
+  transition: background-size .4s, background-position 0s .4s;
+}
+.button_send:hover {
+  --_p: 100%;
+  color: white;
+  cursor: pointer;
+  transition: background-position .4s, background-size 0s;
+}
+.button_send:active {
+  box-shadow: 0 0 9e9q inset #0009; 
+  background-color: var(--c);
+  color: #fff;
+}
+
+.button_reset {
+  width: 250px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+
+  color: white;
+  background-color: black;
+}
+
+
+.btn {
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: #081C15;
+  /* padding: 18px 32px; */
+  font-weight: 500;
+  font-size: 18px;
+  background-color: #000000;
+  color: white;
+  border-radius: 10px;
+  width: 150px;
+  height: 40px;
+}
+
+.btn-prev::before {
+  content: "⟵";
+  font-size: 22px;
+}
+
+.btn-next {
+  margin-left: 10px;
+}
+
+.btn-next::after {
+  content: '⟶';
+  font-size: 22px;
+}
+
+.btn-delete {
+  color: darkred;
+}
+
+.btn-delete::after {
+  content: '⟶';
+  font-size: 22px;
+}
+
+.flex-vh-center {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.icon_delete {
+  height: 50px;
+}
+
+.button_edit::after {
+  content: '⟶';
+  font-size: 22px;
+}
+
+/* .view_details { */
+  /* display: block; */
+  /* width: 80px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.view_details:hover {
+  background: #000;
+  color: whitesmoke;
+  transition: all 0.75s ease 0s;
+} */

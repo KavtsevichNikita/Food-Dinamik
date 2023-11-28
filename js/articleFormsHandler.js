@@ -184,7 +184,7 @@
                 }
             })
             .then(responseJSON => { //here we process the returned response data in JSON ...
-                window.alert("Updated article successfully saved on server");
+                // window.alert("Updated article successfully saved on server");
             })
             .catch(error => { ////here we process all the failed promises
                 window.alert(`Failed to save the updated article on server. ${error}`);

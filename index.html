@@ -2,43 +2,47 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css" />
+	<link rel="stylesheet" href="./public/css/screenStyle.css" />
+	<link rel="stylesheet" href="./public/css/printStyle.css" media="print" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="./public/css/bootstrap-reboot.min.css">
-	<link rel="stylesheet" href="./public/css/screenStyle.css">
-	<link rel="stylesheet" href="./public/css/printStyle.css" media="print">
-	<link rel="icon" href="./fig/img/pizza-slice.svg">
+	<link rel="icon" href="./fig/img/pizza-slice.svg" />
 	<title>Food Blog</title>
 </head>
+
 <body>
 	<!-- Header -->
 	<header>
 		<div>
 			<div class="header_menu">
-				<svg class="svg_icon" width="100" height="50">
+				<svg onclick="handleSVGClick()" id="svg-link" class="svg_icon" width="100" height="50">
 					<circle cx="25" cy="25" r="22" fill="black"></circle>
-					<image onclick="welcomePage()" xlink:href="./fig/img/pizza-slice.svg" x="11" y="11" width="30"
-						height="30" />
+					<image xlink:href="./fig/img/pizza-slice.svg" x="11" y="11" width="30" height="30" />
 				</svg>
 				<ul class="menu">
 					<li class="menu_item">
-						<a href="#welcome" class="menu_link">Food Blog</a>
+						<a href="#welcome" onclick="activateLink(this, 0)" class="menu_link active">Food Blog</a>
 					</li>
 					<li class="menu_item">
-						<a href="#pleasure" class="menu_link">Pleasure generator</a>
+						<a href="#pleasure" onclick="activateLink(this, 1)" class="menu_link">Pleasure generator</a>
 					</li>
 					<li class="menu_item">
-						<a href="#opinions/1/1" class="menu_link">Reviews</a>
+						<a href="#opinions/1/1" onclick="activateLink(this, 2)" class="menu_link">Reviews</a>
 					</li>
 					<li class="menu_item">
-						<a href="#articles" class="menu_link">Recipes</a>
+						<a href="#articles/1/10" onclick="activateLink(this, 3)" class="menu_link">Recipes</a>
 					</li>
 					<li class="menu_item">
-						<a href="#addOpinion" class="menu_link">Contact us</a>
+						<a href="#addOpinion" onclick="activateLink(this, 4)" class="menu_link">Add Review</a>
+					</li>
+					<li class="menu_item">
+						<a href="#addArticle" onclick="activateLink(this, 5)" class="menu_link">Add Recipe</a>
 					</li>
 					<li class="menu_item">
 						<div class="loginButton" id="loginButton">
@@ -51,33 +55,40 @@
 								data-onsuccess="handleCredentialResponse"></div>
 						</div>
 						<div style="display: flex">
-							<h4 id="usernameDisplay" style="color: white; margin-right: 20px">Name</h4>
+							<h4 id="usernameDisplay" style="color: white; margin-right: 20px">
+								Name
+							</h4>
 							<a id="logoutButton" onclick="signOut()" href="#" style="margin-left: 50px"
-								class="menu_link">Log Out</a>
+								class="menu_link">Log
+								Out</a>
 						</div>
 					</li>
 				</ul>
 			</div>
 			<div class="hamburger-menu">
-				<input id="menu__toggle" type="checkbox">
+				<input id="menu__toggle" type="checkbox" />
 				<label class="menu__btn" for="menu__toggle">
 					<span></span>
 				</label>
 				<ol class="menu__box">
 					<li class="menu_item">
-						<a href="#welcome" onclick="closeMenu()" class="menu_link">Food Blog</a>
+						<a href="#welcome" onclick="closeMenu(this, 0)" class="menu_link_burger active_burger">Food
+							Blog</a>
 					</li>
 					<li class="menu_item">
-						<a href="#pleasure" onclick="closeMenu()" class="menu_link">Pleasure generator</a>
+						<a href="#pleasure" onclick="closeMenu(this, 1)" class="menu_link_burger">Pleasure generator</a>
 					</li>
 					<li class="menu_item">
-						<a href="#opinions/1/1" onclick="closeMenu()" class="menu_link">Reviews</a>
+						<a href="#opinions/1/1" onclick="closeMenu(this, 2)" class="menu_link_burger">Reviews</a>
 					</li>
 					<li class="menu_item">
-						<a href="#articles" onclick="closeMenu()" class="menu_link">Recipes</a>
+						<a href="#articles/1/10" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a>
 					</li>
 					<li class="menu_item">
-						<a href="#addOpinion" onclick="closeMenu()" class="menu_link">Contact us</a>
+						<a href="#addOpinion" onclick="closeMenu(this, 4)" class="menu_link_burger">Contact us</a>
+					</li>
+					<li class="menu_item">
+						<a href="#addArticle" onclick="closeMenu(this, 5)" class="menu_link_burger">Add Recipe</a>
 					</li>
 					<li class="menu_item">
 						<div class="loginButtonBurger" id="loginButton1" onclick="closeMenu()">
@@ -91,7 +102,7 @@
 							</div>
 						</div>
 						<div id="logoutButtonBurger" class="logoutButtonBurger" onclick="closeMenu()">
-							<a onclick="signOut()" href="#" class="menu_link">Log Out</a>
+							<a onclick="signOut()" href="#" class="menu_link_burger">Log Out</a>
 						</div>
 					</li>
 				</ol>
@@ -101,7 +112,7 @@
 			<h1 class="about_food">Everything You Love About Food</h1>
 			<div class="block">
 				<span>
-					<img class="beans" src="./fig/img/main_page/beans_light.png" alt="beans">
+					<img class="beans" src="./fig/img/main_page/beans_light.png" alt="beans" />
 				</span>
 			</div>
 			<h3 class="subheader_text">
@@ -123,7 +134,7 @@
       	<div class="container">
       		<div class="about_us_topic">About Us</div>
       		<div class="block_dark">
-      				<span><img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark"></span>
+      		   <span><img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark"></span>
       		</div>
       		<!-- About this blog -->
       		<p class="about_us_text">
@@ -132,8 +143,7 @@
       			Explore a world of flavors and culinary delights on my food blog. Discover mouthwatering reviews, rankings of dishes from every corner of the globe, and the best dining spots. Join me in unraveling the mysteries of the culinary universe and embark on a delicious journey like no other!
       		</p>
       	</div>
-      	<!-- Footer -->
-      	<footer style="margin-top: 70px;">
+      	<div style="margin-top: 70px;">
       		<div class="container">
       			<div class="my_contacts_footer">
       				<a target="_blank" href="https://www.linkedin.com/in/nikitakavtsevich/">
@@ -147,278 +157,254 @@
       				<span class="all_rights_text"> ⓒ All rights reserved 2023</span>
       			</div>
       		</div>
-      	</footer>
+      	</div>
       </div>
-	</script>
+    </script>
 
 	<!-- Pleasure Template -->
 	<script id="template-pleasure" type="text/template">
-          	<div class="container">
-          		<div class="about_our_goods">
-          			<!-- Unsplash image with text and username who posted -->
-          			<div class="col">
-          				{{#urls}}
-          				<picture>
-          					<!-- <source media="(max-width: 1200px)" srcset="./fig/img/for_your_pleasure/coffee.jpg"> -->
-          					<source srcset="{{full}}">
-          					<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="food_pleasure">
-          				</picture>
-          				{{/urls}}
-          				{{#alt_description}}
-          					<p>{{alt_description}}</p>
-          				{{/alt_description}}
-          			</div>
-          			<div class="col">
-          				<div class="about_goods_topic">About our goods</div>
-          				<div class="footer_beans">
-          					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-          				</div>
-          				<p class="about_goods_decr">
-          					Welcome to the Food Exploration Hub!<br>
-          					<br>
-          					Our page is a gastronomic paradise where you can delve into the diverse world of cuisine.
-          					Here, we curate a delectable collection of culinary experiences, from the latest food trends to timeless classics.
-          				</p>
-          				<br>
-          				{{#user}}
-          				<p class="about_goods_decr">
-          					Photo by - <b>{{name}}</b>
-          				</p>
-          				{{/user}}
+            	<div class="container">
+            		<div class="about_our_goods">
+            			<!-- Unsplash image with text and username who posted -->
+            			<div class="col">
+            				{{#urls}}
+            				<picture>
+            					<!-- <source media="(max-width: 1200px)" srcset="./fig/img/for_your_pleasure/coffee.jpg"> -->
+            					<source srcset="{{full}}">
+            					<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="food_pleasure">
+            				</picture>
+            				{{/urls}}
+            				{{#alt_description}}
+            					<p>{{alt_description}}</p>
+            				{{/alt_description}}
+            			</div>
+            			<div class="col">
+            				<div class="about_goods_topic">About our goods</div>
+            				<div class="footer_beans">
+            					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+            				</div>
+            				<p class="about_goods_decr">
+            					Welcome to the Food Exploration Hub!<br>
+            					<br>
+            					Our page is a gastronomic paradise where you can delve into the diverse world of cuisine.
+            					Here, we curate a delectable collection of culinary experiences, from the latest food trends to timeless classics.
+            				</p>
+            				<br>
+            				{{#user}}
+            				<p class="about_goods_decr">
+            					Photo by - <b>{{name}}</b>
+            				</p>
+            				{{/user}}
 
-          				{{#links}}
-          				<p class="about_goods_decr">
-          					<b><a target="_blank" href="{{html}}">More info</a></b>
-          				</p>
-          				{{/links}}
-          			</div>
-          		</div>
-          		<aside class="our_goods_section">
-          			<div class="container">
-          				<div class="our_goods_topic">Goods Rating</div>
-          				<div class="block">
-          					<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
-          				</div>
-          				<p class="about_goods">
-          					Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
-          					Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
-          				</p>
-          			</div>
-          			<div class="goods_store">
-          				<!-- Rating cards like top 3-->
-          				<div class="food_item">
-          					<img class="food_item_img" src="./fig/img/for_your_pleasure/razen.jfif" alt="">
-          					<h3 class="food_item_name">Rezen'</h3>
-          					<p class="food_item_text">Good food in Slovakia</p>
-          					<div class="rating">
-          						<span class="heading">User Rating</span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          					</div>
-          				</div>
-          				<div class="food_item">
-          					<img class="food_item_img" src="./fig/img/for_your_pleasure/pasta.jfif" alt="">
-          					<h3 class="food_item_name">Pasta</h3>
-          					<p class="food_item_text">Good food in Italy</p>
-          					<div class="rating">
-          						<span class="heading">User Rating</span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star"></span>
-          						<span class="fa fa-star"></span>
-          					</div>
-          				</div>
-          				<div class="food_item">
-          					<img class="food_item_img" src="./fig/img/for_your_pleasure/sushi.jfif" alt="">
-          					<h3 class="food_item_name">Sushi</h3>
-          					<p class="food_item_text">Good food in Japan</p>
-          					<div class="rating">
-          						<span class="heading">User Rating</span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star checked"></span>
-          						<span class="fa fa-star"></span>
-          						<span class="fa fa-star"></span>
-          						<span class="fa fa-star"></span>
-          					</div>
-          				</div>
-          			</div>
-          		</aside>
-          		<section>
-          			<h2 class="about_us_topic">Our best</h2>
-          			<div class="block_dark">
-          				<span>
-          					<img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark">
-          				</span>
-          			</div>
-          			<!-- Table -->
-          			<table>
-          				<thead>
-          					<tr>
-          						<th>Food</th>
-          						<th>Type</th>
-          						<th>Place</th>
-          					</tr>
-          				</thead>
-          				<tbody>
-          					<tr>
-          						<td rowspan="2">Pizza</td>
-          						<td>Italy</td>
-          						<td>Rome Pizza</td>
-          					</tr>
-          					<tr>
-          						<td>Spain</td>
-          						<td>Madrid Pizza</td>
-          					</tr>
-          					<tr>
-          						<td colspan="2">Sushi</td>
-          						<td>Sushi House</td>
-          					</tr>
-          					<tr>
-          						<td>Burger</td>
-          						<td>America</td>
-          						<td>Good Burger</td>
-          					</tr>
-          				</tbody>
-          				<tfoot>
-          					<tr>
-          						<td style="text-align: center;" colspan="3">Full count: 3</td>
-          					</tr>
-          				</tfoot>
-          			</table>
-          		</section>
-          	</div>
-          </div>
-          <!-- Footer -->
-          <footer class="container">
-          	<ol class="menu_footer">
-          		<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-          		<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-          		<li class="menu_item"><a href="#opinions/1/" class="menu_link">Reviews</a></li>
-          		<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-          	</ol>
-          	<div class="footer_beans">
-          		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-          	</div>
-          </footer>
-	</script>
+            				{{#links}}
+            				<p class="about_goods_decr">
+            					<b><a target="_blank" href="{{html}}">More info</a></b>
+            				</p>
+            				{{/links}}
+            			</div>
+            		</div>
+            		<aside class="our_goods_section">
+            			<div class="container">
+            				<div class="our_goods_topic">Goods Rating</div>
+            				<div class="block">
+            					<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
+            				</div>
+            				<p class="about_goods">
+            					Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
+            					Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
+            				</p>
+            			</div>
+            			<div class="goods_store">
+            				<!-- Rating cards like top 3-->
+            				<div class="food_item">
+            					<img class="food_item_img" src="./fig/img/for_your_pleasure/razen.jfif" alt="">
+            					<h3 class="food_item_name">Rezen'</h3>
+            					<p class="food_item_text">Good food in Slovakia</p>
+            					<div class="rating">
+            						<span class="heading">User Rating</span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            					</div>
+            				</div>
+            				<div class="food_item">
+            					<img class="food_item_img" src="./fig/img/for_your_pleasure/pasta.jfif" alt="">
+            					<h3 class="food_item_name">Pasta</h3>
+            					<p class="food_item_text">Good food in Italy</p>
+            					<div class="rating">
+            						<span class="heading">User Rating</span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star"></span>
+            						<span class="fa fa-star"></span>
+            					</div>
+            				</div>
+            				<div class="food_item">
+            					<img class="food_item_img" src="./fig/img/for_your_pleasure/sushi.jfif" alt="">
+            					<h3 class="food_item_name">Sushi</h3>
+            					<p class="food_item_text">Good food in Japan</p>
+            					<div class="rating">
+            						<span class="heading">User Rating</span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star checked"></span>
+            						<span class="fa fa-star"></span>
+            						<span class="fa fa-star"></span>
+            						<span class="fa fa-star"></span>
+            					</div>
+            				</div>
+            			</div>
+            		</aside>
+            		<section>
+            			<h2 class="about_us_topic">Our best</h2>
+            			<div class="block_dark">
+            				<span>
+            					<img class="beans_dark" src="./fig/img/main_page/beans_dark.png" alt="beans dark">
+            				</span>
+            			</div>
+            			<!-- Table -->
+            			<table>
+            				<thead>
+            					<tr>
+            						<th>Food</th>
+            						<th>Type</th>
+            						<th>Place</th>
+            					</tr>
+            				</thead>
+            				<tbody>
+            					<tr>
+            						<td rowspan="2">Pizza</td>
+            						<td>Italy</td>
+            						<td>Rome Pizza</td>
+            					</tr>
+            					<tr>
+            						<td>Spain</td>
+            						<td>Madrid Pizza</td>
+            					</tr>
+            					<tr>
+            						<td colspan="2">Sushi</td>
+            						<td>Sushi House</td>
+            					</tr>
+            					<tr>
+            						<td>Burger</td>
+            						<td>America</td>
+            						<td>Good Burger</td>
+            					</tr>
+            				</tbody>
+            				<tfoot>
+            					<tr>
+            						<td style="text-align: center;" colspan="3">Full count: 3</td>
+            					</tr>
+            				</tfoot>
+            			</table>
+            		</section>
+            	</div>
+            </div>
+    </script>
 
 	<!-- Add Opinion -->
 	<script id="template-addOpinion" type="text/template">
-      <div class="section-form">
-      	<div class="your_taste">
-      		<div>
-      			<p class="tell_section">Tell us about your tastes</p>
-      			<div id="content"></div>
-      			<div class="footer_beans">
-      				<span>
-      					<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
-      				</span>
-      			</div>
-      		</div>
-      	</div>
-      	<div>
-      		<!-- Contact form -->
-      		<form method="post" action="#" class="contact-form" id="contact-form">
-      			<div class="row">
-      				<div class="col span-1-of-3">
-      					<label class="required" for="name">Name *</label>
-      				</div>
-      				<div class="col span-1-of-3">
-      					<!-- Input for name -->
-      					<input type="text" name="name" id="name" placeholder="Your name" required>
-      				</div>
-      			</div>
-      			<div class="row">
-      				<div class="col span-1-of-3">
-      					<label class="required" for="email">Email *</label>
-      				</div>
-      				<div class="col span-1-of-3">
-      					<!-- Input for email -->
-      					<input type="email" name="email" id="email" placeholder="Your email" required>
-      				</div>
-      			</div>
-      			<div class="row">
-      				<div class="col span-1-of-3">
-      					 <label class="required" for="url">Image *</label>
-      				</div>
-      				<div class="col span-1-of-3">
-      					<!-- Input for image url -->
-      					<input type="url" name="url" id="url" placeholder="Your image source" required>
-      				</div>
-      			</div>
-      			<div class="row">
-      				<div class="col span-1-of-3">
-      					<label for="keywords">Keywords</label>
-      				</div>
-      				<div class="col span-2-of-3">
-      					<!-- List of keywords -->
-      					<datalist id="keyword-list">
-      						<option value="Food">
-      						<option value="Slovakian Food">
-      						<option value="China Food">
-      						<option value="Exotic Food">
-      						<option value="Paradise of food">
-      					</datalist>
-      					<!-- Keywords input -->
-      					<input list="keyword-list" type="text" name="keywords" id="keywords" placeholder="Enter keywords">
-      				</div>
-      			</div>
-      			<div class="row">
-      				<div class="col span-1-of-3">
-      					 <p class="message required">Rate this food! *</p>
-      					<fieldset>
-      						<!-- Radio Buttons -->
-      						<input type="radio" name="foodRating" id="thebest" value="The best">
-      						<label for="thebest">The Best</label>
+        <div class="section-form">
+        	<div class="your_taste">
+        		<div>
+        			<p class="tell_section">Tell us about your tastes</p>
+        			<div id="content"></div>
+        			<div class="footer_beans">
+        				<span>
+        					<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
+        				</span>
+        			</div>
+        		</div>
+        	</div>
+        	<div>
+        		<!-- Contact form -->
+        		<form method="post" action="#" class="contact-form" id="contact-form">
+        			<div class="row">
+        				<div class="col span-1-of-3">
+        					<label class="required" for="name">Name *</label>
+        				</div>
+        				<div class="col span-1-of-3">
+        					<!-- Input for name -->
+        					<input type="text" name="name" id="name" placeholder="Your name" required>
+        				</div>
+        			</div>
+        			<div class="row">
+        				<div class="col span-1-of-3">
+        					<label class="required" for="email">Email *</label>
+        				</div>
+        				<div class="col span-1-of-3">
+        					<!-- Input for email -->
+        					<input type="email" name="email" id="email" placeholder="Your email" required>
+        				</div>
+        			</div>
+        			<div class="row">
+        				<div class="col span-1-of-3">
+        					 <label class="required" for="url">Image *</label>
+        				</div>
+        				<div class="col span-1-of-3">
+        					<!-- Input for image url -->
+        					<input type="url" name="url" id="url" placeholder="Your image source" required>
+        				</div>
+        			</div>
+        			<div class="row">
+        				<div class="col span-1-of-3">
+        					<label for="keywords">Keywords</label>
+        				</div>
+        				<div class="col span-2-of-3">
+        					<!-- List of keywords -->
+        					<datalist id="keyword-list">
+        						<option value="Food">
+        						<option value="Slovakian Food">
+        						<option value="China Food">
+        						<option value="Exotic Food">
+        						<option value="Paradise of food">
+        					</datalist>
+        					<!-- Keywords input -->
+        					<input list="keyword-list" type="text" name="keywords" id="keywords" placeholder="Enter keywords">
+        				</div>
+        			</div>
+        			<div class="row">
+        				<div class="col span-1-of-3">
+        					 <p class="message required">Rate this food! *</p>
+        					<fieldset>
+        						<!-- Radio Buttons -->
+        						<input type="radio" name="foodRating" id="thebest" value="The best">
+        						<label for="thebest">The Best</label>
 
-      						<input type="radio" name="foodRating" id="good" value="Good">
-      						<label for="good">Good</label>
+        						<input type="radio" name="foodRating" id="good" value="Good">
+        						<label for="good">Good</label>
 
-      						<input type="radio" name="foodRating" id="medium" value="Medium">
-      						<label for="medium">Medium</label>
+        						<input type="radio" name="foodRating" id="medium" value="Medium">
+        						<label for="medium">Medium</label>
 
-      						<input type="radio" name="foodRating" id="bad" value="Bad">
-      						<label for="bad">Bad</label>
-      					</fieldset>
-      				</div>
-      			</div>
-      			<p class="message">Recommend this product?</p>
-      			<div class="col">
-      				<div class="checkboxCol">
-      					<!-- Checkbox -->
-      					<input type="checkbox" name="pastries" id="pastries-checkbox">
-      					<label for="pastries-checkbox">Yes</label>
-      				</div>
-      			</div>
-      			<p class="message required">Your message*</p>
-      			<!-- Message using textarea -->
-      			<textarea name="message" placeholder="Tell us" required></textarea>
-      			<div class="form_actions">
-      				<!-- Send button (type submit) and Reset button (type reset) -->
-      					<button class="send_us" type="submit" id="send">Send us</button>
-      					<button class="send_us" type="reset" id="reset">Reset</button>
-      			</div>
-      		</form>
-      	</div>
-      	<!-- Footer -->
-      	<footer >
-      		<ol class="menu_footer">
-      			<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-      			<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-      			<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-      			<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-      		</ol>
-      		<div class="footer_beans">
-      			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-      		</div>
-      	</footer>
-      </div>
-      <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-	</script>
+        						<input type="radio" name="foodRating" id="bad" value="Bad">
+        						<label for="bad">Bad</label>
+        					</fieldset>
+        				</div>
+        			</div>
+        			<p class="message">Recommend this product?</p>
+        			<div class="col">
+        				<div class="checkboxCol">
+        					<!-- Checkbox -->
+        					<input type="checkbox" name="pastries" id="pastries-checkbox">
+        					<label for="pastries-checkbox">Yes</label>
+        				</div>
+        			</div>
+        			<p class="message required">Your message*</p>
+        			<!-- Message using textarea -->
+        			<textarea name="message" placeholder="Tell us" required></textarea>
+        			<div class="form_actions">
+        				<!-- Send button (type submit) and Reset button (type reset) -->
+        					<button class="button_send" type="submit" id="send">Send us</button>
+        					<button class="button_reset" type="reset" id="reset">Reset</button>
+        			</div>
+        		</form>
+        	</div>
+        </div>
+        <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
+    </script>
 
 	<!-- Opinions Template -->
 	<script id="template-opinions" type="text/template">
@@ -445,7 +431,8 @@
 	<!-- Reviews cards -->
 	<div class="cart_of_reviews_all" id="form-data">
 		{{#formDataArray}}
-		<div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-search="{{name}}" data-name="{{id}}">
+		<div id="artOpinions" class="cart_of_review" data-category="{{foodRatingValue}}" data-search="{{name}}"
+			data-name="{{id}}">
 			<p class="name">{{name}}</p>
 			<img class="person_img" src="{{url}}" alt="Person">
 			<div class="final_review">{{message}}</div>
@@ -471,70 +458,60 @@
 		<span>Page {{currPage}} of {{pageCount}}</span>
 		<div class="pagesNavigationButtons">
 			{{#prevPage}}
-			<button class="pageNavButton"><a class="menu_link_nav"
-					href="#opinions/{{prevPage}}/{{pageCount}}">Previous</a></button>
+			<a class="menu_link_nav" href="#opinions/{{prevPage}}/{{pageCount}}"><button class="btn btn-prev flex-vh-center">Previous</button></a>
 			{{/prevPage}}
 			{{#nextPage}}
-			<button class="pageNavButton"><a class="menu_link_nav"
-					href="#opinions/{{nextPage}}/{{pageCount}}">Next</a></button>
+			<a class="menu_link_nav" href="#opinions/{{nextPage}}/{{pageCount}}"><button class="btn btn-next flex-vh-center">Next</button></a>
 			{{/nextPage}}
+			<!-- <button class="btn btn-18 flex-vh-center">Next</button> -->
 		</div>
 	</nav>
-	<footer class="container">
-		<ol class="menu_footer">
-			<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-			<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-			<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-			<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-		</ol>
-		<div class="footer_beans">
-			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-		</div>
-	</footer>
 	</script>
 
 	<!-- Opinion Details -->
 	<script id="template-opinion" type="text/template">
-          <main class="about_our_goods">
-          	<div class="col">
-          		<!-- Displayed image and username -->
-          		<img src="{{url}}" alt="pleasure_image" class="food_pleasure">
-          		<b>Photo by {{name}}</b>
-          	</div>
-          	<div class="col">
-          		<div class="about_goods_topic">About this food</div>
-          		<div class="footer_beans">
-          			<span>
-          				<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
-          			</span>
-          		</div>
-          		<div class="about_goods_decr">
-          			<br>
-          			<!-- Message, email and rating of this user -->
-          			<p style="border: 1px;">{{message}}</p>
-          			<br>
-          			<p>Rating: <b>{{foodRatingValue}}</b></p>
-          			<a href="mailto:{{email}}">{{email}}</a>
-          			<button class="view_details" data-edit-id="{{id}}" onclick="editButtonClick('{{id}}')">Edit</button>
-          			<button class="view_details" onclick="window.location.href = `#opinions/1/1`">Back</button>
-          		</div>
-          	</div>
-          </main>
-          <hr style="margin-top: 10px; margin-bottom: 20px;">
-          <div class="col">
-          	<!-- Another user activities -->
-          	<div class="about_goods_topic">Users actions!</div>
-          	<div class="footer_beans">
-          		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-          	</div>
-          	<div class="comments_wrapper">
-          		<form id="comment_form" class="comment_form">
-          			<div class="about_goods_topic">Add your comment!</div>
-          			<input type="text" name="name" id="comment-name" class="comment_input" placeholder="Your name" required>
-          			<textarea name="message" id="comment-message" class="comment_textarea" placeholder="Your comment" required></textarea>
-          			<button class="send_us" type="submit" class="add-comment">Add Comment</button>
-          		</form>
-      	<div class="all_comments_wrapper">
+              <main class="about_our_goods">
+              	<div class="col">
+              		<!-- Displayed image and username -->
+              		<img src="{{url}}" alt="pleasure_image" class="food_opinion">
+              		<b>Photo by {{name}}</b>
+              	</div>
+              	<div class="col">
+              		<div class="about_goods_topic">About this food</div>
+              		<div class="footer_beans">
+              			<span>
+              				<img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark">
+              			</span>
+              		</div>
+              		<div class="about_goods_decr">
+              			<br>
+              			<!-- Message, email and rating of this user -->
+              			<p style="border: 1px;">{{message}}</p>
+              			<br>
+              			<p>Rating: <b>{{foodRatingValue}}</b></p>
+              			<a href="mailto:{{email}}">{{email}}</a>
+
+              			<button class="button_edit btn flex-vh-center" data-edit-id="{{id}}" onclick="editButtonClick('{{id}}')">Edit</button>
+              			<button class="btn-prev btn flex-vh-center" onclick="window.location.href = `#opinions/1/1`">Back</button>
+              		</div>
+              	</div>
+              </main>
+              <hr style="margin-top: 10px; margin-bottom: 20px;">
+              <div class="col">
+              	<!-- Another user activities -->
+              	<div class="about_goods_topic">Users actions!</div>
+              	<div class="footer_beans">
+              		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+              	</div>
+              	<div class="comments_wrapper">
+              		<form id="comment_form" class="comment_form">
+              			<div class="about_goods_topic">Add your comment!</div>
+              			<input type="text" name="name" id="comment-name" class="comment_input" placeholder="Your name" required>
+              			<textarea name="message" id="comment-message" class="comment_textarea" placeholder="Your comment" required></textarea>
+              			<button class="send_us" type="submit" class="add-comment">Add Comment</button>
+              		</form>
+      	</div>
+          		<div class="all_comments_wrapper">
       		<div class="comments_topic">Comments!</div>
       		{{#comments}}
       		<div id="comment" class="comment">
@@ -545,22 +522,10 @@
       		</div>
       		{{/comments}}
       	</div>
-
       </div>
-        	</div>
-        	<footer class="container">
-          		<ol class="menu_footer">
-          			<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-          			<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-          			<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-          			<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-          		</ol>
-          		<div class="footer_beans">
-          			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-          		</div>
-          	</footer>
-          </div>
-	</script>
+      		</div>
+      	</div>
+    </script>
 
 	<!-- Edit Opinion -->
 	<script id="template-editOpinion" type="text/template">
@@ -644,284 +609,296 @@
       		<p class="message required">Your message *</p>
       		<textarea name="edit-message" placeholder="Tell us" required>{{message}}</textarea>
       		<div class="form_actions">
-      			<button class="send_us" type="submit">Save Changes</button>
-      			<button class="view_details" type="reset" onclick="backButtonClick()">Back</button>
+      			<button class="button_send" type="submit">Save Changes</button>
+      			<button class="btn-prev btn flex-vh-center" type="reset" onclick="backButtonClick()">Back</button>
       		</div>
       	</form>
       </div>
-      <footer class="container">
-      	<ol class="menu_footer">
-      		<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-      		<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-      		<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-      		<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-      	</ol>
-      	<div class="footer_beans">
-      		<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-      	</div>
-      </footer>
       <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-	</script>
-
+    </script>
 
 	<!-- Articles as Recipes -->
 
 	<script id="template-articles" type="text/template">
-		<aside class="our_goods_section">
-			<div class="container">
-				<div class="our_goods_topic">Our best Recipes</div>
-				<div class="block">
-					<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
-				</div>
-				<p class="about_goods">
-					Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
-					Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
-				</p>
-			</div>
-			<div class="goods_store">
-				<!-- Rating cards like top 3-->
-				{{#articles}}
-				<div class="food_item_article">
-					<img class="food_item_img" src="{{imageLink}}">
-					<h3 class="food_item_name"><a class="menu_link_recepties" href="{{detailLink}}">{{title}}</a></h3>
-					<p class="food_item_text">recipe by <b>{{author}}</b></p>
-					<div class="rating">
-						<span class="heading">User Rating</span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-					</div>
-				</div>
-				{{/articles}}
-			</div>
-		</aside>
-	</script>
+      <aside class="our_goods_section">
+      	<div class="container">
+      		<div class="our_goods_topic">Our best Recipes</div>
+      		<div class="block">
+      			<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
+      		</div>
+      		<p class="about_goods">
+      			Explore mouthwatering reviews and testimonials from fellow food enthusiasts who have ventured to savor remarkable dishes from various cultures.
+      			Our top picks and dish rankings from around the world will guide you on a flavorful journey across continents.<br>
+      		</p>
+      	</div>
+      	<div class="goods_store">
+      		<!-- Rating cards like top 3-->
+      		{{#articles}}
+      		<div class="food_item_article" onclick="window.location.hash = '{{detailLink}}'">
+      			<img class="food_item_img" src="{{imageLink}}">
+      			<h3 class="food_item_name">{{title}}</h3>
+      			<p class="food_item_text">recipe by <b>{{author}}</b></p>
+      			<div class="rating">
+      				<span class="heading">User Rating</span>
+      				<span class="fa fa-star checked"></span>
+      				<span class="fa fa-star checked"></span>
+      				<span class="fa fa-star checked"></span>
+      				<span class="fa fa-star checked"></span>
+      				<span class="fa fa-star checked"></span>
+      			</div>
+      		</div>
+      		{{/articles}}
+      	</div>
+      	{{#meta}}
+      	<nav class="pagesNavigation">
+      		<span style="color: white;">Page {{offset}} of {{totalPages}}</span>
+      		<div class="pagesNavigationButtons">
+      			{{#prevPage}}
+      			<a class="menu_link_nav" href="#articles/{{prevPage}}/{{totalPages}}"><button class="btn btn-prev">Previous</button></a>
+      			{{/prevPage}}
+      			{{#nextPage}}
+      			<a class="menu_link_nav" href="#articles/{{nextPage}}/{{totalPages}}"><button class="btn btn-next">Next</button></a>
+      			{{/nextPage}}
+      		</div>
+      	{{/meta}}
+      	</nav>
+      </aside>
+    </script>
 
 	<script id="template-articles-error" type="text/template">
 
-    <article>
-        <h2>Article(s) acquisition failed</h2>
-        <p>
-            {{errMessage}}
-        </p>
-    </article>
-
-	</script>
+      <article>
+          <h2>Article(s) acquisition failed</h2>
+          <p>
+              {{errMessage}}
+          </p>
+      </article>
+    </script>
 
 	<script id="template-article" type="text/template">
-		<div class="container">
-			<div class="about_our_goods">
-					{{#imageLink}}
-					<picture>
-						<source srcset="{{imageLink}}">
-						<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="recipe_img">
-					</picture>
-					{{/imageLink}}
-				<div class="col">
-					<div class="about_goods_topic">Recipe Info</div>
-					<div class="footer_beans">
-						<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-					</div>
-					<p class="about_goods_decr">
-						Welcome to the Recipe Exploration Hub!<br>
-						<br>
-						{{content}}
-					</p>
-					<br>
-					<p class="about_goods_decr">
-						Photo by - <b>{{author}}</b>
-					</p>
-					<button onclick="window.location.hash = '{{editLink}}' " class="view_details">Edit</button>
-					<button onclick="window.location.hash = '{{backLink}}' " class="view_details">Back</button>
-					<button onclick="window.location.hash = '{{deleteLink}}' " class="view_details">Delete</button>
-				</div>
+      <div class="container">
+      	<div class="about_our_goods">
+			<div class="col">
+				{{#imageLink}}
+				<picture>
+					<source srcset="{{imageLink}}">
+					<img src="./fig/img/for_your_pleasure/pleasure_image.jpg" alt="pleasure_image" class="recipe_img">
+				</picture>
+				{{/imageLink}}
+				<button onclick="window.location.hash = '{{backLink}}' " class="btn-prev btn flex-vh-center">Back</button>
 			</div>
-		</div>
-		<!-- Footer -->
-		<footer class="container">
-			<ol class="menu_footer">
-				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-				<li class="menu_item"><a href="#opinions/1/" class="menu_link">Reviews</a></li>
-				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-				<li class="menu_item"><a href="#articles" class="menu_link">Recipes</a></li>
-			</ol>
-			<div class="footer_beans">
-				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-			</div>
-		</footer>
-	</script>
+      		<div class="col">
+      			<div class="about_goods_topic">Recipe Info</div>
+      			<div class="footer_beans">
+      				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      			</div>
+      			<p class="about_goods_decr">
+      				Welcome to the Recipe Exploration Hub!<br>
+      				<br>
+      				{{content}}
+      			</p>
+      			<br>
+      			<p class="about_goods_decr">
+      				Photo by - <b>{{author}}</b>
+      				{{#data}}
+      				Photo by - <b>{{text}}</b>
+      			{{/data}}
+      			</p>
+      			<button onclick="window.location.hash = '{{editLink}}' " class="button_edit btn flex-vh-center">Edit</button>
+				  <button id="deleteLink" onclick="window.location.hash = '{{deleteLink}}'" class="btn flex-vh-center">
+					<i class="fa fa-trash flex-vh-center">DELETE</i>
+				</button>
+      		</div>
+      	</div>
+      	<div class="comments_wrapper">
+      		<form id="article_comment_form" class="article_comment_form">
+      			<div class="about_goods_topic">Add your comment!</div>
+      			<input type="text" name="name" id="article-comment-name" class="comment_input" placeholder="Your name" required>
+      			<textarea name="message" id="article-comment-message" class="comment_textarea" placeholder="Your comment" required></textarea>
+      			<button class="send_us" type="submit" class="add-comment">Add Comment</button>
+      		</form>
+      	</div>
+      	<div class="all_article_comments_wrapper">
+      		<div class="comments_topic">Comments!</div>
+      		{{#data}}
+      		<div id="article_comment" class="comment">
+      			<div class="comment_user">
+      				<p>User - {{author}}</p>
+      				<textarea readonly>{{text}}</textarea>
+      			</div>
+      		</div>
+      		{{/data}}
+      	</div>
+      </div>
+    </script>
 
 	<script id="template-article-form" type="text/template">
-		<div class="your_taste">
-			<div class="container">
-				<p class="tell_section">Recipe Edit</p>
-				<div class="footer_beans">
-					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-				</div>
-			</div>
+      		<div class="your_taste">
+      			<div class="container">
+      				<p class="tell_section">Recipe Edit</p>
+      				<div class="footer_beans">
+      					<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      				</div>
+      			</div>
+      		</div>
+      		<div class="edit_opinion_container">
+      			<form method="post" action="#" class="contact-form" id="articleForm">
+      				<div class="row">
+      					<div class="col span-1-of-3">
+      						<label class="required" for="author">Name *</label>
+      					</div>
+      					<div class="col span-1-of-3">
+      						<input type="text" name="author" id="author" value="{{author}}" placeholder="Your name" required>
+      					</div>
+      				</div>
+      				<div class="row">
+      					<div class="col span-1-of-3">
+      						<label class="required" for="title">Title *</label>
+      					</div>
+      					<div class="col span-1-of-3">
+      						<input type="text" name="title" id="title" value="{{title}}" placeholder="Your email" required>
+      					</div>
+      				</div>
+      				<div class="row">
+      					<div class="col span-1-of-3">
+      						  <label class="required" for="imageLink">Image *</label>
+      					</div>
+      					<div class="col span-1-of-3">
+      						<input  type="url" name="imageLink" id="imageLink" value="{{imageLink}}" placeholder="Your image source" required>
+      					</div>
+      				</div>
+      				<div class="row">
+      					<div class="col span-1-of-3">
+      						<label for="tags">Keywords</label>
+      					</div>
+      					<div class="col span-2-of-3">
+      						<datalist id="keyword-list">
+      							<option value="Food">
+      							<option value="Slovakian Food">
+      							<option value="China Food">
+      							<option value="Exotic Food">
+      							<option value="Paradise of food">
+      						</datalist>
+      						<input list="keyword-list" type="text" name="tags" id="tags" value="{{tags}}" placeholder="Enter keywords">
+      					</div>
+      				</div>
+      				<!-- Message -->
+      				<p class="message required">Your message *</p>
+      				<textarea name="content" id="content" placeholder="Tell us" required>{{content}}</textarea>
+      				<div class="form_actions">
+      					<button class="button_send" type="submit">Save</button>
+      					<button class="btn-prev btn flex-vh-center" type="reset" onclick="backButtonClick()">Back</button>
+      				</div>
+      				<button class="none" id="btShowFileUpload">
+      					Upload image
+      				</button>
+      				<fieldset class="none" id="fsetFileUpload">
+      					<legend>Image Upload</legend>
+      					<input type="file" id="flElm" name="file" accept="image/jpeg, image/png"/>
+      					<br />
+      					<button type="button" id="btFileUpload">
+      						Send image to server </button>
+      					<button type="button" id="btCancelFileUpload">
+      						Cancel uploading </button>
+      				</fieldset>
+      				<br>
+      			</form>
+      		</div>
+      	<!-- <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css"> -->
+    </script>
+
+	<script id="template-addArticle" type="text/template">
+      <div class="your_taste">
+      	<div class="container">
+      		<p class="tell_section">Add Recipe</p>
+      		<div class="footer_beans">
+      			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
+      		</div>
+      	</div>
+      </div>
+      <div class="edit_opinion_container">
+      	<form method="post" action="#" class="contact-form" id="addArticleForm">
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<label class="required" for="author">Name *</label>
+      			</div>
+      			<div class="col span-1-of-3">
+      				<input type="text" name="author" id="add-author" placeholder="Your name" required>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<label class="required" for="title">Title *</label>
+      			</div>
+      			<div class="col span-1-of-3">
+      				<input type="text" name="title" id="add-title"  placeholder="Your title" required>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				  <label class="required" for="imageLink">Image *</label>
+      			</div>
+      			<div class="col span-1-of-3">
+      				<input  type="url" name="imageLink" id="add-imageLink"  placeholder="Your image source" required>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col span-1-of-3">
+      				<label for="tags">Keywords</label>
+      			</div>
+      			<div class="col span-2-of-3">
+      				<datalist id="keyword-list">
+      					<option value="Food">
+      					<option value="Slovakian Food">
+      					<option value="China Food">
+      					<option value="Exotic Food">
+      					<option value="Paradise of food">
+      				</datalist>
+      				<input list="keyword-list" type="text" name="tags" id="add-tags"  placeholder="Enter keywords">
+      			</div>
+      		</div>
+      		<!-- Message -->
+      		<p class="message required">Your message *</p>
+      		<textarea name="content" id="add-content" placeholder="Tell us" required></textarea>
+      		<div class="form_actions">
+				<button class="button_send" type="submit" id="send">Send</button>
+				<button class="button_reset" type="reset" id="reset">Reset</button>
+      			<!-- <button class="view_details" type="submit">Send</button> -->
+      		</div>
+      	</form>
+      </div>
+      <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
+    </script>
+
+	<footer class="container">
+		<ol class="menu_footer">
+			<li class="menu_item">
+				<a href="#welcome" onclick="activateLink(this, 0)" class="menu_link active">Food Blog</a>
+			</li>
+			<li class="menu_item">
+				<a href="#pleasure" onclick="activateLink(this, 1)" class="menu_link">Pleasure generator</a>
+			</li>
+			<li class="menu_item">
+				<a href="#opinions/1/1" onclick="activateLink(this, 2)" class="menu_link">Reviews</a>
+			</li>
+			<li class="menu_item">
+				<a href="#articles/1/10" onclick="activateLink(this, 3)" class="menu_link">Recipes</a>
+			</li>
+			<li class="menu_item">
+				<a href="#addOpinion" onclick="activateLink(this, 4)" class="menu_link">Add Review</a>
+			</li>
+			<li class="menu_item">
+				<a href="#addArticle" onclick="activateLink(this, 5)" class="menu_link">Add Recipe</a>
+			</li>
+		</ol>
+		<div class="footer_beans">
+			<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
 		</div>
-		<div class="edit_opinion_container">
-			<form method="post" action="#" class="contact-form" id="articleForm">
-				<div class="row">
-					<div class="col span-1-of-3">
-						<label class="required" for="author">Name *</label>
-					</div>
-					<div class="col span-1-of-3">
-						<input type="text" name="author" id="author" value="{{author}}" placeholder="Your name" required>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						<label class="required" for="title">Title *</label>
-					</div>
-					<div class="col span-1-of-3">
-						<input type="text" name="title" id="title" value="{{title}}" placeholder="Your email" required>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						  <label class="required" for="imageLink">Image *</label>
-					</div>
-					<div class="col span-1-of-3">
-						<input  type="url" name="imageLink" id="imageLink" value="{{imageLink}}" placeholder="Your image source" required>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col span-1-of-3">
-						<label for="tags">Keywords</label>
-					</div>
-					<div class="col span-2-of-3">
-						<datalist id="keyword-list">
-							<option value="Food">
-							<option value="Slovakian Food">
-							<option value="China Food">
-							<option value="Exotic Food">
-							<option value="Paradise of food">
-						</datalist>
-						<input list="keyword-list" type="text" name="tags" id="tags" value="{{tags}}" placeholder="Enter keywords">
-					</div>
-				</div>
-				<!-- Message -->
-				<p class="message required">Your message *</p>
-				<textarea name="content" id="content" placeholder="Tell us" required>{{content}}</textarea>
-				<div class="form_actions">
-					<button class="view_details" type="submit">Save</button>
-					<button class="view_details" type="reset" onclick="backButtonClick()">Back</button>
-				</div>
-				<button class="none" id="btShowFileUpload">
-					Upload image
-				</button>
-				<fieldset class="none" id="fsetFileUpload">
-					<legend>Image Upload</legend>
-					<input type="file" id="flElm" name="file" accept="image/jpeg, image/png"/>
-					<br />
-					<button type="button" id="btFileUpload">
-						Send image to server </button>
-					<button type="button" id="btCancelFileUpload">
-						Cancel uploading </button>
-				</fieldset>
-				<br>
-			</form>
-		</div>
-		<footer class="container">
-			<ol class="menu_footer">
-				<li class="menu_item"><a href="#welcome" class="menu_link">Food Blog</a></li>
-				<li class="menu_item"><a href="#pleasure" class="menu_link">For your pleasure</a></li>
-				<li class="menu_item"><a href="#opinions/1/1" class="menu_link">Reviews</a></li>
-				<li class="menu_item"><a href="#addOpinion" class="menu_link">Contact us</a></li>
-			</ol>
-			<div class="footer_beans">
-				<span> <img src="./fig/img/main_page/beans_dark.png" alt="Beans Dark" class="beans_dark"></span>
-			</div>
-		</footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <article>
-        <h2>{{formTitle}}</h2> <br><br>
-
-        <form id="articleForm">
-            <label for="author">Author:</label>
-            <input type="text" name="author" id="author" value="{{author}}" size="50" 
-                   title="Article author, max. length 100 characters." 
-                   maxlength="100" placeholder="e.g. Ján Trieska" />
-            <br>
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title" value="{{title}}" size="50"  
-                   maxlength="100" pattern="\S[\S\s]*" placeholder="e.g. My story." required 
-                   title="Article title, mandatory item, max. length: 100 characters. 
-The first character must not be a space."  />
-            <br>
-            <label for="imageLink">Image (url):</label>
-            <input type="url" name="imageLink" id="imageLink" value="{{imageLink}}" size="50" 
-                   title="Image URL, max. length 100 characters." maxlength="100"/>
-            <br>
-            <label></label>
-            <button type="button" id="btShowFileUpload">
-                Upload image
-            </button>
-
-            <fieldset class="added hiddenElm" id="fsetFileUpload">
-                <legend>Image Upload</legend>
-                <input type="file" id="flElm" name="file" accept="image/jpeg, image/png"/>
-                <br />
-                <button type="button" id="btFileUpload">
-                    Send image to server </button>
-                <button type="button" id="btCancelFileUpload">
-                    Cancel uploading </button>
-            </fieldset>
-
-
-            <br>
-            <label for="content">Article content:</label>
-            <textarea
-                    name="content" id="content" spellcheck="true" lang="sk"
-                    cols="50" rows="20" required
-                    title="Article content, mandatory item, can be plain text or in HTML.">
-              {{content}}
-            </textarea>
-            <br>
-            <label for="tags">Keywords:</label>
-            <input  type="text" name="tags" id="tags" value="{{tags}}" size="50"
-                    title="Keyword list, comma separated." placeholder="e.g. village, drama" />
-            <br> <br>
-            <button type="reset"> Reset Form </button>
-            <button type="submit"> {{submitBtTitle}} </button>
-
-        </form>
-    </article>
-
-    <footer>
-        <a href="{{backLink}}" class="linkAsButton"><< Back</a>
-        <a href="#menuTitle" class="linkAsButton">Up to the menu</a>
-    </footer> -->
-	<link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-	</script>
+	</footer>
 
 	<script src="https://accounts.google.com/gsi/client" async defer></script>
 	<script type="module" src="js/index.js"></script>
 	<script src="js/script.js"></script>
 </body>
+
 </html>

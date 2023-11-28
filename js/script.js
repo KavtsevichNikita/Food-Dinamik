@@ -1,4 +1,3 @@
-
 // Get Google auth data and decode them
 
 function decodeJwtResponse(credential) {
@@ -37,45 +36,40 @@ function signOut() {
 function updateLoginStatus() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-
   const loginButton = document.getElementById("loginButton");
   const logoutButton = document.getElementById("logoutButton");
 
-  const loginButtonBurger = document.getElementById("loginButtonBurger");
-  const logoutButtonBurger = document.getElementById("logoutButtonBurger");
   const usernameDisplay = document.getElementById("usernameDisplay");
   const userName = localStorage.getItem("userName");
   const userEmail = localStorage.getItem("userEmail");
 
   if (isLoggedIn) {
-    closeMenu()
+    closeMenu();
     if (loginButton) loginButton.style.display = "none";
-    if (loginButtonBurger) loginButton.style.display = "none";
     if (logoutButton) logoutButton.style.display = "block";
-    if (logoutButtonBurger) logoutButton.style.display = "block";
     if (usernameDisplay) {
       usernameDisplay.textContent = `Hi, ${userName}`;
       usernameDisplay.style.display = "block";
-      document.getElementById("name").value = userName
-      document.getElementById("email").value = userEmail
+      document.getElementById("add-author").value = userName;
+      document.getElementById("name").value = userName;
+      document.getElementById("email").value = userEmail;
     }
   } else {
     if (loginButton) loginButton.style.display = "block";
-    if (loginButtonBurger) loginButton.style.display = "block";
     if (logoutButton) logoutButton.style.display = "none";
-    if (logoutButtonBurger) logoutButton.style.display = "none";
     if (usernameDisplay) {
       usernameDisplay.style.display = "none";
     }
 
-    if (document.getElementById("name") && document.getElementById("email") ) {
-      document.getElementById("name").value = ""
-      document.getElementById("email").value = ""
+    if (document.getElementById("name") && document.getElementById("email")) {
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("add-author").value = "";
     }
   }
 }
 
-// Edit 
+// Edit
 
 function editButtonClick(opinionId) {
   window.location.href = `#editOpinion/${opinionId}`;
@@ -87,16 +81,15 @@ function backButtonClick() {
   window.history.back();
 }
 
-// Welcome page
-
-function welcomePage() {
-  window.location.hash = `#welcome`;
-}
-
 // Pleasure page
 
 function pleasurePage() {
-  window.location.hash = "#pleasure";
+  var svgLink = document.querySelector("#svg-link");
+
+  if (svgLink) {
+    activateLink(svgLink, 1);
+    window.location.hash = "#pleasure";
+  }
 }
 
 // Delete function
@@ -157,7 +150,6 @@ function filterOpinions(category) {
     } else {
       opinion.style.display = "none";
     }
-    
   });
 }
 
@@ -176,13 +168,57 @@ function searchOpinions() {
       opinion.style.display = "none";
     }
   });
-  
 }
 
 // Close burger menu
 
-function closeMenu() {
-  document.getElementById('menu__toggle').checked = false;
+function closeMenu(link, index) {
+  document.getElementById("menu__toggle").checked = false;
+
+  if (link && link.classList) {
+    var burgerLinks = document.querySelectorAll(".menu_link_burger");
+    burgerLinks.forEach(function (item, i) {
+      item.classList.remove("active_burger");
+      if (i === index) {
+        item.classList.add("active_burger");
+      }
+    });
+
+    var normalLinks = document.querySelectorAll(".menu_link");
+    normalLinks.forEach(function (item) {
+      item.classList.remove("active");
+    });
+    normalLinks[index].classList.add("active");
+  }
+}
+
+// Change header active page color
+
+function activateLink(link, index) {
+  if (link && link.classList) {
+    var normalLinks = document.querySelectorAll(".menu_link");
+    normalLinks.forEach(function (item, i) {
+      item.classList.remove("active");
+      if (i === index) {
+        item.classList.add("active");
+      }
+    });
+
+    var burgerLinks = document.querySelectorAll(".menu_link_burger");
+    burgerLinks.forEach(function (item) {
+      item.classList.remove("active_burger");
+    });
+    burgerLinks[index].classList.add("active_burger");
+  }
+}
+
+function handleSVGClick() {
+  var svgLink = document.querySelector("#svg-link");
+
+  if (svgLink) {
+    activateLink(svgLink, 0);
+    window.location.hash = `#welcome`;
+  }
 }
 
 // Check Login
