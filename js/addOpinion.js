@@ -78,6 +78,11 @@ export default function addOpinion(event){
         const totalOpinions = opinions.length;
         const newPageNumber = Math.ceil(totalOpinions / opinionsPerPage);
     
-        window.location.hash = `#opinions/${newPageNumber}/${Math.ceil(totalOpinions / opinionsPerPage)}`;
+        var sendButton = document.querySelector("#send");
+
+        if (sendButton) {
+            activateLink(sendButton, 2);
+            window.location.hash = `#opinions/${newPageNumber}/${Math.ceil(totalOpinions / opinionsPerPage)}`;
+        }
     }
 }

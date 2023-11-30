@@ -212,6 +212,17 @@ function activateLink(link, index) {
   }
 }
 
+function changeLikedStatus(icon) {
+  icon.classList.toggle('fa-heart-o');
+  icon.classList.toggle('fa-heart');
+
+  if (icon.classList.contains('fa-heart-o')) {
+      document.querySelector('.fa-heart').style.display = 'none';
+  } else {
+      document.querySelector('.fa-heart').style.display = 'inline-block';
+  }
+}
+
 function handleSVGClick() {
   var svgLink = document.querySelector("#svg-link");
 

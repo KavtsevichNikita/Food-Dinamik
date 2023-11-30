@@ -6,9 +6,9 @@ const apiKey = "1JU1eeLRTR-iImZCjotYD4d9C72tDXrdCquPNP51uZw";
 const query = "Food";
 const unsplashQuery = "Burgers";
 const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${unsplashQuery}&client_id=${apiKey}`;
-const urlBase = "https://wt.kpi.fei.tuke.sk/api"
-const articlesPerPage = 7; 
-
+const urlBase = "https://wt.kpi.fei.tuke.sk/api";
+const articlesPerPage = 4;
+const commentsPerPage = 1;
 
 export default [
   {
@@ -36,7 +36,8 @@ export default [
         "template-addOpinion"
       ).innerHTML;
       document.getElementById("name").value = localStorage.getItem("userName");
-      document.getElementById("email").value = localStorage.getItem("userEmail");
+      document.getElementById("email").value =
+        localStorage.getItem("userEmail");
       document.getElementById("contact-form").onsubmit = addOpinion;
     },
   },
@@ -45,51 +46,46 @@ export default [
     target: "router-view",
     getTemplate: (targetElm, opinionId) => {
       opinionDetails(targetElm, opinionId);
-      document.getElementById("comment-name").value = localStorage.getItem("userName");
-      document.getElementById("comment_form").onsubmit = function(event) {
-        event.preventDefault()
-        addComment(opinionId)
-      }
+      document.getElementById("comment-name").value =
+        localStorage.getItem("userName");
+      document.getElementById("comment_form").onsubmit = function (event) {
+        event.preventDefault();
+        addComment(opinionId);
+      };
     },
   },
   {
     hash: "editOpinion",
     target: "router-view",
     getTemplate: editOpinion,
-  },  
+  },
   {
-    hash:"article",
-    target:"router-view",
-    getTemplate: (targetElm,artIdFromHash,offsetFromHash,totalCountFromHash) => {
-      fetchAndDisplayArticleDetail(targetElm,artIdFromHash,offsetFromHash,totalCountFromHash)
-      document.getElementById("article_comment_form").onsubmit = function(event) {
-        event.preventDefault()
-        addArticleComment(artIdFromHash)
-      }
-    } 
-      
-  },   
+    hash: "article",
+    target: "router-view",
+    getTemplate: fetchAndDisplayArticleDetail
+  },
   {
-    hash:"articles",
-    target:"router-view",
-    getTemplate: fetchAndDisplayArticles
-},
-{
-  hash:"artEdit",
-  target:"router-view",
-  getTemplate: editArticle
-},
-{
-  hash:"addArticle",
-  target:"router-view",
-  getTemplate: (targetElm) => {
-    document.getElementById(targetElm).innerHTML = document.getElementById(
-      "template-addArticle"
-    ).innerHTML;
-    document.getElementById("add-author").value = localStorage.getItem("userName");
-    document.getElementById("addArticleForm").onsubmit = addOpinionArticle;
-  }
-}, 
+    hash: "articles",
+    target: "router-view",
+    getTemplate: fetchAndDisplayArticles,
+  },
+  {
+    hash: "artEdit",
+    target: "router-view",
+    getTemplate: editArticle,
+  },
+  {
+    hash: "addArticle",
+    target: "router-view",
+    getTemplate: (targetElm) => {
+      document.getElementById(targetElm).innerHTML = document.getElementById(
+        "template-addArticle"
+      ).innerHTML;
+      document.getElementById("add-author").value =
+        localStorage.getItem("userName");
+      document.getElementById("addArticleForm").onsubmit = addOpinionArticle;
+    },
+  },
 ];
 
 
@@ -119,7 +115,7 @@ function opinionsHTML(targetElm, currentPage) {
 
   if (formDataArray) {
     opinions = JSON.parse(formDataArray);
-    
+
     opinions.forEach((opinion) => {
       opinion.created = new Date().toLocaleDateString();
     });
@@ -252,7 +248,7 @@ function editOpinion(targetElm, opinionId) {
         pastries: editForm.querySelector('[name="edit-pastries"]').checked,
         message: editForm.querySelector('[name="edit-message"]').value,
         created: opinion.created,
-        comments: opinion.comments
+        comments: opinion.comments,
       };
       const index = opinions.findIndex(
         (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
@@ -282,20 +278,18 @@ function opinionDetails(targetElm, opinionId) {
   );
 
   if (opinion) {
-
     const targetElement = document.getElementById(targetElm);
     const template = document.getElementById("template-opinion").innerHTML;
     const renderedTemplate = Mustache.render(template, opinion);
 
     targetElement.innerHTML = renderedTemplate;
-
   } else {
     document.getElementById(targetElm).innerHTML = "Opinion not found.";
   }
 }
 
 function addComment(opinionId) {
-  const formDataArray = localStorage.myTreesComments || '[]';
+  const formDataArray = localStorage.myTreesComments || "[]";
   let opinions = JSON.parse(formDataArray);
 
   const nameInput = document.getElementById("comment-name");
@@ -311,11 +305,9 @@ function addComment(opinionId) {
     created: new Date().toLocaleDateString(),
   };
 
-  // Add the new comment to the opinion's comments array
   if (opinionIndex !== -1) {
     opinions[opinionIndex].comments.push(newComment);
   } else {
-    // If opinion not found, create a new opinion with the comment
     opinions.push({ name: opinionId, comments: [newComment] });
   }
 
@@ -333,7 +325,7 @@ function addComment(opinionId) {
   commentWrapper.insertAdjacentHTML("beforeend", commentTemplate);
 
   localStorage.myTreesComments = JSON.stringify(opinions);
-  
+
   if (!localStorage.getItem("userName")) {
     nameInput.value = "";
   }
@@ -341,259 +333,90 @@ function addComment(opinionId) {
   messageInput.value = "";
 }
 
-async function fetchAndDisplayArticles(targetElm, offsetFromHash, totalCountFromHash){
 
-  const offset = parseInt(offsetFromHash);
+///  Articles functions
 
+async function fetchAndDisplayArticles(
+  targetElm,
+  offsetFromHash,
+  totalCountFromHash
+) {
+  const offset = Number(offsetFromHash);
   const totalCount = Number(totalCountFromHash);
-  const totalPages = Math.ceil(totalCount / articlesPerPage);
-
 
   let urlQuery = "";
 
-  if (offset && totalCount){
-      urlQuery=`?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
-      // urlQuery=`?offset=${offset}&max=${articlesPerPage}`;
-  }else{
-      urlQuery=`?max=${articlesPerPage}&tag=${query}`;
-      // urlQuery=`?max=${articlesPerPage}`;
+  if (offset && totalCount) {
+    urlQuery=`?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
+    // urlQuery = `?offset=${offset}&max=${articlesPerPage}`;
+  } else {
+    urlQuery=`?max=${articlesPerPage}&tag=${query}`;
+    // urlQuery = `?max=${articlesPerPage}`;
   }
 
   const url = `${urlBase}/article${urlQuery}`;
 
-
-  function reqListener () {
-      if (this.status == 200) {
-          const responseJSON = JSON.parse(this.responseText)
-
-          responseJSON.meta.totalPages = totalPages;
-
-        if (offset > 1) {
-          responseJSON.meta.prevPage = offset - 1;
-        }
-        
-        if (offset < responseJSON.meta.totalPages) {
-          responseJSON.meta.nextPage = offset + 1;
-        }
-
-        if (offset > 1 && offset <= totalPages) {
-          const startIndex = (offset - 1) * articlesPerPage;
-          const endIndex = startIndex + offset;
-          responseJSON.articles = responseJSON.articles.slice(startIndex, endIndex);
-        }
-      
-          addArtDetailLink2ResponseJson(responseJSON);
-          document.getElementById(targetElm).innerHTML =
-              Mustache.render(
-                  document.getElementById("template-articles").innerHTML,
-                  responseJSON
-              );
-
-      } else {
-          const errMsgObj = {errMessage:this.responseText};
-          document.getElementById(targetElm).innerHTML =
-              Mustache.render(
-                  document.getElementById("template-articles-error").innerHTML,
-                  errMsgObj
-              );
-      }
-      
-  }
-
-  console.log(url)
-  var ajax = new XMLHttpRequest(); 
-  ajax.addEventListener("load", reqListener); 
-  ajax.open("GET", url, true); 
-  ajax.send();
-}
-
-function fetchAndDisplayArticleDetail(targetElm,artIdFromHash,offsetFromHash,totalCountFromHash) {
-  fetchAndProcessArticle(...arguments,false);
-}
-
-async function fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash, forEdit) {
-  const url = `${urlBase}/article/${artIdFromHash}`;
-
   function reqListener() {
     if (this.status == 200) {
       const responseJSON = JSON.parse(this.responseText);
-      responseJSON.data = [];
 
-      if (forEdit) {
-        getComments(artIdFromHash, responseJSON);
-        responseJSON.formTitle = "Article Edit";
-        responseJSON.submitBtTitle = "Save article";
-        responseJSON.backLink = `#article/${artIdFromHash}/${offsetFromHash}/${totalCountFromHash}`;
-        document.getElementById(targetElm).innerHTML =
-          Mustache.render(
-            document.getElementById("template-article-form").innerHTML,
-            responseJSON
-          );
-        if (!window.artFrmHandler) {
-          window.artFrmHandler = new articleFormsHandler("https://wt.kpi.fei.tuke.sk/api");
-        }
-        window.artFrmHandler.assignFormAndArticle("articleForm", "hiddenElm", artIdFromHash, offsetFromHash, totalCountFromHash);
-      } else {
-        getComments(artIdFromHash, responseJSON);
-        responseJSON.backLink = `#articles/${offsetFromHash}/${totalCountFromHash}`;
-        responseJSON.editLink = `#artEdit/${responseJSON.id}/${offsetFromHash}/${totalCountFromHash}`;
-        responseJSON.deleteLink = `#artDelete/${responseJSON.id}/${offsetFromHash}/${totalCountFromHash}`;
 
-        document.getElementById(targetElm).innerHTML =
-          Mustache.render(
-            document.getElementById("template-article").innerHTML,
-            responseJSON
-          );
-
-        // Add event listener for the delete link
-        const deleteLink = document.getElementById("deleteLink"); // Assuming you have an element with id "deleteLink"
-        deleteLink.addEventListener("click", function () {
-          deleteArticle(responseJSON.id, offsetFromHash, totalCountFromHash);
-        });
-
-        console.log(responseJSON);
+      if (offset > 1) {
+        responseJSON.meta.prevPage = offset - 1;
       }
+
+      if (offset < totalCount) {
+        responseJSON.meta.nextPage = offset + 1;
+      }
+
+      addArtDetailLink2ResponseJson(responseJSON);
+      document.getElementById(targetElm).innerHTML = Mustache.render(
+        document.getElementById("template-articles").innerHTML,
+        responseJSON
+      );
     } else {
       const errMsgObj = { errMessage: this.responseText };
-      document.getElementById(targetElm).innerHTML =
-        Mustache.render(
-          document.getElementById("template-articles-error").innerHTML,
-          errMsgObj
-        );
+      document.getElementById(targetElm).innerHTML = Mustache.render(
+        document.getElementById("template-articles-error").innerHTML,
+        errMsgObj
+      );
     }
   }
 
+  console.log(url);
   var ajax = new XMLHttpRequest();
   ajax.addEventListener("load", reqListener);
   ajax.open("GET", url, true);
   ajax.send();
 }
 
-function getComments(artIdFromHash, responseJSON) {
-  const commentUrl = `${urlBase}/article/${artIdFromHash}/comment`;
-
-  function commentsReqListener() {
-    if (this.status === 200) {
-      const comments = JSON.parse(this.responseText);
-      responseJSON.data = comments.comments;
-
-          } else {
-      console.error("Failed to fetch comments:", this.responseText);
-    }
-  }
-
-  var commentsAjax = new XMLHttpRequest();
-  commentsAjax.addEventListener("load", commentsReqListener);
-  commentsAjax.open("GET", commentUrl, true);
-  commentsAjax.send();
+function fetchAndDisplayArticleDetail(
+  targetElm,
+  artIdFromHash,
+  offsetFromHash,
+  totalCountFromHash
+) {
+  fetchAndProcessArticle(...arguments, false);
 }
 
-function addArticleComment(opinionId) {
-  const nameInput = document.getElementById("article-comment-name");
-  const messageInput = document.getElementById("article-comment-message");
-
-  const newComment = {
-    text: nameInput.value,
-    author: messageInput.value,
-    created: new Date().toLocaleDateString(),
-  };
-
-  const commentUrl = `${urlBase}/article/${opinionId}/comment`;
-
-  const postData = JSON.stringify(newComment);
-
-  var commentAjax = new XMLHttpRequest();
-  commentAjax.addEventListener("load", commentReqListener);
-  commentAjax.open("POST", commentUrl, true);
-  commentAjax.setRequestHeader("Content-Type", "application/json");
-  commentAjax.send(postData);
-
-  function commentReqListener() {
-    console.log(commentAjax.responseText);
-    if (commentAjax.status === 201) {
-      console.log("Comment added successfully");
-
-      const commentWrapper = document.querySelector(".all_article_comments_wrapper");
-      const commentTemplate = `
-        <div class="article_comment">
-          <div class="comment_user">
-            <p>User - ${newComment.author}</p>
-            <textarea readonly>${newComment.text}</textarea>
-          </div>
-        </div>
-      `;
-      commentWrapper.insertAdjacentHTML("beforeend", commentTemplate);
-
-    } else {
-      console.error("Failed to add comment:", commentAjax.responseText);
-    }
-  }
+function editArticle(
+  targetElm,
+  artIdFromHash,
+  offsetFromHash,
+  totalCountFromHash
+) {
+  fetchAndProcessArticle(...arguments, true);
 }
 
-
-// function addArticleComment(opinionId) {
-//   const nameInput = document.getElementById("article-comment-name");
-//   const messageInput = document.getElementById("article-comment-message");
-
-//   const newComment = {
-//     text: nameInput.value,
-//     author: messageInput.value,
-//     created: new Date().toLocaleDateString(),
-//   };
-
-//   const commentUrl = `${urlBase}/article/${opinionId}/comment`;
-
-//   const postData = JSON.stringify(newComment);
-
-//   function commentReqListener() {
-//     console.log(this.responseText);
-//     if (this.status === 201) {
-//       console.log("Comment added successfully");
-
-//       // const commentWrapper = document.querySelector(".all_article_comments_wrapper");
-
-//       // const commentTemplate = `
-//       //   <div class="comment">
-//       //     <div class="comment_user">
-//       //       <p>User - ${newComment.author}</p>
-//       //       <textarea readonly>${newComment.text}</textarea>
-//       //     </div>
-//       //   </div>
-//       // `;
-    
-//       // commentWrapper.insertAdjacentHTML("beforeend", commentTemplate);
-
-//     } else {
-//       console.error("Failed to add comment:", this.responseText);
-//     }
-//   }
-
-//   var commentAjax = new XMLHttpRequest();
-//   commentAjax.addEventListener("load", commentReqListener);
-//   commentAjax.open("POST", commentUrl, true);
-//   commentAjax.setRequestHeader("Content-Type", "application/json");
-//   commentAjax.send(postData);
-// }
-
-
-function editArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash) {
-  fetchAndProcessArticle(...arguments,true);
-}   
-
-function addArtDetailLink2ResponseJson(responseJSON){
-  responseJSON.articles = responseJSON.articles.map(
-    article =>(
-      {
-        ...article,
-        detailLink:`#article/${article.id}/${responseJSON.meta.offset}/${responseJSON.meta.totalCount}`
-      }
-    )
-  );
-}                                      
+function addArtDetailLink2ResponseJson(responseJSON) {
+  responseJSON.articles = responseJSON.articles.map((article) => ({
+    ...article,
+    detailLink: `#article/${article.id}/${responseJSON.meta.offset}/${responseJSON.meta.totalCount}`,
+  }));
+}
 
 function addOpinionArticle(event) {
-
-  event.preventDefault()
+  event.preventDefault();
   const author = document.getElementById("add-author").value;
   const title = document.getElementById("add-title").value;
   const imageLink = document.getElementById("add-imageLink").value;
@@ -609,42 +432,228 @@ function addOpinionArticle(event) {
   };
 
   fetch(`${urlBase}/article`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(opinionData),
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-    window.location.hash = "#articles/1/10"
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
 
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+      var sendButton = document.querySelector("#send_article");
+
+      if (sendButton) {
+          activateLink(sendButton, 3);
+          window.location.hash = `#articles/1/500`;
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
-async function deleteArticle(artId, offset, totalCount) {
+async function deleteArticle(artId) {
+  console.log("Deleting article:", artId);
+
   const deleteUrl = `${urlBase}/article/${artId}`;
 
   try {
     const response = await fetch(deleteUrl, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
+    console.log("Fetch completed");
+
     if (response.ok) {
-      console.log('Article deleted successfully');
-      window.location.hash = "#articles/1/10"
+      console.log("Article deleted successfully");
+      window.location.hash = "#articles/1/10";
     } else {
-      console.error('Error deleting article');
+      console.error("Error deleting article");
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
+  }
+}
+
+async function fetchAndProcessArticle(
+  targetElm,
+  artIdFromHash,
+  offsetFromHash,
+  totalCountFromHash,
+  forEdit
+) {
+  const url = `${urlBase}/article/${artIdFromHash}`;
+
+  function reqListener() {
+    if (this.status == 200) {
+      const responseJSON = JSON.parse(this.responseText);
+      responseJSON.data = [];
+
+      if (forEdit) {
+
+        responseJSON.formTitle = "Article Edit";
+        responseJSON.submitBtTitle = "Save article";
+        responseJSON.backLink = `#article/${artIdFromHash}/${offsetFromHash}/${totalCountFromHash}`;
+
+        document.getElementById(targetElm).innerHTML = Mustache.render(
+          document.getElementById("template-article-form").innerHTML,
+          responseJSON
+        );
+        if (!window.artFrmHandler) {
+          window.artFrmHandler = new articleFormsHandler(
+            "https://wt.kpi.fei.tuke.sk/api"
+          );
+        }
+        window.artFrmHandler.assignFormAndArticle(
+          "articleForm",
+          "hiddenElm",
+          artIdFromHash,
+          offsetFromHash,
+          totalCountFromHash
+        );
+      } else {
+
+        getComments(artIdFromHash, responseJSON, function (updatedResponse) {
+          updatedResponse.backLink = `#articles/${offsetFromHash}/${totalCountFromHash}`;
+          updatedResponse.editLink = `#artEdit/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
+          updatedResponse.deleteLink = `#artDelete/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
+
+          document.getElementById(targetElm).innerHTML = Mustache.render(
+            document.getElementById("template-article").innerHTML,
+            updatedResponse
+          );
+
+          // const commentForm = document.getElementById("comentar");
+          // commentForm.addEventListener("submit", async function (event) {
+          //   event.preventDefault();
+          //   addArticleComment(updatedResponse.id);
+          // });
+          
+          // document.getElementById("comentar").addEventListener("submit", async function (event) {
+          //   event.preventDefault();
+          //   await addArticleComment(artIdFromHash);
+            
+          //   await getComments(artIdFromHash, responseJSON, callback);
+          // });
+
+          const deleteLink = document.getElementById("deleteLink");
+          deleteLink.addEventListener("click", function () {
+            deleteArticle(updatedResponse.id, offsetFromHash, totalCountFromHash);
+          });
+        });
+      }
+    } else {
+      const errMsgObj = { errMessage: this.responseText };
+      document.getElementById(targetElm).innerHTML = Mustache.render(
+        document.getElementById("template-articles-error").innerHTML,
+        errMsgObj
+      );
+    }
+  }
+
+  var ajax = new XMLHttpRequest();
+  ajax.addEventListener("load", reqListener);
+  ajax.open("GET", url, true);
+  ajax.send();
+}
+
+async function addArticleComment(artIdFromHash, pagination) {
+  try {
+    const nameInput = document.getElementById("article-comment-name").value;
+    const messageInput = document.getElementById("article-comment-message").value;
+
+    const offset = pagination.offset
+    const max = pagination.max
+    const totalCount = pagination.totalCount
+
+
+    // if (offset > 1) {
+    //   pagination.prevPage = offset - 1;
+    // }
+
+    // if (offset < totalCount) {
+    //   pagination.nextPage = offset + 1;
+    // }
+
+    const newComment = {
+      text: messageInput,
+      author: nameInput,
+      created: new Date().toLocaleDateString(),
+    };
+
+      // const offset = Number(offsetFromHash);
+
+    const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${offset}&max=${commentsPerPage}`;
+
+    const response = await fetch(commentUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newComment),
+    });
+
+    if (response.ok) {
+      console.log("Comment added successfully");
+
+      const nextPageOffset = offset + commentsPerPage;
+      pagination.offset = nextPageOffset;
+
+      if (nextPageOffset < totalCount) {
+        pagination.nextPage = nextPageOffset;
+      } else {
+        pagination.nextPage = null; // No more pages
+      }
+
+      const prevPageOffset = offset - commentsPerPage;
+      if (prevPageOffset >= 0) {
+        pagination.prevPage = prevPageOffset;
+      } else {
+        pagination.prevPage = null; // No previous page
+      }
+
+      console.log(pagination)
+
+      document.getElementById(targetElm).innerHTML = Mustache.render(
+        document.getElementById("template-article").innerHTML,
+        pagination
+      );
+
+    } else {
+      console.error("Failed to add comment:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+async function getComments(artIdFromHash, responseJSON, callback) {
+  const commentUrl = `${urlBase}/article/${artIdFromHash}/comment`;
+
+  try {
+    const response = await fetch(commentUrl);
+
+    if (response.ok) {
+      const comments = await response.json();
+      responseJSON.data = comments.comments;
+      callback(responseJSON);
+x
+      const commentForm = document.getElementById("comentar");
+      commentForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        await addArticleComment(artIdFromHash, comments.meta);
+        await getComments(artIdFromHash, responseJSON, callback);
+      });
+    } else {
+      console.error("Failed to fetch comments:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }
 
