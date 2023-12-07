@@ -7,8 +7,8 @@ const query = "Food";
 const unsplashQuery = "Burgers";
 const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${unsplashQuery}&client_id=${apiKey}`;
 const urlBase = "https://wt.kpi.fei.tuke.sk/api";
-const articlesPerPage = 4;
-const commentsPerPage = 1;
+const articlesPerPage = 3
+const commentsPerPage = 2;
 
 export default [
   {
@@ -27,6 +27,12 @@ export default [
     hash: "opinions",
     target: "router-view",
     getTemplate: opinionsHTML,
+  },
+
+  {
+    hash: "comments",
+    target: "router-view",
+    getTemplate: getComments
   },
   {
     hash: "addOpinion",
@@ -317,7 +323,7 @@ function addComment(opinionId) {
     <div class="comment">
       <div class="comment_user">
         <p>User - ${newComment.name}</p>
-        <textarea readonly>${newComment.message}</textarea>
+        <p>${newComment.message}</p>
       </div>
     </div>
   `;
@@ -334,6 +340,10 @@ function addComment(opinionId) {
 }
 
 
+
+
+
+
 ///  Articles functions
 
 async function fetchAndDisplayArticles(
@@ -347,6 +357,7 @@ async function fetchAndDisplayArticles(
   let urlQuery = "";
 
   if (offset && totalCount) {
+
     urlQuery=`?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
     // urlQuery = `?offset=${offset}&max=${articlesPerPage}`;
   } else {
@@ -360,7 +371,6 @@ async function fetchAndDisplayArticles(
     if (this.status == 200) {
       const responseJSON = JSON.parse(this.responseText);
 
-
       if (offset > 1) {
         responseJSON.meta.prevPage = offset - 1;
       }
@@ -368,7 +378,7 @@ async function fetchAndDisplayArticles(
       if (offset < totalCount) {
         responseJSON.meta.nextPage = offset + 1;
       }
-
+      
       addArtDetailLink2ResponseJson(responseJSON);
       document.getElementById(targetElm).innerHTML = Mustache.render(
         document.getElementById("template-articles").innerHTML,
@@ -383,7 +393,6 @@ async function fetchAndDisplayArticles(
     }
   }
 
-  console.log(url);
   var ajax = new XMLHttpRequest();
   ajax.addEventListener("load", reqListener);
   ajax.open("GET", url, true);
@@ -411,7 +420,7 @@ function editArticle(
 function addArtDetailLink2ResponseJson(responseJSON) {
   responseJSON.articles = responseJSON.articles.map((article) => ({
     ...article,
-    detailLink: `#article/${article.id}/${responseJSON.meta.offset}/${responseJSON.meta.totalCount}`,
+    detailLink: `#article/${article.id}/${responseJSON.meta.offset}/${responseJSON.meta.totalCount}`  
   }));
 }
 
@@ -499,6 +508,7 @@ async function fetchAndProcessArticle(
         responseJSON.formTitle = "Article Edit";
         responseJSON.submitBtTitle = "Save article";
         responseJSON.backLink = `#article/${artIdFromHash}/${offsetFromHash}/${totalCountFromHash}`;
+        
 
         document.getElementById(targetElm).innerHTML = Mustache.render(
           document.getElementById("template-article-form").innerHTML,
@@ -518,15 +528,20 @@ async function fetchAndProcessArticle(
         );
       } else {
 
-        getComments(artIdFromHash, responseJSON, function (updatedResponse) {
+        const currentPage = 1;
+
+        getComments(artIdFromHash, responseJSON, currentPage, function (updatedResponse) {
           updatedResponse.backLink = `#articles/${offsetFromHash}/${totalCountFromHash}`;
           updatedResponse.editLink = `#artEdit/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
           updatedResponse.deleteLink = `#artDelete/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
+
+
 
           document.getElementById(targetElm).innerHTML = Mustache.render(
             document.getElementById("template-article").innerHTML,
             updatedResponse
           );
+
 
           // const commentForm = document.getElementById("comentar");
           // commentForm.addEventListener("submit", async function (event) {
@@ -545,6 +560,8 @@ async function fetchAndProcessArticle(
           deleteLink.addEventListener("click", function () {
             deleteArticle(updatedResponse.id, offsetFromHash, totalCountFromHash);
           });
+
+            document.getElementById("article-comment-name").value = localStorage.getItem("userName")
         });
       }
     } else {
@@ -562,23 +579,10 @@ async function fetchAndProcessArticle(
   ajax.send();
 }
 
-async function addArticleComment(artIdFromHash, pagination) {
+async function addArticleComment(artIdFromHash) {
   try {
     const nameInput = document.getElementById("article-comment-name").value;
     const messageInput = document.getElementById("article-comment-message").value;
-
-    const offset = pagination.offset
-    const max = pagination.max
-    const totalCount = pagination.totalCount
-
-
-    // if (offset > 1) {
-    //   pagination.prevPage = offset - 1;
-    // }
-
-    // if (offset < totalCount) {
-    //   pagination.nextPage = offset + 1;
-    // }
 
     const newComment = {
       text: messageInput,
@@ -586,9 +590,8 @@ async function addArticleComment(artIdFromHash, pagination) {
       created: new Date().toLocaleDateString(),
     };
 
-      // const offset = Number(offsetFromHash);
 
-    const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${offset}&max=${commentsPerPage}`;
+    const commentUrl = `${urlBase}/article/${artIdFromHash}/comment`;
 
     const response = await fetch(commentUrl, {
       method: "POST",
@@ -601,28 +604,6 @@ async function addArticleComment(artIdFromHash, pagination) {
     if (response.ok) {
       console.log("Comment added successfully");
 
-      const nextPageOffset = offset + commentsPerPage;
-      pagination.offset = nextPageOffset;
-
-      if (nextPageOffset < totalCount) {
-        pagination.nextPage = nextPageOffset;
-      } else {
-        pagination.nextPage = null; // No more pages
-      }
-
-      const prevPageOffset = offset - commentsPerPage;
-      if (prevPageOffset >= 0) {
-        pagination.prevPage = prevPageOffset;
-      } else {
-        pagination.prevPage = null; // No previous page
-      }
-
-      console.log(pagination)
-
-      document.getElementById(targetElm).innerHTML = Mustache.render(
-        document.getElementById("template-article").innerHTML,
-        pagination
-      );
 
     } else {
       console.error("Failed to add comment:", response.statusText);
@@ -632,8 +613,10 @@ async function addArticleComment(artIdFromHash, pagination) {
   }
 }
 
-async function getComments(artIdFromHash, responseJSON, callback) {
-  const commentUrl = `${urlBase}/article/${artIdFromHash}/comment`;
+async function getComments(artIdFromHash, responseJSON, page, callback) {
+  const commentsPerPage = 2;
+  const offset = 7;
+  const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${offset}&max=${commentsPerPage}`;
 
   try {
     const response = await fetch(commentUrl);
@@ -641,14 +624,40 @@ async function getComments(artIdFromHash, responseJSON, callback) {
     if (response.ok) {
       const comments = await response.json();
       responseJSON.data = comments.comments;
+      responseJSON.commentsMeta = comments.meta;
+
+      // Update the 'page' variable based on the current offset after fetching comments
+      page = Number(comments.meta.offset);
+
+      if (page > 1) {
+        responseJSON.commentsMeta.prevPage = page - 1;
+      }
+
+      const totalPages = Math.ceil(comments.meta.totalCount / commentsPerPage);
+      responseJSON.commentsMeta.totalPages = totalPages;
+
+      if (page < totalPages) {
+        responseJSON.commentsMeta.nextPage = page + 1;
+      }
+
+      responseJSON.commentsMeta.offset = page;
+
+      responseJSON.data.forEach((comment) => {
+        comment.dateCreated = new Date(comment.dateCreated).toLocaleDateString();
+      });
+
+      console.log(responseJSON.data);
+
       callback(responseJSON);
-x
+
       const commentForm = document.getElementById("comentar");
       commentForm.addEventListener("submit", async function (event) {
         event.preventDefault();
-        await addArticleComment(artIdFromHash, comments.meta);
-        await getComments(artIdFromHash, responseJSON, callback);
+        await addArticleComment(artIdFromHash);
+        // Use the updated 'page' value after adding a comment
+        await getComments(artIdFromHash, responseJSON, responseJSON.commentsMeta.offset, callback);
       });
+
     } else {
       console.error("Failed to fetch comments:", response.statusText);
     }
@@ -656,5 +665,62 @@ x
     console.error("Error:", error);
   }
 }
+
+
+
+// async function getComments(artIdFromHash, responseJSON, callback) {
+
+//   let page = 1
+//   // let offset = 1;
+
+//   const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${page}&max=${commentsPerPage}`;
+
+//   try {
+//     const response = await fetch(commentUrl);
+
+//     if (response.ok) {
+//       const comments = await response.json();
+//       responseJSON.data = comments.comments;
+//       responseJSON.commentsMeta = comments.meta;
+
+//       page = Number(comments.meta.offset);
+
+//       if (page > 1) {
+//         responseJSON.commentsMeta.prevPage = page - 1;
+//       }
+
+//       const totalPages = Math.ceil(comments.meta.totalCount / commentsPerPage);
+//       responseJSON.commentsMeta.totalPages = totalPages
+
+//       if (page < totalPages) {
+//         responseJSON.commentsMeta.nextPage = page + 1
+//       }
+
+//       responseJSON.commentsMeta.offset = page
+
+
+//       responseJSON.data.forEach((comment) => {
+//         comment.dateCreated = new Date(comment.dateCreated).toLocaleDateString();
+//       });
+
+//       console.log(responseJSON.data)
+
+//       callback(responseJSON);
+
+//       const commentForm = document.getElementById("comentar");
+//       commentForm.addEventListener("submit", async function (event) {
+//         event.preventDefault();
+//         await addArticleComment(artIdFromHash, comments);
+//         await getComments(artIdFromHash, responseJSON, callback);
+//       });
+
+//     } else {
+//       console.error("Failed to fetch comments:", response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// }
+
 
 

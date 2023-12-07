@@ -237,3 +237,4 @@ function handleSVGClick() {
 document.addEventListener("DOMContentLoaded", function () {
   updateLoginStatus();
 });
+

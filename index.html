@@ -35,7 +35,8 @@
 						<a href="#opinions/1/1" onclick="activateLink(this, 2)" class="menu_link">Reviews</a>
 					</li>
 					<li class="menu_item">
-						<a href="#articles/1/500" onclick="activateLink(this, 3)" class="menu_link">Recipes</a>
+						<a href="#articles/1/20" onclick="activateLink(this, 3)" class="menu_link">Recipes</a>
+						<!-- <a href="#main/1/4" onclick="activateLink(this, 3)" class="menu_link">Recipes</a> -->
 					</li>
 					<li class="menu_item">
 						<a href="#addOpinion" onclick="activateLink(this, 4)" class="menu_link">Add Review</a>
@@ -81,7 +82,8 @@
 						<a href="#opinions/1/1" onclick="closeMenu(this, 2)" class="menu_link_burger">Reviews</a>
 					</li>
 					<li class="menu_item">
-						<a href="#articles/1/500" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a>
+						<!-- <a href="#articles/1/10" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a> -->
+						<a href="#articles/1/20" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a>
 					</li>
 					<li class="menu_item">
 						<a href="#addOpinion" onclick="closeMenu(this, 4)" class="menu_link_burger">Add Review</a>
@@ -158,7 +160,7 @@
          		</div>
          	</div>
          </div>
-      </script>
+    </script>
 
 	<!-- Pleasure Template -->
 	<script id="template-pleasure" type="text/template">
@@ -301,7 +303,7 @@
          	</section>
          </div>
          </div>
-      </script>
+    </script>
 
 	<!-- Add Opinion -->
 	<script id="template-addOpinion" type="text/template">
@@ -403,11 +405,11 @@
          	</div>
          </div>
          <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-      </script>
+    </script>
 
 	<!-- Opinions Template -->
 	<script id="template-opinions" type="text/template">
-         <!-- Search and filter area -->
+    <!-- Search and filter area -->
 	<div class="Searching">
 		<div class="container">
 			<div class="search_content">
@@ -518,11 +520,12 @@
          	<div id="comment" class="comment">
          	<div class="comment_user">
          		<p>User - {{name}}</p>
+				<hr>
          		<textarea readonly>{{message}}</textarea>
          	</div>
          </div>
          {{/comments}}
-      </script>
+    </script>
 
 	<!-- Edit Opinion -->
 	<script id="template-editOpinion" type="text/template">
@@ -612,7 +615,7 @@
          	</form>
          </div>
          <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-      </script>
+    </script>
 
 	<!-- Articles as Recipes -->
 	<script id="template-articles" type="text/template">
@@ -628,7 +631,7 @@
          		</p>
          	</div>
          	<div class="goods_store">
-         		<!-- Rating cards like top 3-->
+         		<!-- Rating cards like top 3 -->
          		{{#articles}}
          		<div class="food_item_article" onclick="window.location.hash = '{{detailLink}}'">
          			<img class="food_item_img" src="{{imageLink}}">
@@ -645,21 +648,22 @@
          		</div>
          		{{/articles}}
          	</div>
-         	{{#meta}}
-         	<nav class="pagesNavigation">
-         		<span style="color: white;">Page {{offset}} of {{totalCount}}</span>
-         		<div class="pagesNavigationButtons">
-         			{{#prevPage}}
-         			<a class="menu_link_nav" href="#articles/{{prevPage}}/{{totalCount}}"><button class="btn btn-prev">Previous</button></a>
-         			{{/prevPage}}
-         			{{#nextPage}}
-         			<a class="menu_link_nav" href="#articles/{{nextPage}}/{{totalCount}}"><button class="btn btn-next">Next</button></a>
-         			{{/nextPage}}
-         		</div>
-         	{{/meta}}
+			 {{#meta}}
+			<nav class="pagesNavigation">
+				<span style="color: white;">Page {{offset}} of {{totalCount}}</span>
+				<div class="pagesNavigationButtons">
+					{{#prevPage}}
+					<a class="menu_link_nav" href="#articles/{{prevPage}}/{{totalCount}}"><button class="btn btn-prev">Previous</button></a>
+					{{/prevPage}}
+					{{#nextPage}}
+					<a class="menu_link_nav" href="#articles/{{nextPage}}/{{totalCount}}"><button class="btn btn-next">Next</button></a>
+					{{/nextPage}}
+				</div>
+			</nav>
+			{{/meta}}
          	</nav>
          </aside>
-      </script>
+    </script>
 
 	<!-- Articles error -->
 	<script id="template-articles-error" type="text/template">
@@ -669,7 +673,8 @@
                  {{errMessage}}
              </p>
          </article>
-      </script>
+    </script>
+
 	<!-- Article info -->
 	<script id="template-article" type="text/template">
          <div class="container">
@@ -700,18 +705,17 @@
          				Photo by - <b>{{author}}</b>
          			</p>
          			<button onclick="window.location.hash = '{{editLink}}' " class="button_edit btn flex-vh-center">Edit</button>
-         <button id="deleteLink" onclick="window.location.hash = '{{deleteLink}}'" class="btn flex-vh-center">
-         <i class="fa fa-trash flex-vh-center">DELETE</i>
-         </button>
+					<button id="deleteLink" onclick="window.location.hash = '{{deleteLink}}'" class="btn flex-vh-center">
+					<i class="fa fa-trash flex-vh-center">DELETE</i>
+					</button>
          		</div>
          	</div>
          	<div class="comments_wrapper">
-         		<form id="comentar" class="article_comment_form">
+         		<form id="comentar" class="comment_form">
          			<div class="about_goods_topic">Add your comment!</div>
          			<input type="text" name="name" id="article-comment-name" class="comment_input" placeholder="Your name" required>
          			<textarea name="message" id="article-comment-message" class="comment_textarea" placeholder="Your comment" required></textarea>
          			<button class="send_us" type="submit" id="add-comment-about" class="add-article-comment">Add Comment</button>
-					 <!-- <a href="{{addCommentLink}}">Add a Comment</a> -->
          		</form>
          	</div>
 			 <div class="comments_topic">Comments!</div>
@@ -722,26 +726,48 @@
 						 <p>by {{author}}</p>
 						 <hr>
 						 <p>{{text}}</p>
+						 <p style="color: grey;">{{dateCreated}}</p>
 						 <i onclick="changeLikedStatus(this)" class="like fa fa-heart-o" aria-hidden="true"></i>
 					  </div>
 				   </div>
-				{{/data}}
+				   {{/data}}
 			 </div>
 
-			 {{#pagination}}
-         	<nav class="pagesNavigation">
-         		<span style="color: white;">Page {{offset}} of {{totalCount}}</span>
-         		<div class="pagesNavigationButtons">
-         			{{#prevPage}}
-         			<a class="menu_link_nav" href="#articles/{{prevPage}}/{{totalCount}}"><button class="btn btn-prev">Previous</button></a>
-         			{{/prevPage}}
-         			{{#nextPage}}
-         			<a class="menu_link_nav" href="#articles/{{nextPage}}/{{totalCount}}"><button class="btn btn-next">Next</button></a>
-         			{{/nextPage}}
-         		</div>
-         	{{/pagination}}
+			 <nav class="pagesNavigation">
+				<!-- {{#commentsMeta}}
+				  <span>Page {{offset}} of {{totalPages}}</span>
+				  <div class="pagesNavigationButtons">
+					{{#prevPage}}
+					  <a class="menu_link_nav" href="#article/{{id}}/comment/?offset={{prevPage}}&totalCount={{totalPages}}">
+						<button class="btn btn-prev">Previous</button>
+					  </a>
+					{{/prevPage}}
+					{{#nextPage}}
+					  <a class="menu_link_nav" href="#article/{{id}}/comment/?offset={{nextPage}}&totalCount={{totalPages}}">
+						<button class="btn btn-next">Next</button>
+					  </a>
+					{{/nextPage}}
+				  </div>
+				{{/commentsMeta}} -->
+				{{#commentsMeta}}
+				<span>Page {{offset}} of {{totalPages}}</span>
+				<div class="pagesNavigationButtons">
+				  {{#prevPage}}
+					<a class="menu_link_nav" href="#article/{{id}}/comment/{{prevPage}}">
+					  <button class="btn btn-prev">Previous</button>
+					</a>
+				  {{/prevPage}}
+				  {{#nextPage}}
+					<a class="menu_link_nav" href="#article/{{id}}/comment/{{nextPage}}">
+					  <button class="btn btn-next">Next</button>
+					</a>
+				  {{/nextPage}}
+				</div>
+			  {{/commentsMeta}}
+
+			  </nav>
          </div>
-      </script>
+    </script>
 	<!-- Edit Form for article -->
 	<script id="template-article-form" type="text/template">
          <div class="your_taste">
@@ -795,7 +821,7 @@
          		</div>
          		<!-- Message -->
          		<p class="message required">Your message *</p>
-         		<textarea name="content" id="content" placeholder="Tell us" required>{{content}}</textarea>
+         		<textarea class="textarea" name="content" id="content" placeholder="Tell us" required>{{content}}</textarea>
          		<div class="form_actions">
          			<button class="button_send" type="submit">Save</button>
          			<button class="btn-prev btn flex-vh-center" type="reset" onclick="backButtonClick()">Back</button>
@@ -815,8 +841,8 @@
          		<br>
          	</form>
          </div>
-         <!-- <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css"> -->
-      </script>
+         <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
+    </script>
 	<!-- Add new Artilce to the TUKE server -->
 	<script id="template-addArticle" type="text/template">
          <div class="your_taste">
@@ -879,8 +905,9 @@
          	</form>
          </div>
          <link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
-      </script>
+    </script>
 
+	<!-- Footer -->
 	<footer class="container">
 		<ol class="menu_footer">
 			<li class="menu_item">
