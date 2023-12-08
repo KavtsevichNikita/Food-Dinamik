@@ -10,9 +10,7 @@ export function generateUUID() {
 export default function addOpinion(event){
     event.preventDefault();
 
-
-    // Get data from form
-
+    // Get form data
     const name = document.querySelector("#name").value;
     const email = document.querySelector("#email").value;
     const url = document.querySelector("#url").value;
@@ -30,7 +28,6 @@ export default function addOpinion(event){
     }
 
     // Validation functions
-
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
@@ -42,7 +39,6 @@ export default function addOpinion(event){
     }
 
     // Check for required fields to be filled out
-
     if (name === "" || email === "" || url === "" || message === "" || !foodRatingValue) {
         alert("All required fields must be filled out!");
     } else if (!isValidEmail(email)) {
@@ -70,7 +66,6 @@ export default function addOpinion(event){
         }
 
         // Add new data to localStorage
-    
         opinions.push(newOpinion);
         localStorage.myTreesComments = JSON.stringify(opinions);
     

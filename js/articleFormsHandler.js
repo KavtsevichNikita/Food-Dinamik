@@ -1,5 +1,5 @@
 
- export default class articleFormsHandler {
+export default class articleFormsHandler {
 
     /**
      * @param articlesServerUrl - basic part of the server url, without the service specification, i.e.  https://wt.kpi.fei.tuke.sk/api

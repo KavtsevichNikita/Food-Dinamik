@@ -560,26 +560,10 @@ async function fetchAndProcessArticle(
           updatedResponse.editLink = `#artEdit/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
           updatedResponse.deleteLink = `#artDelete/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
 
-
-
           document.getElementById(targetElm).innerHTML = Mustache.render(
             document.getElementById("template-article").innerHTML,
             updatedResponse
           );
-
-
-          // const commentForm = document.getElementById("comentar");
-          // commentForm.addEventListener("submit", async function (event) {
-          //   event.preventDefault();
-          //   addArticleComment(updatedResponse.id);
-          // });
-          
-          // document.getElementById("comentar").addEventListener("submit", async function (event) {
-          //   event.preventDefault();
-          //   await addArticleComment(artIdFromHash);
-            
-          //   await getComments(artIdFromHash, responseJSON, callback);
-          // });
 
           const deleteLink = document.getElementById("deleteLink");
           deleteLink.addEventListener("click", function () {
