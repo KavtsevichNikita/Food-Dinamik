@@ -346,58 +346,72 @@ function addComment(opinionId) {
 
 ///  Articles functions
 
-async function fetchAndDisplayArticles(
-  targetElm,
-  offsetFromHash,
-  totalCountFromHash
-) {
-  const offset = Number(offsetFromHash);
-  const totalCount = Number(totalCountFromHash);
+function fetchAndDisplayArticles(targetElm, currentPage) {
+  try {
+    const offset = (parseInt(currentPage) - 1) * articlesPerPage;
 
-  let urlQuery = "";
+    let urlQuery = "";
 
-  if (offset && totalCount) {
-
-    urlQuery=`?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
-    // urlQuery = `?offset=${offset}&max=${articlesPerPage}`;
-  } else {
-    urlQuery=`?max=${articlesPerPage}&tag=${query}`;
-    // urlQuery = `?max=${articlesPerPage}`;
-  }
-
-  const url = `${urlBase}/article${urlQuery}`;
-
-  function reqListener() {
-    if (this.status == 200) {
-      const responseJSON = JSON.parse(this.responseText);
-
-      if (offset > 1) {
-        responseJSON.meta.prevPage = offset - 1;
-      }
-
-      if (offset < totalCount) {
-        responseJSON.meta.nextPage = offset + 1;
-      }
-      
-      addArtDetailLink2ResponseJson(responseJSON);
-      document.getElementById(targetElm).innerHTML = Mustache.render(
-        document.getElementById("template-articles").innerHTML,
-        responseJSON
-      );
+    if (offset) {
+      urlQuery = `?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
     } else {
-      const errMsgObj = { errMessage: this.responseText };
-      document.getElementById(targetElm).innerHTML = Mustache.render(
-        document.getElementById("template-articles-error").innerHTML,
-        errMsgObj
-      );
+      urlQuery = `?max=${articlesPerPage}&tag=${query}`;
     }
-  }
 
-  var ajax = new XMLHttpRequest();
-  ajax.addEventListener("load", reqListener);
-  ajax.open("GET", url, true);
-  ajax.send();
+    const url = `${urlBase}/article${urlQuery}`;
+
+    var ajax = new XMLHttpRequest();
+    ajax.onreadystatechange = function () {
+      if (ajax.readyState === XMLHttpRequest.DONE) {
+        if (ajax.status === 200) {
+          try {
+            const responseJSON = JSON.parse(ajax.responseText);
+            const totalPages = Math.ceil(responseJSON.meta.totalCount / articlesPerPage);
+
+            const renderData = responseJSON.articles.map(article => ({
+              ...article,
+              detailLink: `#article/${article.id}/${currentPage}/${totalPages}`,
+            }));
+
+            renderData.totalPages = totalPages;
+            renderData.currentPage = offset / articlesPerPage + 1;
+
+            if (renderData.currentPage > 1) {
+              renderData.prevPage = renderData.currentPage - 1;
+            }
+
+            if (renderData.currentPage < totalPages) {
+              renderData.nextPage = renderData.currentPage + 1;
+            }
+
+            document.getElementById(targetElm).innerHTML = Mustache.render(
+              document.getElementById("template-articles").innerHTML,
+              renderData
+            );
+          } catch (error) {
+            const errMsgObj = { errMessage: error.message };
+            document.getElementById(targetElm).innerHTML = Mustache.render(
+              document.getElementById("template-articles-error").innerHTML,
+              errMsgObj
+            );
+          }
+        } else {
+          throw new Error(`Server answered with ${ajax.status}: ${ajax.statusText}.`);
+        }
+      }
+    };
+
+    ajax.open("GET", url, true);
+    ajax.send();
+  } catch (error) {
+    const errMsgObj = { errMessage: error.message };
+    document.getElementById(targetElm).innerHTML = Mustache.render(
+      document.getElementById("template-articles-error").innerHTML,
+      errMsgObj
+    );
+  }
 }
+
 
 function fetchAndDisplayArticleDetail(
   targetElm,
@@ -417,12 +431,7 @@ function editArticle(
   fetchAndProcessArticle(...arguments, true);
 }
 
-function addArtDetailLink2ResponseJson(responseJSON) {
-  responseJSON.articles = responseJSON.articles.map((article) => ({
-    ...article,
-    detailLink: `#article/${article.id}/${responseJSON.meta.offset}/${responseJSON.meta.totalCount}`  
-  }));
-}
+
 
 function addOpinionArticle(event) {
   event.preventDefault();
@@ -455,7 +464,7 @@ function addOpinionArticle(event) {
 
       if (sendButton) {
           activateLink(sendButton, 3);
-          window.location.hash = `#articles/1/500`;
+          window.location.hash = `#articles/1/10`;
       }
     })
     .catch((error) => {

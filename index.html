@@ -35,7 +35,7 @@
 						<a href="#opinions/1/1" onclick="activateLink(this, 2)" class="menu_link">Reviews</a>
 					</li>
 					<li class="menu_item">
-						<a href="#articles/1/20" onclick="activateLink(this, 3)" class="menu_link">Recipes</a>
+						<a href="#articles/1/10" onclick="activateLink(this, 3)" class="menu_link">Recipes</a>
 						<!-- <a href="#main/1/4" onclick="activateLink(this, 3)" class="menu_link">Recipes</a> -->
 					</li>
 					<li class="menu_item">
@@ -83,7 +83,7 @@
 					</li>
 					<li class="menu_item">
 						<!-- <a href="#articles/1/10" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a> -->
-						<a href="#articles/1/20" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a>
+						<a href="#articles/1/10" onclick="closeMenu(this, 3)" class="menu_link_burger">Recipes</a>
 					</li>
 					<li class="menu_item">
 						<a href="#addOpinion" onclick="closeMenu(this, 4)" class="menu_link_burger">Add Review</a>
@@ -632,7 +632,7 @@
          	</div>
          	<div class="goods_store">
          		<!-- Rating cards like top 3 -->
-         		{{#articles}}
+         		{{#.}}
          		<div class="food_item_article" onclick="window.location.hash = '{{detailLink}}'">
          			<img class="food_item_img" src="{{imageLink}}">
          			<h3 class="food_item_name">{{title}}</h3>
@@ -646,23 +646,20 @@
          				<span class="fa fa-star checked"></span>
          			</div>
          		</div>
-         		{{/articles}}
+         		{{/.}}
          	</div>
-			 {{#meta}}
 			<nav class="pagesNavigation">
-				<span style="color: white;">Page {{offset}} of {{totalCount}}</span>
+				<span style="color: white;">Page {{currentPage}} of {{totalPages}}</span>
 				<div class="pagesNavigationButtons">
 					{{#prevPage}}
-					<a class="menu_link_nav" href="#articles/{{prevPage}}/{{totalCount}}"><button class="btn btn-prev">Previous</button></a>
+					<a class="menu_link_nav" href="#articles/{{prevPage}}/{{totalPages}}"><button class="btn btn-prev">Previous</button></a>
 					{{/prevPage}}
 					{{#nextPage}}
-					<a class="menu_link_nav" href="#articles/{{nextPage}}/{{totalCount}}"><button class="btn btn-next">Next</button></a>
+					<a class="menu_link_nav" href="#articles/{{nextPage}}/{{totalPages}}"><button class="btn btn-next">Next</button></a>
 					{{/nextPage}}
 				</div>
 			</nav>
-			{{/meta}}
-         	</nav>
-         </aside>
+        </aside>
     </script>
 
 	<!-- Articles error -->
