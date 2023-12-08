@@ -1,5 +1,9 @@
-// Get Google auth data and decode them
 
+
+//     ============================   Basic Functions    ================================      // 
+
+
+// Get Google auth data and decode them
 function decodeJwtResponse(credential) {
   const [header, payload, signature] = credential.split(".");
   const decodedPayload = JSON.parse(atob(payload));
@@ -8,7 +12,6 @@ function decodeJwtResponse(credential) {
 }
 
 // Sign In
-
 function handleCredentialResponse(response) {
   const responsePayload = decodeJwtResponse(response.credential);
 
@@ -21,7 +24,6 @@ function handleCredentialResponse(response) {
 }
 
 // Sign Out user
-
 function signOut() {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("userId");
@@ -32,7 +34,6 @@ function signOut() {
 }
 
 // Login Status function
-
 function updateLoginStatus() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -69,20 +70,17 @@ function updateLoginStatus() {
   }
 }
 
-// Edit
-
+// Edit Opinion
 function editButtonClick(opinionId) {
   window.location.href = `#editOpinion/${opinionId}`;
 }
 
 // Back
-
 function backButtonClick() {
   window.history.back();
 }
 
 // Pleasure page
-
 function pleasurePage() {
   var svgLink = document.querySelector("#svg-link");
 
@@ -93,7 +91,6 @@ function pleasurePage() {
 }
 
 // Delete function
-
 function deleteOpinion(uniqueId) {
   var opinionCardId = uniqueId;
 
@@ -126,7 +123,6 @@ function deleteOpinion(uniqueId) {
 }
 
 // Remove from localStorage
-
 function removeItemFromLocalStorage(uniqueId) {
   var localStorageItems = Object.keys(localStorage);
 
@@ -138,7 +134,6 @@ function removeItemFromLocalStorage(uniqueId) {
 }
 
 // Filter by rating
-
 function filterOpinions(category) {
   var opinions = document.querySelectorAll(".cart_of_review");
 
@@ -154,7 +149,6 @@ function filterOpinions(category) {
 }
 
 // Search by name
-
 function searchOpinions() {
   var searchInput = document.getElementById("searchBar").value.toLowerCase();
   var opinions = document.querySelectorAll(".cart_of_review");
@@ -171,7 +165,6 @@ function searchOpinions() {
 }
 
 // Close burger menu
-
 function closeMenu(link, index) {
   document.getElementById("menu__toggle").checked = false;
 
@@ -193,7 +186,6 @@ function closeMenu(link, index) {
 }
 
 // Change header active page color
-
 function activateLink(link, index) {
   if (link && link.classList) {
     var normalLinks = document.querySelectorAll(".menu_link");
@@ -212,6 +204,7 @@ function activateLink(link, index) {
   }
 }
 
+// Change Like status
 function changeLikedStatus(icon) {
   icon.classList.toggle('fa-heart-o');
   icon.classList.toggle('fa-heart');
@@ -223,6 +216,7 @@ function changeLikedStatus(icon) {
   }
 }
 
+// Svg clcik
 function handleSVGClick() {
   var svgLink = document.querySelector("#svg-link");
 
@@ -233,7 +227,6 @@ function handleSVGClick() {
 }
 
 // Check Login
-
 document.addEventListener("DOMContentLoaded", function () {
   updateLoginStatus();
 });

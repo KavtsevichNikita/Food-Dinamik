@@ -2,14 +2,20 @@ import Mustache from "./mustache.js";
 import addOpinion from "./addOpinion.js";
 import articleFormsHandler from "./articleFormsHandler.js";
 
-const apiKey = "1JU1eeLRTR-iImZCjotYD4d9C72tDXrdCquPNP51uZw";
-const query = "Food";
-const unsplashQuery = "Burgers";
-const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${unsplashQuery}&client_id=${apiKey}`;
-const urlBase = "https://wt.kpi.fei.tuke.sk/api";
-const articlesPerPage = 3
-const commentsPerPage = 2;
+const apiKey = "1JU1eeLRTR-iImZCjotYD4d9C72tDXrdCquPNP51uZw"; // api for unspalsh
 
+const query = "Food"; // query (tag) to get only my data from tuke server as keyword
+const unsplashQuery = "Burgers"; // unsplash query 
+
+const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${unsplashQuery}&client_id=${apiKey}`; // unsplash url
+const urlBase = "https://wt.kpi.fei.tuke.sk/api";  // tuke server basic url
+
+const articlesPerPage = 3 // how many artilces to get for one page
+const commentsPerPage = 2; // how many comments to get for one page
+
+
+
+// Routes
 export default [
   {
     hash: "welcome",
@@ -42,8 +48,7 @@ export default [
         "template-addOpinion"
       ).innerHTML;
       document.getElementById("name").value = localStorage.getItem("userName");
-      document.getElementById("email").value =
-        localStorage.getItem("userEmail");
+      document.getElementById("email").value = localStorage.getItem("userEmail");
       document.getElementById("contact-form").onsubmit = addOpinion;
     },
   },
@@ -52,8 +57,7 @@ export default [
     target: "router-view",
     getTemplate: (targetElm, opinionId) => {
       opinionDetails(targetElm, opinionId);
-      document.getElementById("comment-name").value =
-        localStorage.getItem("userName");
+      document.getElementById("comment-name").value = localStorage.getItem("userName");
       document.getElementById("comment_form").onsubmit = function (event) {
         event.preventDefault();
         addComment(opinionId);
@@ -95,21 +99,36 @@ export default [
 ];
 
 
-// Functions
+//     ============================   LocalStorage Data Functions   ================================      // 
 
-function calculateMaxPage(opinionsPerPage) {
-  let formDataArray = localStorage.myTreesComments;
-  let opinions = [];
 
-  if (formDataArray) {
-    opinions = JSON.parse(formDataArray);
-  }
+// Generator api from Unsplash
+async function fetchAndDisplayUnsplashImages(targetElm) {
+  const xml = new XMLHttpRequest();
 
-  const maxPage =
-    opinions.length === 0 ? 1 : Math.ceil(opinions.length / opinionsPerPage);
-  return maxPage;
+  xml.onreadystatechange = function () {
+    if (xml.readyState === XMLHttpRequest.DONE) {
+      if (xml.status === 200) {
+        const responseJSON = JSON.parse(xml.responseText);
+        const template = document.getElementById("template-pleasure").innerHTML;
+
+        document.getElementById(targetElm).innerHTML = Mustache.render(
+          template,
+          responseJSON
+        );
+
+        console.log(responseJSON);
+      } else {
+        console.error(`Server answered with ${xml.status}: ${xml.statusText}.`);
+      }
+    }
+  };
+
+  xml.open("GET", unsplash_urlBase, true);
+  xml.send();
 }
 
+// Get Reviews from localStorage
 function opinionsHTML(targetElm, currentPage) {
   currentPage = parseInt(currentPage);
 
@@ -162,6 +181,21 @@ function opinionsHTML(targetElm, currentPage) {
   });
 }
 
+// Get max page 
+function calculateMaxPage(opinionsPerPage) {
+  let formDataArray = localStorage.myTreesComments;
+  let opinions = [];
+
+  if (formDataArray) {
+    opinions = JSON.parse(formDataArray);
+  }
+
+  const maxPage =
+    opinions.length === 0 ? 1 : Math.ceil(opinions.length / opinionsPerPage);
+  return maxPage;
+}
+
+// Update navlink
 function updateNavigationLinks(maxPage) {
   const opinionsLink = document.querySelector(
     "#menuIts a[href='#opinions/1/1']"
@@ -171,31 +205,31 @@ function updateNavigationLinks(maxPage) {
   }
 }
 
-async function fetchAndDisplayUnsplashImages(targetElm) {
-  const xml = new XMLHttpRequest();
+// Review details
+function opinionDetails(targetElm, opinionId) {
+  let formDataArray = localStorage.myTreesComments;
+  let opinions = [];
 
-  xml.onreadystatechange = function () {
-    if (xml.readyState === XMLHttpRequest.DONE) {
-      if (xml.status === 200) {
-        const responseJSON = JSON.parse(xml.responseText);
-        const template = document.getElementById("template-pleasure").innerHTML;
+  if (formDataArray) {
+    opinions = JSON.parse(formDataArray);
+  }
 
-        document.getElementById(targetElm).innerHTML = Mustache.render(
-          template,
-          responseJSON
-        );
+  const opinion = opinions.find(
+    (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
+  );
 
-        console.log(responseJSON);
-      } else {
-        console.error(`Server answered with ${xml.status}: ${xml.statusText}.`);
-      }
-    }
-  };
+  if (opinion) {
+    const targetElement = document.getElementById(targetElm);
+    const template = document.getElementById("template-opinion").innerHTML;
+    const renderedTemplate = Mustache.render(template, opinion);
 
-  xml.open("GET", unsplash_urlBase, true);
-  xml.send();
+    targetElement.innerHTML = renderedTemplate;
+  } else {
+    document.getElementById(targetElm).innerHTML = "Opinion not found.";
+  }
 }
 
+// Edit review data
 function editOpinion(targetElm, opinionId) {
   let formDataArray = localStorage.myTreesComments;
   let opinions = [];
@@ -271,29 +305,7 @@ function editOpinion(targetElm, opinionId) {
   }
 }
 
-function opinionDetails(targetElm, opinionId) {
-  let formDataArray = localStorage.myTreesComments;
-  let opinions = [];
-
-  if (formDataArray) {
-    opinions = JSON.parse(formDataArray);
-  }
-
-  const opinion = opinions.find(
-    (op) => decodeURIComponent(op.id) === decodeURIComponent(opinionId)
-  );
-
-  if (opinion) {
-    const targetElement = document.getElementById(targetElm);
-    const template = document.getElementById("template-opinion").innerHTML;
-    const renderedTemplate = Mustache.render(template, opinion);
-
-    targetElement.innerHTML = renderedTemplate;
-  } else {
-    document.getElementById(targetElm).innerHTML = "Opinion not found.";
-  }
-}
-
+// Add new Review
 function addComment(opinionId) {
   const formDataArray = localStorage.myTreesComments || "[]";
   let opinions = JSON.parse(formDataArray);
@@ -341,11 +353,13 @@ function addComment(opinionId) {
 
 
 
+//     ============================   Tuke Server functions   ================================      // 
 
 
 
-///  Articles functions
+///  Articles (Tuke server) functions
 
+// Get server data
 function fetchAndDisplayArticles(targetElm, currentPage) {
   try {
     const offset = (parseInt(currentPage) - 1) * articlesPerPage;
@@ -412,7 +426,7 @@ function fetchAndDisplayArticles(targetElm, currentPage) {
   }
 }
 
-
+// Get article details
 function fetchAndDisplayArticleDetail(
   targetElm,
   artIdFromHash,
@@ -422,6 +436,7 @@ function fetchAndDisplayArticleDetail(
   fetchAndProcessArticle(...arguments, false);
 }
 
+// Edit article data
 function editArticle(
   targetElm,
   artIdFromHash,
@@ -431,8 +446,7 @@ function editArticle(
   fetchAndProcessArticle(...arguments, true);
 }
 
-
-
+// Add new article
 function addOpinionArticle(event) {
   event.preventDefault();
   const author = document.getElementById("add-author").value;
@@ -464,7 +478,7 @@ function addOpinionArticle(event) {
 
       if (sendButton) {
           activateLink(sendButton, 3);
-          window.location.hash = `#articles/1/10`;
+          window.location.hash = `#articles/1/1`;
       }
     })
     .catch((error) => {
@@ -472,6 +486,7 @@ function addOpinionArticle(event) {
     });
 }
 
+// delete artilce
 async function deleteArticle(artId) {
   console.log("Deleting article:", artId);
 
@@ -498,6 +513,7 @@ async function deleteArticle(artId) {
   }
 }
 
+// Get one article details with edit
 async function fetchAndProcessArticle(
   targetElm,
   artIdFromHash,
@@ -588,6 +604,61 @@ async function fetchAndProcessArticle(
   ajax.send();
 }
 
+// get all comments for one article
+async function getComments(artIdFromHash, responseJSON, page, callback) {
+  const commentsPerPage = 2;
+  const offset = 1;
+  const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${offset}&max=${commentsPerPage}`;
+
+  try {
+    const response = await fetch(commentUrl);
+
+    if (response.ok) {
+      const comments = await response.json();
+      responseJSON.data = comments.comments;
+      responseJSON.commentsMeta = comments.meta;
+
+      // Update the 'page' variable based on the current offset after fetching comments
+      page = Number(comments.meta.offset);
+
+      if (page > 1) {
+        responseJSON.commentsMeta.prevPage = page - 1;
+      }
+
+      const totalPages = Math.ceil(comments.meta.totalCount / commentsPerPage) === 0 ? 1 : Math.ceil(comments.meta.totalCount / commentsPerPage);
+      responseJSON.commentsMeta.totalPages = totalPages;
+
+      if (page < totalPages) {
+        responseJSON.commentsMeta.nextPage = page + 1;
+      }
+
+      responseJSON.commentsMeta.offset = page;
+
+      responseJSON.data.forEach((comment) => {
+        comment.dateCreated = new Date(comment.dateCreated).toLocaleDateString();
+      });
+
+      console.log(responseJSON.data);
+
+      callback(responseJSON);
+
+      const commentForm = document.getElementById("comentar");
+      commentForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        await addArticleComment(artIdFromHash);
+        // Use the updated 'page' value after adding a comment
+        await getComments(artIdFromHash, responseJSON, responseJSON.commentsMeta.offset, callback);
+      });
+
+    } else {
+      console.error("Failed to fetch comments:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// Add comment for article
 async function addArticleComment(artIdFromHash) {
   try {
     const nameInput = document.getElementById("article-comment-name").value;
@@ -621,115 +692,5 @@ async function addArticleComment(artIdFromHash) {
     console.error("Error:", error);
   }
 }
-
-async function getComments(artIdFromHash, responseJSON, page, callback) {
-  const commentsPerPage = 2;
-  const offset = 7;
-  const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${offset}&max=${commentsPerPage}`;
-
-  try {
-    const response = await fetch(commentUrl);
-
-    if (response.ok) {
-      const comments = await response.json();
-      responseJSON.data = comments.comments;
-      responseJSON.commentsMeta = comments.meta;
-
-      // Update the 'page' variable based on the current offset after fetching comments
-      page = Number(comments.meta.offset);
-
-      if (page > 1) {
-        responseJSON.commentsMeta.prevPage = page - 1;
-      }
-
-      const totalPages = Math.ceil(comments.meta.totalCount / commentsPerPage);
-      responseJSON.commentsMeta.totalPages = totalPages;
-
-      if (page < totalPages) {
-        responseJSON.commentsMeta.nextPage = page + 1;
-      }
-
-      responseJSON.commentsMeta.offset = page;
-
-      responseJSON.data.forEach((comment) => {
-        comment.dateCreated = new Date(comment.dateCreated).toLocaleDateString();
-      });
-
-      console.log(responseJSON.data);
-
-      callback(responseJSON);
-
-      const commentForm = document.getElementById("comentar");
-      commentForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        await addArticleComment(artIdFromHash);
-        // Use the updated 'page' value after adding a comment
-        await getComments(artIdFromHash, responseJSON, responseJSON.commentsMeta.offset, callback);
-      });
-
-    } else {
-      console.error("Failed to fetch comments:", response.statusText);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
-
-
-// async function getComments(artIdFromHash, responseJSON, callback) {
-
-//   let page = 1
-//   // let offset = 1;
-
-//   const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${page}&max=${commentsPerPage}`;
-
-//   try {
-//     const response = await fetch(commentUrl);
-
-//     if (response.ok) {
-//       const comments = await response.json();
-//       responseJSON.data = comments.comments;
-//       responseJSON.commentsMeta = comments.meta;
-
-//       page = Number(comments.meta.offset);
-
-//       if (page > 1) {
-//         responseJSON.commentsMeta.prevPage = page - 1;
-//       }
-
-//       const totalPages = Math.ceil(comments.meta.totalCount / commentsPerPage);
-//       responseJSON.commentsMeta.totalPages = totalPages
-
-//       if (page < totalPages) {
-//         responseJSON.commentsMeta.nextPage = page + 1
-//       }
-
-//       responseJSON.commentsMeta.offset = page
-
-
-//       responseJSON.data.forEach((comment) => {
-//         comment.dateCreated = new Date(comment.dateCreated).toLocaleDateString();
-//       });
-
-//       console.log(responseJSON.data)
-
-//       callback(responseJSON);
-
-//       const commentForm = document.getElementById("comentar");
-//       commentForm.addEventListener("submit", async function (event) {
-//         event.preventDefault();
-//         await addArticleComment(artIdFromHash, comments);
-//         await getComments(artIdFromHash, responseJSON, callback);
-//       });
-
-//     } else {
-//       console.error("Failed to fetch comments:", response.statusText);
-//     }
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// }
-
 
 
