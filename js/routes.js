@@ -10,8 +10,10 @@ const unsplashQuery = "Burgers"; // unsplash query
 const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${unsplashQuery}&client_id=${apiKey}`; // unsplash url
 const urlBase = "https://wt.kpi.fei.tuke.sk/api";  // tuke server basic url
 
-const articlesPerPage = 3 // how many artilces to get for one page
-const commentsPerPage = 2; // how many comments to get for one page
+const articlesPerPage = 4 // how many artilces to get for one page
+const commentsPerPage = 3; // how many comments to get for one page
+
+let commentsOffset = 0; // init offset for comments (start with 0 because of tuke server docs)
 
 
 
@@ -335,7 +337,7 @@ function addComment(opinionId) {
     <div class="comment">
       <div class="comment_user">
         <p>User - ${newComment.name}</p>
-        <p>${newComment.message}</p>
+        <textarea readonly>${newComment.message}</textarea>
       </div>
     </div>
   `;
@@ -368,6 +370,7 @@ function fetchAndDisplayArticles(targetElm, currentPage) {
 
     if (offset) {
       urlQuery = `?offset=${offset}&max=${articlesPerPage}&tag=${query}`;
+
     } else {
       urlQuery = `?max=${articlesPerPage}&tag=${query}`;
     }
@@ -380,12 +383,18 @@ function fetchAndDisplayArticles(targetElm, currentPage) {
         if (ajax.status === 200) {
           try {
             const responseJSON = JSON.parse(ajax.responseText);
-            const totalPages = Math.ceil(responseJSON.meta.totalCount / articlesPerPage);
+            const totalPages = Math.ceil(responseJSON.meta.totalCount / articlesPerPage) === 0 ? 1 : Math.ceil(responseJSON.meta.totalCount / articlesPerPage);
 
-            const renderData = responseJSON.articles.map(article => ({
-              ...article,
-              detailLink: `#article/${article.id}/${currentPage}/${totalPages}`,
-            }));
+            const renderData = responseJSON.articles.map(article => {
+              if (article.imageLink === null) {
+                article.imageLink = "https://www.tots100.co.uk/wp-content/uploads/2018/02/Is-Your-Blog-Due-for-an-Update-1.jpg";
+              }
+            
+              return {
+                ...article,
+                detailLink: `#article/${article.id}/${currentPage}/${totalPages}`,
+              };
+            });
 
             renderData.totalPages = totalPages;
             renderData.currentPage = offset / articlesPerPage + 1;
@@ -487,7 +496,7 @@ function addOpinionArticle(event) {
 }
 
 // delete artilce
-async function deleteArticle(artId) {
+async function deleteArticle(artId, backLink) {
   console.log("Deleting article:", artId);
 
   const deleteUrl = `${urlBase}/article/${artId}`;
@@ -504,7 +513,7 @@ async function deleteArticle(artId) {
 
     if (response.ok) {
       console.log("Article deleted successfully");
-      window.location.hash = "#articles/1/10";
+      window.location.hash = backLink;
     } else {
       console.error("Error deleting article");
     }
@@ -533,6 +542,10 @@ async function fetchAndProcessArticle(
         responseJSON.formTitle = "Article Edit";
         responseJSON.submitBtTitle = "Save article";
         responseJSON.backLink = `#article/${artIdFromHash}/${offsetFromHash}/${totalCountFromHash}`;
+
+        if (responseJSON.imageLink === null) {
+          responseJSON.imageLink = "https://www.tots100.co.uk/wp-content/uploads/2018/02/Is-Your-Blog-Due-for-an-Update-1.jpg"
+        }
         
 
         document.getElementById(targetElm).innerHTML = Mustache.render(
@@ -553,21 +566,44 @@ async function fetchAndProcessArticle(
         );
       } else {
 
-        const currentPage = 1;
-
-        getComments(artIdFromHash, responseJSON, currentPage, function (updatedResponse) {
+        getComments(artIdFromHash, responseJSON, commentsOffset, function (updatedResponse) {
           updatedResponse.backLink = `#articles/${offsetFromHash}/${totalCountFromHash}`;
           updatedResponse.editLink = `#artEdit/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
           updatedResponse.deleteLink = `#artDelete/${updatedResponse.id}/${offsetFromHash}/${totalCountFromHash}`;
+
+          if (updatedResponse.imageLink === null) {
+            updatedResponse.imageLink = "https://www.tots100.co.uk/wp-content/uploads/2018/02/Is-Your-Blog-Due-for-an-Update-1.jpg"
+          }
 
           document.getElementById(targetElm).innerHTML = Mustache.render(
             document.getElementById("template-article").innerHTML,
             updatedResponse
           );
 
+          const nexPage = document.getElementById("nexPage");
+          const prevPage = document.getElementById("prevPage");
+
+          const hasMoreComments = responseJSON.commentsMeta.totalCount > commentsOffset + commentsPerPage;
+
+          nexPage.style.display = hasMoreComments ? "block" : "none";
+          prevPage.style.display = commentsOffset > 0 ? "block" : "none";
+          
+          prevPage.addEventListener("click", function () {
+            if (commentsOffset > 0) {
+              commentsOffset -= commentsPerPage;
+              fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash, forEdit);
+            }
+          });
+    
+          nexPage.addEventListener("click", () => {
+            commentsOffset += commentsPerPage;
+            fetchAndProcessArticle(targetElm, artIdFromHash, offsetFromHash, totalCountFromHash, forEdit);
+          });
+
+
           const deleteLink = document.getElementById("deleteLink");
           deleteLink.addEventListener("click", function () {
-            deleteArticle(updatedResponse.id, offsetFromHash, totalCountFromHash);
+            deleteArticle(updatedResponse.id, updatedResponse.backLink);
           });
 
             document.getElementById("article-comment-name").value = localStorage.getItem("userName")
@@ -589,49 +625,36 @@ async function fetchAndProcessArticle(
 }
 
 // get all comments for one article
-async function getComments(artIdFromHash, responseJSON, page, callback) {
-  const commentsPerPage = 2;
-  const offset = 1;
+async function getComments(artIdFromHash, responseJSON, offset, callback) {
+
   const commentUrl = `${urlBase}/article/${artIdFromHash}/comment?offset=${offset}&max=${commentsPerPage}`;
 
   try {
     const response = await fetch(commentUrl);
 
     if (response.ok) {
+
       const comments = await response.json();
       responseJSON.data = comments.comments;
       responseJSON.commentsMeta = comments.meta;
 
-      // Update the 'page' variable based on the current offset after fetching comments
-      page = Number(comments.meta.offset);
-
-      if (page > 1) {
-        responseJSON.commentsMeta.prevPage = page - 1;
-      }
-
       const totalPages = Math.ceil(comments.meta.totalCount / commentsPerPage) === 0 ? 1 : Math.ceil(comments.meta.totalCount / commentsPerPage);
       responseJSON.commentsMeta.totalPages = totalPages;
+      responseJSON.commentsMeta.currentPage = (offset / commentsPerPage) + 1;
 
-      if (page < totalPages) {
-        responseJSON.commentsMeta.nextPage = page + 1;
-      }
-
-      responseJSON.commentsMeta.offset = page;
 
       responseJSON.data.forEach((comment) => {
         comment.dateCreated = new Date(comment.dateCreated).toLocaleDateString();
       });
 
-      console.log(responseJSON.data);
-
+      console.log(responseJSON);
       callback(responseJSON);
 
       const commentForm = document.getElementById("comentar");
       commentForm.addEventListener("submit", async function (event) {
         event.preventDefault();
         await addArticleComment(artIdFromHash);
-        // Use the updated 'page' value after adding a comment
-        await getComments(artIdFromHash, responseJSON, responseJSON.commentsMeta.offset, callback);
+        await getComments(artIdFromHash, responseJSON, offset, callback);
       });
 
     } else {

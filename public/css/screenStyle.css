@@ -13,9 +13,6 @@ html body {
   background-color: rgb(236, 236, 236);
   width: 100%;
 }
-.textarea {
-  width: 100%;
-}
 .clearfix:after {
   content: ".";
   clear: both;
@@ -525,7 +522,7 @@ th {
   font-size: 20px;
 }
 .comment_form{
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -613,6 +610,9 @@ th {
 .food_item_text {
   margin: 10px;
   color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .like {
   display: inline-block;
@@ -636,7 +636,7 @@ th {
   width: 90%;
   height: auto;
   cursor: pointer;
-  margin-top: 40px;
+  margin-top: 10px;
 }
 .heading {
   font-size: 15px;
@@ -904,7 +904,7 @@ input[type="radio"] {
   color:darkred;
 }
 textarea {
-  width: 100%;
+  width: 550px;
   height: 120px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.49);
@@ -1264,7 +1264,7 @@ hr {
       font-size: 21px;
  }
   textarea {
-      width: 100%;
+      width: 250px;
  }
 }
 @media screen and (max-width: 767px) {
@@ -1390,10 +1390,6 @@ hr {
   .subheader_question {
       font-size: 18px;
  }
-  .contact-form {
-      width: 50%;
-      margin: 0 auto;
- }
   .about_goods {
       width: 300px;
       font-family: Merienda;
@@ -1424,6 +1420,26 @@ hr {
  }
   .about_goods {
       display: none;
+ }
+ .contact-form {
+  width: 80%;
+  margin: 10px auto;
+}
+.food_opinion {
+  max-width: 350px;
+  min-width: 300px;
+  max-height: 355px;
+  display: block;
+  margin: 70px auto;
+}
+
+ input[type="text"], input[type="url"], input[type="email"], select {
+    width: 200px;
+    /* margin-right: 50px; */
+ }
+
+ textarea {
+  width: 200px;
  }
 }
 @media screen and (max-width: 370px) {
@@ -1557,4 +1573,26 @@ hr {
 }
 .left-sidebar {
   width: 40%;
+}
+.article_title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 35px;
+  line-height: 50px;
+  color: black;
+  text-align: center;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  max-width: 500px;
+}
+
+.heading_black {
+  font-size: 15px;
+  margin-right: 20px;
+  color: black;
+}
+.rating_article {
+  width: 250px;
+  margin-top: 20px;
 }

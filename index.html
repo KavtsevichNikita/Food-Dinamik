@@ -302,8 +302,8 @@
 			</div>
 		</script>
 
-		<!------------------------------- LOCAL STORAGE ---------------------------------->
-
+		<!-- LOCAL STORAGE -->
+		
 		<!-- Opinions Template -->
 		<script id="template-opinions" type="text/template">
 			<!-- Search and filter area -->
@@ -491,12 +491,14 @@
 							</fieldset>
 						</div>
 					</div>
-
-					<p class="message">Recommend this product?</p>
-					<div class="col">
-						<div class="span-1-of-3">
-							<input type="checkbox" checked={{pastries}} name="edit-pastries" id="pastries-checkbox">
-							<label for="pastries-checkbox">Yes</label>
+					<div class="row">
+						<div class="col span-1-of-3">
+							<p class="message">Recommend this product?</p>
+							<div class="checkboxCol">
+								<!-- Checkbox -->
+								<input type="checkbox" checked={{pastries}} name="edit-pastries" id="pastries-checkbox">
+								<label for="pastries-checkbox">Yes</label>
+							</div>
 						</div>
 					</div>
 					<!-- Message -->
@@ -591,12 +593,14 @@
 								</fieldset>
 							</div>
 						</div>
-						<p class="message">Recommend this product?</p>
-						<div class="col">
-							<div class="checkboxCol">
-								<!-- Checkbox -->
-								<input type="checkbox" name="pastries" id="pastries-checkbox">
-								<label for="pastries-checkbox">Yes</label>
+						<div class="row">
+							<div class="col span-1-of-3">
+								<p class="message">Recommend this product?</p>
+								<div class="checkboxCol">
+									<!-- Checkbox -->
+									<input type="checkbox" name="pastries" id="pastries-checkbox">
+									<label for="pastries-checkbox">Yes</label>
+								</div>
 							</div>
 						</div>
 						<p class="message required">Your message*</p>
@@ -613,8 +617,8 @@
 			<link rel="stylesheet" href="./public/css/bootstrap-grid.min.css">
 		</script>
 
-		<!-------------------------- ARTICLES FROM TUKE SERVER -------------------------->
-
+		<!-- ARTICLES FROM TUKE SERVER -->
+		
 		<!-- Articles as Recipes -->
 		<script id="template-articles" type="text/template">
 			<aside class="our_goods_section">
@@ -675,6 +679,16 @@
 						{{#imageLink}}
 						<img src="{{imageLink}}" alt="pleasure_image" class="recipe_img" />
 						{{/imageLink}}
+						<b class="article_title">{{title}}</b>
+						<div class="rating_article">
+							<span class="heading_black">User Rating</span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+						</div>
+						<hr>
 						<p>Keywords - <b>{{tags}}</b></p>
 						<button onclick="window.location.hash = '{{backLink}}' " class="btn-prev btn flex-vh-center">Back</button>
 					</div>
@@ -718,22 +732,18 @@
 					</div>
 					{{/data}}
 				</div>
-			
 				<nav class="pagesNavigation">
 					{{#commentsMeta}}
-					<span>Page {{offset}} of {{totalPages}}</span>
-					<div class="pagesNavigationButtons">
-						{{#prevPage}}
-						<a class="menu_link_nav" href="#article/{{id}}/comment/{{prevPage}}">
-							<button class="btn btn-prev">Previous</button>
-						</a>
-						{{/prevPage}} {{#nextPage}}
-						<a class="menu_link_nav" href="#article/{{id}}/comment/{{nextPage}}">
-							<button class="btn btn-next">Next</button>
-						</a>
-						{{/nextPage}}
-					</div>
+					<span>Page {{currentPage}} of {{totalPages}}</span>
 					{{/commentsMeta}}
+					<div class="pagesNavigationButtons">
+						<a class="menu_link_nav">
+							<button id="prevPage" class="btn btn-prev">Previous</button>
+						</a>
+						<a class="menu_link_nav">
+							<button id="nexPage" class="btn btn-next">Next</button>
+						</a>
+					</div>
 				</nav>
 			</div>			
 		</script>
