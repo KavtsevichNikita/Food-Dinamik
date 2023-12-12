@@ -24,6 +24,7 @@ Seamless user authentication through Google accounts.
 Image Generation:
 
 Integration with Unsplash to dynamically generate images for content.
+
 Installation
 
 Clone the repository:
