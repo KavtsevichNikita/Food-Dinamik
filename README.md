@@ -1,7 +1,9 @@
-FoodBlog
-FoodBlog is a web application developed in JavaScript that allows users to share and explore food-related content. The project utilizes Mustache for templating, CSS for styling, and integrates with various features such as commenting, recipe management, user authentication via Google, image generation using Unsplash, and more.
+FOOD BLOG
 
-Features
+FoodBlog is a web application developed in JavaScript that allows users to share and explore food-related content. 
+The project utilizes Mustache for templating, CSS for styling, and integrates with various features such as commenting, recipe management, user authentication via Google, image generation using Unsplash, and more.
+
+FEATURES
 Commenting System:
 
 Users can add new comments with images about a particular food item or product.
