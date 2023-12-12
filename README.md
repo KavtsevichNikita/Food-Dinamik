@@ -28,9 +28,7 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/your-username/foodBlog.git
-Navigate to the project directory:
-cd foodBlog
+git clone https://github.com/KavtsevichNikita/Food-Dinamik.git
 
 Usage
 
