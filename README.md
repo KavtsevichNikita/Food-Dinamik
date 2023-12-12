@@ -54,9 +54,9 @@ Experience dynamic image generation for content using Unsplash.
 Dependencies
 
 Mustache: JavaScript logic-less templates.
+
 Unsplash API: Image generation API for dynamic content.
-Contributing
-Feel free to contribute by creating issues or submitting pull requests. Follow the guidelines in the CONTRIBUTING.md file.
+
 
 License
 This project is licensed under the MIT License.
