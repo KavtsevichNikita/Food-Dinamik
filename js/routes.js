@@ -10,7 +10,7 @@ const unsplashQuery = "Burgers"; // unsplash query
 const unsplash_urlBase = `https://api.unsplash.com/photos/random?query=${unsplashQuery}&client_id=${apiKey}`; // unsplash url
 const urlBase = "https://wt.kpi.fei.tuke.sk/api";  // tuke server basic url
 
-const articlesPerPage = 4 // how many artilces to get for one page
+const articlesPerPage = 3 // how many artilces to get for one page
 const commentsPerPage = 3; // how many comments to get for one page
 
 let commentsOffset = 0; // init offset for comments (start with 0 because of tuke server docs)
