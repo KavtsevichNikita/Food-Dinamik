@@ -8,6 +8,9 @@ function decodeJwtResponse(credential) {
   const [header, payload, signature] = credential.split(".");
   const decodedPayload = JSON.parse(atob(payload));
 
+  console.log(credential)
+  console.log(decodedPayload)
+
   return decodedPayload;
 }
 
