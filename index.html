@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="./public/css/screenStyle.css">
 		<link rel="stylesheet" href="./public/css/printStyle.css" media="print">
 		<link rel="icon" href="./fig/img/pizza-slice.svg">
-
+		
 		<title>Food Blog</title>
 	</head>
 	<body>
@@ -204,7 +204,7 @@
 				</div>
 				<aside class="our_goods_section">
 					<div class="container">
-						<div class="our_goods_topic">Goods Rating</div>
+						<div class="our_goods_topic an">Goods Rating</div>
 						<div class="block">
 							<span><img class="beans_dark" src="./fig/img/main_page/beans_light.png" alt="beans light"></span>
 						</div>
@@ -345,10 +345,10 @@
 				</div>
 				{{/formDataArray}}
 				{{^formDataArray}}
-				<div class="no_opinions">
+				<div id="no-opinions" class="no_opinions">
 					Sorry, no opinions found.<br>
 					You can be the first!<br>
-					<a href="#addOpinion">Tell us about your tastes</a>
+					<a id="new-op" href="#addOpinion" onclick="handleAddNewOpinion()">Tell us about your tastes</a>
 				</div>
 				{{/formDataArray}}
 			</div>
@@ -917,6 +917,7 @@
 		
 		<!-- Scripts -->
 		<script src="https://accounts.google.com/gsi/client" async defer></script>
+		<!-- Google library link https://developers.google.com/identity/gsi/web/reference/js-reference -->
 		<script type="module" src="js/index.js"></script>
 		<script src="js/script.js"></script>
 	</body>

@@ -148,6 +148,10 @@ function opinionsHTML(targetElm, currentPage) {
     });
   }
 
+  if (formDataArray.length === 0 ) {
+    document.getElementById("no-opinions").classList.add("none")
+  }
+
   const renderData = {
     formDataArray: [],
     currPage: currentPage,

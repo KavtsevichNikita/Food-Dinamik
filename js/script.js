@@ -82,7 +82,7 @@ function backButtonClick() {
 
 // Pleasure page
 function pleasurePage() {
-  var svgLink = document.querySelector("#svg-link");
+  const svgLink = document.querySelector("#svg-link");
 
   if (svgLink) {
     activateLink(svgLink, 1);
@@ -92,19 +92,19 @@ function pleasurePage() {
 
 // Delete function
 function deleteOpinion(uniqueId) {
-  var opinionCardId = uniqueId;
+  const opinionCardId = uniqueId;
 
-  var opinionElement = document.querySelector(
+  const opinionElement = document.querySelector(
     `#artOpinions[data-name="${uniqueId}"]`
   );
 
   if (opinionElement) {
     opinionElement.parentNode.removeChild(opinionElement);
 
-    var formDataArray =
+    const formDataArray =
       JSON.parse(localStorage.getItem("myTreesComments")) || [];
 
-    var opinionIndex = formDataArray.findIndex(function (opinion) {
+    const opinionIndex = formDataArray.findIndex(function (opinion) {
       return opinion.id.toString() === uniqueId.toString();
     });
 
@@ -124,7 +124,7 @@ function deleteOpinion(uniqueId) {
 
 // Remove from localStorage
 function removeItemFromLocalStorage(uniqueId) {
-  var localStorageItems = Object.keys(localStorage);
+  const localStorageItems = Object.keys(localStorage);
 
   localStorageItems.forEach(function (key) {
     if (key.endsWith(uniqueId)) {
@@ -135,10 +135,10 @@ function removeItemFromLocalStorage(uniqueId) {
 
 // Filter by rating
 function filterOpinions(category) {
-  var opinions = document.querySelectorAll(".cart_of_review");
+  const opinions = document.querySelectorAll(".cart_of_review");
 
   opinions.forEach(function (opinion) {
-    var dataCategory = opinion.getAttribute("data-category");
+    const dataCategory = opinion.getAttribute("data-category");
 
     if (category === "All" || category === dataCategory) {
       opinion.style.display = "block";
@@ -150,11 +150,11 @@ function filterOpinions(category) {
 
 // Search by name
 function searchOpinions() {
-  var searchInput = document.getElementById("searchBar").value.toLowerCase();
-  var opinions = document.querySelectorAll(".cart_of_review");
+  const searchInput = document.getElementById("searchBar").value.toLowerCase();
+  const opinions = document.querySelectorAll(".cart_of_review");
 
   opinions.forEach(function (opinion) {
-    var opinionName = opinion.getAttribute("data-search").toLowerCase();
+    const opinionName = opinion.getAttribute("data-search").toLowerCase();
 
     if (opinionName.includes(searchInput)) {
       opinion.style.display = "block";
@@ -169,7 +169,7 @@ function closeMenu(link, index) {
   document.getElementById("menu__toggle").checked = false;
 
   if (link && link.classList) {
-    var burgerLinks = document.querySelectorAll(".menu_link_burger");
+    const burgerLinks = document.querySelectorAll(".menu_link_burger");
     burgerLinks.forEach(function (item, i) {
       item.classList.remove("active_burger");
       if (i === index) {
@@ -177,7 +177,7 @@ function closeMenu(link, index) {
       }
     });
 
-    var normalLinks = document.querySelectorAll(".menu_link");
+    const normalLinks = document.querySelectorAll(".menu_link");
     normalLinks.forEach(function (item) {
       item.classList.remove("active");
     });
@@ -188,7 +188,7 @@ function closeMenu(link, index) {
 // Change header active page color
 function activateLink(link, index) {
   if (link && link.classList) {
-    var normalLinks = document.querySelectorAll(".menu_link");
+    const normalLinks = document.querySelectorAll(".menu_link");
     normalLinks.forEach(function (item, i) {
       item.classList.remove("active");
       if (i === index) {
@@ -196,7 +196,7 @@ function activateLink(link, index) {
       }
     });
 
-    var burgerLinks = document.querySelectorAll(".menu_link_burger");
+    const burgerLinks = document.querySelectorAll(".menu_link_burger");
     burgerLinks.forEach(function (item) {
       item.classList.remove("active_burger");
     });
@@ -218,11 +218,21 @@ function changeLikedStatus(icon) {
 
 // Svg clcik
 function handleSVGClick() {
-  var svgLink = document.querySelector("#svg-link");
+  const svgLink = document.querySelector("#svg-link");
 
   if (svgLink) {
     activateLink(svgLink, 0);
     window.location.hash = `#welcome`;
+  }
+}
+
+// Add new opinion nav
+function handleAddNewOpinion() {
+  const addnewLink = document.querySelector("#new-op");
+
+  if (addnewLink) {
+    activateLink(addnewLink, 4);
+    window.location.hash = `#addOpinion`;
   }
 }
 
